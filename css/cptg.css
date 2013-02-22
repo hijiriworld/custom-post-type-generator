@@ -1,0 +1,10 @@
+.cptg-metabox .postbox .hndle {
+	cursor: default;
+}
+.cptg-metabox .form-table th {
+	width: 160px;
+}
+
+.error-cptg {
+	display: none;
+}
