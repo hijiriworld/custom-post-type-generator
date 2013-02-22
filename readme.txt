@@ -22,10 +22,7 @@ it's a must have for any user working with WordPress.
 
 == Screenshots ==
 
-1. Regist Custom Post Type
-2. Regist Custom Taxonomy
-3. Manage Custom Post Types
-4. Manage Custom Taxonomies
+http://hijiriworld.com/web/plugins/custom-post-type-generator/
 
 == Changelog ==
 
