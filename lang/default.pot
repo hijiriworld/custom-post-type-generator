@@ -1,0 +1,567 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2013-02-22 18:14+0900\n"
+"PO-Revision-Date: 2013-02-22 19:09+0900\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: custom-post-type-generator.php:71
+msgid "Custom Post Type"
+msgstr ""
+
+#: custom-post-type-generator.php:72 custom-post-type-generator.php:74
+#: custom-post-type-generator.php:126 include/manage_cpt.php:7
+#: include/manage_tax.php:7 include/regist_cpt.php:53
+#: include/regist_cpt.php:168 include/regist_tax.php:31
+msgid "Add New"
+msgstr ""
+
+#: custom-post-type-generator.php:73
+msgid "Custom Taxonomy"
+msgstr ""
+
+#: custom-post-type-generator.php:125
+msgid "All Posts"
+msgstr ""
+
+#: custom-post-type-generator.php:127
+msgid "Add New Post"
+msgstr ""
+
+#: custom-post-type-generator.php:128
+msgid "Edit Post"
+msgstr ""
+
+#: custom-post-type-generator.php:129
+msgid "New Post"
+msgstr ""
+
+#: custom-post-type-generator.php:130
+msgid "View Post"
+msgstr ""
+
+#: custom-post-type-generator.php:131
+msgid "Search Posts"
+msgstr ""
+
+#: custom-post-type-generator.php:132
+msgid "No posts found."
+msgstr ""
+
+#: custom-post-type-generator.php:133
+msgid "No posts found in Trash."
+msgstr ""
+
+#: custom-post-type-generator.php:134
+msgid "Parent Page"
+msgstr ""
+
+#: custom-post-type-generator.php:195
+msgid "Search Tags"
+msgstr ""
+
+#: custom-post-type-generator.php:196
+msgid "Popular Tags"
+msgstr ""
+
+#: custom-post-type-generator.php:197
+msgid "All Tags"
+msgstr ""
+
+#: custom-post-type-generator.php:198 custom-post-type-generator.php:199
+msgid "Parent Category"
+msgstr ""
+
+#: custom-post-type-generator.php:200 include/regist_tax.php:166
+msgid "Edit Tag"
+msgstr ""
+
+#: custom-post-type-generator.php:201
+msgid "Update Tag"
+msgstr ""
+
+#: custom-post-type-generator.php:202
+msgid "Add New Tag"
+msgstr ""
+
+#: custom-post-type-generator.php:203
+msgid "New Tag Name"
+msgstr ""
+
+#: custom-post-type-generator.php:204
+msgid "Separate tags with commas"
+msgstr ""
+
+#: custom-post-type-generator.php:205
+msgid "Add or remove tags"
+msgstr ""
+
+#: custom-post-type-generator.php:206
+msgid "Choose from the most used tags"
+msgstr ""
+
+#: include/manage_cpt.php:6
+msgid "Custom Post Types"
+msgstr ""
+
+#: include/manage_cpt.php:13
+msgid "Custom Post Type is new added."
+msgstr ""
+
+#: include/manage_cpt.php:15
+msgid "Custom Post Type id edited."
+msgstr ""
+
+#: include/manage_cpt.php:17
+msgid "Custom Post Type id deleted."
+msgstr ""
+
+#: include/manage_cpt.php:22
+msgid ""
+"If you delete Custom Post Type, Contents will not delete which belong to "
+"that."
+msgstr ""
+
+#: include/manage_cpt.php:27 include/manage_cpt.php:33
+#: include/regist_cpt.php:93
+msgid "Post Type"
+msgstr ""
+
+#: include/manage_cpt.php:28 include/manage_cpt.php:34
+#: include/manage_tax.php:28 include/manage_tax.php:36
+#: include/regist_cpt.php:102 include/regist_tax.php:84
+msgid "Label"
+msgstr ""
+
+#: include/manage_cpt.php:60 include/manage_cpt.php:62
+#: include/manage_tax.php:63 include/manage_tax.php:65
+msgid "Edit this item"
+msgstr ""
+
+#: include/manage_cpt.php:62 include/manage_tax.php:65
+msgid "Edit"
+msgstr ""
+
+#: include/manage_cpt.php:63 include/manage_tax.php:66
+msgid "Move this item to the Trash"
+msgstr ""
+
+#: include/manage_cpt.php:63 include/manage_tax.php:66
+msgid "Delete"
+msgstr ""
+
+#: include/manage_tax.php:6
+msgid "Custom Taxonomies"
+msgstr ""
+
+#: include/manage_tax.php:13
+msgid "Custom Taxonomy is new added."
+msgstr ""
+
+#: include/manage_tax.php:15
+msgid "Custom Taxonomy id edited."
+msgstr ""
+
+#: include/manage_tax.php:17
+msgid "Custom Taxonomy id deleted."
+msgstr ""
+
+#: include/manage_tax.php:22
+msgid ""
+"If you delete Custom Taxonomy, Contents will not delete which belong to that."
+msgstr ""
+
+#: include/manage_tax.php:27 include/manage_tax.php:35
+#: include/regist_tax.php:75
+msgid "Taxonomy"
+msgstr ""
+
+#: include/manage_tax.php:29 include/manage_tax.php:37
+#: include/regist_tax.php:91
+msgid "Attached Post Types"
+msgstr ""
+
+#: include/manage_tax.php:30 include/manage_tax.php:38
+#: include/regist_cpt.php:309 include/regist_tax.php:245
+msgid "Hierarchical"
+msgstr ""
+
+#: include/regist_cpt.php:47
+msgid "Edit Custom Post Type"
+msgstr ""
+
+#: include/regist_cpt.php:48 include/regist_tax.php:26
+msgid "Update"
+msgstr ""
+
+#: include/regist_cpt.php:52
+msgid "Add New Custom Post Type"
+msgstr ""
+
+#: include/regist_cpt.php:69
+msgid "Post Type is required."
+msgstr ""
+
+#: include/regist_cpt.php:88 include/regist_tax.php:69
+msgid "Basic"
+msgstr ""
+
+#: include/regist_cpt.php:94
+msgid "($post_type)"
+msgstr ""
+
+#: include/regist_cpt.php:98
+msgid "max. 20 characters, can not contain capital letters or spaces"
+msgstr ""
+
+#: include/regist_cpt.php:105 include/regist_cpt.php:150
+#: include/regist_cpt.php:157 include/regist_cpt.php:324
+msgid "(Default: $post_type)"
+msgstr ""
+
+#: include/regist_cpt.php:109
+msgid "Menu Position"
+msgstr ""
+
+#: include/regist_cpt.php:111
+msgid "(Default: null - defaults to below Comments)"
+msgstr ""
+
+#: include/regist_cpt.php:115
+msgid "Supports"
+msgstr ""
+
+#: include/regist_cpt.php:117
+msgid "title"
+msgstr ""
+
+#: include/regist_cpt.php:118
+msgid "editor"
+msgstr ""
+
+#: include/regist_cpt.php:119
+msgid "author"
+msgstr ""
+
+#: include/regist_cpt.php:120
+msgid "thumbnail"
+msgstr ""
+
+#: include/regist_cpt.php:121
+msgid "excerpt"
+msgstr ""
+
+#: include/regist_cpt.php:122
+msgid "trackbacks"
+msgstr ""
+
+#: include/regist_cpt.php:123
+msgid "custom-fields"
+msgstr ""
+
+#: include/regist_cpt.php:124
+msgid "comments"
+msgstr ""
+
+#: include/regist_cpt.php:125
+msgid "revisions"
+msgstr ""
+
+#: include/regist_cpt.php:126
+msgid "page-attributes"
+msgstr ""
+
+#: include/regist_cpt.php:127
+msgid "post-formats"
+msgstr ""
+
+#: include/regist_cpt.php:131
+msgid "Has Archive"
+msgstr ""
+
+#: include/regist_cpt.php:135 include/regist_cpt.php:266
+#: include/regist_cpt.php:313 include/regist_tax.php:249
+msgid "(Default: false)"
+msgstr ""
+
+#: include/regist_cpt.php:143 include/regist_tax.php:114
+msgid "Label Options"
+msgstr ""
+
+#: include/regist_cpt.php:147
+msgid "Singular Mame"
+msgstr ""
+
+#: include/regist_cpt.php:154
+msgid "Menu Name"
+msgstr ""
+
+#: include/regist_cpt.php:161 include/regist_tax.php:142
+msgid "All Items"
+msgstr ""
+
+#: include/regist_cpt.php:164
+msgid "(Default: All Posts)"
+msgstr ""
+
+#: include/regist_cpt.php:171
+msgid "(Default: Add New)"
+msgstr ""
+
+#: include/regist_cpt.php:175
+msgid "Add new Item"
+msgstr ""
+
+#: include/regist_cpt.php:178
+msgid "(Default: Add New Post)"
+msgstr ""
+
+#: include/regist_cpt.php:182
+msgid "Edit item"
+msgstr ""
+
+#: include/regist_cpt.php:185
+msgid "(Default: Edit Post)"
+msgstr ""
+
+#: include/regist_cpt.php:189
+msgid "New item"
+msgstr ""
+
+#: include/regist_cpt.php:192
+msgid "(Default: New Post)"
+msgstr ""
+
+#: include/regist_cpt.php:196
+msgid "View item"
+msgstr ""
+
+#: include/regist_cpt.php:199
+msgid "(Default: View Post)"
+msgstr ""
+
+#: include/regist_cpt.php:203
+msgid "Search items"
+msgstr ""
+
+#: include/regist_cpt.php:206
+msgid "(Default: Search Posts)"
+msgstr ""
+
+#: include/regist_cpt.php:210
+msgid "Not Found"
+msgstr ""
+
+#: include/regist_cpt.php:213
+msgid "(Default: No posts found.)"
+msgstr ""
+
+#: include/regist_cpt.php:217
+msgid "Not Found in Trash"
+msgstr ""
+
+#: include/regist_cpt.php:220
+msgid "(Default: No posts found in Trash.)"
+msgstr ""
+
+#: include/regist_cpt.php:224 include/regist_tax.php:158
+msgid "Parent Item Colon"
+msgstr ""
+
+#: include/regist_cpt.php:227
+msgid "(Default: Parent Page)"
+msgstr ""
+
+#: include/regist_cpt.php:236 include/regist_tax.php:225
+msgid "Advanced Options"
+msgstr ""
+
+#: include/regist_cpt.php:240
+msgid "Description"
+msgstr ""
+
+#: include/regist_cpt.php:246 include/regist_tax.php:229
+msgid "Public"
+msgstr ""
+
+#: include/regist_cpt.php:250 include/regist_cpt.php:258
+#: include/regist_cpt.php:274 include/regist_cpt.php:282
+#: include/regist_cpt.php:290 include/regist_cpt.php:321
+#: include/regist_cpt.php:334 include/regist_cpt.php:342
+#: include/regist_tax.php:233 include/regist_tax.php:241
+#: include/regist_tax.php:257 include/regist_tax.php:269
+msgid "(Default: true)"
+msgstr ""
+
+#: include/regist_cpt.php:254
+msgid "Publicly Queryable"
+msgstr ""
+
+#: include/regist_cpt.php:262
+msgid "Exclude From Search"
+msgstr ""
+
+#: include/regist_cpt.php:270 include/regist_tax.php:237
+msgid "Show UI"
+msgstr ""
+
+#: include/regist_cpt.php:278
+msgid "Show in Nav Menus"
+msgstr ""
+
+#: include/regist_cpt.php:286
+msgid "Show in Menu"
+msgstr ""
+
+#: include/regist_cpt.php:292
+msgid "top level page"
+msgstr ""
+
+#: include/regist_cpt.php:298
+msgid "Menu Icon"
+msgstr ""
+
+#: include/regist_cpt.php:300
+msgid "(Default: null - defaults to the posts icon)"
+msgstr ""
+
+#: include/regist_cpt.php:304
+msgid "Capability Type"
+msgstr ""
+
+#: include/regist_cpt.php:305
+msgid "(Default: post)"
+msgstr ""
+
+#: include/regist_cpt.php:317 include/regist_tax.php:253
+msgid "Rewrite"
+msgstr ""
+
+#: include/regist_cpt.php:323 include/regist_tax.php:259
+msgid "Custom Rewrite Slug"
+msgstr ""
+
+#: include/regist_cpt.php:330 include/regist_tax.php:265
+msgid "Query Var"
+msgstr ""
+
+#: include/regist_cpt.php:338
+msgid "Can Export"
+msgstr ""
+
+#: include/regist_tax.php:25
+msgid "Edit Custom Taxonomy"
+msgstr ""
+
+#: include/regist_tax.php:30
+msgid "Add New Custom Taxonomy"
+msgstr ""
+
+#: include/regist_tax.php:43
+msgid "Taxonomy is required."
+msgstr ""
+
+#: include/regist_tax.php:47
+msgid "You must allocate at least 1 of Custom Post Type to Custom Taxonomy."
+msgstr ""
+
+#: include/regist_tax.php:76
+msgid "($taxonomy)"
+msgstr ""
+
+#: include/regist_tax.php:80
+msgid "max. 32 characters, can not contain capital letters or spaces"
+msgstr ""
+
+#: include/regist_tax.php:87 include/regist_tax.php:121
+#: include/regist_tax.php:260
+msgid "(Default: $taxonomy)"
+msgstr ""
+
+#: include/regist_tax.php:118
+msgid "Singular Name"
+msgstr ""
+
+#: include/regist_tax.php:126
+msgid "Search Items"
+msgstr ""
+
+#: include/regist_tax.php:129
+msgid "(Default: Search Tags)"
+msgstr ""
+
+#: include/regist_tax.php:134
+msgid "Popular Items"
+msgstr ""
+
+#: include/regist_tax.php:137
+msgid "(Default: Popular Tags)"
+msgstr ""
+
+#: include/regist_tax.php:145
+msgid "(Default: All Tags)"
+msgstr ""
+
+#: include/regist_tax.php:150
+msgid "Parent Item"
+msgstr ""
+
+#: include/regist_tax.php:153 include/regist_tax.php:161
+msgid "(Default: Parent Category)"
+msgstr ""
+
+#: include/regist_tax.php:169
+msgid "(Default: Edit Tag)"
+msgstr ""
+
+#: include/regist_tax.php:174
+msgid "Update Item"
+msgstr ""
+
+#: include/regist_tax.php:177
+msgid "(Default: Update Tag)"
+msgstr ""
+
+#: include/regist_tax.php:182
+msgid "Add New Item"
+msgstr ""
+
+#: include/regist_tax.php:185
+msgid "(Default: Add New Tag)"
+msgstr ""
+
+#: include/regist_tax.php:190
+msgid "New Item Name"
+msgstr ""
+
+#: include/regist_tax.php:193
+msgid "(Default: New Tag Name)"
+msgstr ""
+
+#: include/regist_tax.php:198
+msgid "Separate Items with Commas"
+msgstr ""
+
+#: include/regist_tax.php:201
+msgid "(Default: Separate tags with commas)"
+msgstr ""
+
+#: include/regist_tax.php:206
+msgid "Add or Remove Items"
+msgstr ""
+
+#: include/regist_tax.php:209
+msgid "(Default: Add or remove tags)"
+msgstr ""
+
+#: include/regist_tax.php:214
+msgid "Choose from Most Used"
+msgstr ""
+
+#: include/regist_tax.php:217
+msgid "(Default: Choose from the most used tags)"
+msgstr ""
