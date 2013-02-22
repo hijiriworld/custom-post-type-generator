@@ -23,8 +23,8 @@ it's a must have for any user working with WordPress.
 == Screenshots ==
 
 1. Regist Custom Post Type
-3. Manage Custom Post Types
-4. Regist Custom Taxonomy
+2. Manage Custom Post Types
+3. Regist Custom Taxonomy
 4. Manage Custom Taxonomies
 
 == Changelog ==
