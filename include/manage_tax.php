@@ -55,8 +55,6 @@
 		
 			$edit_url = admin_url( 'admin.php?page=regist_tax' ) . '&action=edit_tax&num=' .$counter;
 			$edit_url = ( function_exists('wp_nonce_url') ) ? wp_nonce_url($edit_url, 'nonce_regist_tax') : $edit_url;
-		
-			$rewrite_slug = ( $cptg_tax["rewrite_slug"] ) ? $cptg_tax["rewrite_slug"] : $cptg_tax["name"];
 		?>
 		<tr>
 			<td valign="top">

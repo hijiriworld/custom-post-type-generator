@@ -26,5 +26,9 @@ http://hijiriworld.com/web/plugins/custom-post-type-generator/
 
 == Changelog ==
 
+= 1.0.1 =
+
+Bug fixed
+
 = 1.0.0 =
 Initial Release

@@ -5,7 +5,7 @@ Plugin URI: http://hijiriworld.com/web/plugins/custom-post-type-generator/
 Description: Generate Custom Post Types and Custom Taxonomies, from the admin interface which is easy to understand. it's a must have for any user working with WordPress.
 Author: hijiri
 Author URI: http://hijiriworld.com/web/
-Version: 1.0.0
+Version: 1.0.1
 */
 
 /*  Copyright 2013 hijiri
@@ -164,8 +164,9 @@ class Cptg
 						'hierarchical'			=> get_disp_cptg_boolean($cpt["hierarchical"]),
 						'rewrite'				=> array('slug' => $cpt_rewrite_slug),
 						'query_var'				=> get_disp_cptg_boolean($cpt["query_var"]),
+						'can_export'				=> get_disp_cptg_boolean($cpt["can_export"]),
 						'menu_position'			=> $cpt_menu_position,
-						'menu_icon'				=> $cpt_menu_icon,
+						'menu_icon'				=> $cpt["menu_icon"],
 						'supports'				=> $cpt_supports,
 					)
 				);
@@ -275,7 +276,7 @@ class Cptg
 			$edit_num = intval( $_POST['edit_cpt_num'] );
 	
 			// get input values
-			 $input_cpt = $_POST['input_cpt'];
+			$input_cpt = $_POST['input_cpt'];
 			
 			// labels to array
 			$input_cpt += array( 'labels' => $_POST['cpt_labels'] );
@@ -290,7 +291,11 @@ class Cptg
 	
 			if ( is_array( $cptg_ctps ) ) {
 				
-				$cptg_ctps = array_replace( $cptg_ctps, array( $edit_num =>  $input_cpt) );
+				unset( $cptg_ctps[$edit_num] );
+				
+				array_push( $cptg_ctps, $input_cpt);
+				
+				//$cptg_ctps_new = array_replace( $cptg_ctps, array( $edit_num => $input_cpt) );
 				
 				$cptg_ctps = array_values( $cptg_ctps );
 				
@@ -352,7 +357,11 @@ class Cptg
 			
 			if ( is_array( $cptg_options ) ) {
 				
-				$cptg_options = array_replace( $cptg_options, array( $edit_num => $input_tax) );
+				unset( $cptg_options[$edit_num] );
+				
+				array_push( $cptg_options, $input_tax);
+				
+				//$cptg_options = array_replace( $cptg_options, array( $edit_num => $input_tax) );
 				
 				$cptg_options = array_values( $cptg_options );
 				
