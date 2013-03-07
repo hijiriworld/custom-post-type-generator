@@ -5,7 +5,7 @@ Plugin URI: http://hijiriworld.com/web/plugins/custom-post-type-generator/
 Description: Generate Custom Post Types and Custom Taxonomies, from the admin interface which is easy to understand. it's a must have for any user working with WordPress.
 Author: hijiri
 Author URI: http://hijiriworld.com/web/
-Version: 1.0.1
+Version: 1.0.2
 */
 
 /*  Copyright 2013 hijiri
@@ -146,6 +146,8 @@ class Cptg
 					$cpt_show_in_menu = true;
 				}
 				
+				$cpt_menu_icon = $cpt["menu_icon"] ? $cpt["menu_icon"] : null;
+				
 				/* --- register_post_type() --- */
 				
 				register_post_type( $cpt["post_type"],
@@ -164,9 +166,9 @@ class Cptg
 						'hierarchical'			=> get_disp_cptg_boolean($cpt["hierarchical"]),
 						'rewrite'				=> array('slug' => $cpt_rewrite_slug),
 						'query_var'				=> get_disp_cptg_boolean($cpt["query_var"]),
-						'can_export'				=> get_disp_cptg_boolean($cpt["can_export"]),
+						'can_export'			=> get_disp_cptg_boolean($cpt["can_export"]),
 						'menu_position'			=> $cpt_menu_position,
-						'menu_icon'				=> $cpt["menu_icon"],
+						'menu_icon'				=> $cpt_menu_icon,
 						'supports'				=> $cpt_supports,
 					)
 				);

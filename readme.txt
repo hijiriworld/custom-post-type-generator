@@ -3,7 +3,7 @@ Contributors: hijiri
 Tags: custom post type, custom taxonomy
 Requires at least: 3.0.0
 Tested up to: 3.5.1
-Stable tag: 1.0.0
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,9 +26,16 @@ http://hijiriworld.com/web/plugins/custom-post-type-generator/
 
 == Changelog ==
 
+= 1.0.2 =
+
+*Bug fixed
+ - menu_icon (Default: null - defaults to the posts icon)
+ 
 = 1.0.1 =
 
-Bug fixed
+*Bug fixed
+ - 500 Error
 
 = 1.0.0 =
-Initial Release
+
+*Initial Release
