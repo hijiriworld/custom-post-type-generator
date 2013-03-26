@@ -14,6 +14,15 @@ Generate Custom Post Types and Custom Taxonomies.
 Generate Custom Post Types and Custom Taxonomies, from the admin interface which is easy to understand.
 it's a must have for any user working with WordPress.
 
+[Notice]
+
+There was the Fatal Error in ver1.0.x. 
+This problem is solved in ver.2.0.0.
+However, WordPress Option Data Structure has been modified fundamentally.
+Please be sure to do backup of 'Custom Post Type Name' and 'Taxonomy Name'.
+But Contents will not delete which belong to.
+Thanks.
+
 == Installation ==
 
 1. Upload 'intuitive-custom-post-order' folder to the `/wp-content/plugins/` directory
