@@ -1,3 +1,23 @@
+<?php
+
+global $wpdb;
+
+$sql = "SELECT
+		option_id, 
+		option_name,
+		option_value
+	FROM 
+		$wpdb->options 
+	WHERE 
+		option_name LIKE '%%cptg_tax%%'
+	ORDER BY 
+		option_id ASC
+	";
+		 
+$results = $wpdb->get_results($sql);
+
+?>
+
 <div class="wrap">
 
 <?php screen_icon( 'plugins' ); ?>
@@ -27,7 +47,6 @@
 			<th><?php _e('Taxonomy', 'cptg');?></th>
 			<th><?php _e('Label', 'cptg');?></th>
 			<th><?php _e('Attached Post Types', 'cptg');?></th>
-			<th><?php _e('Hierarchical', 'cptg');?></th>
 		</tr>
 	</thead>
 	<tfoot>
@@ -35,54 +54,44 @@
 			<th><?php _e('Taxonomy', 'cptg');?></th>
 			<th><?php _e('Label', 'cptg');?></th>
 			<th><?php _e('Attached Post Types', 'cptg');?></th>
-			<th><?php _e('Hierarchical', 'cptg');?></th>
 		</tr>
 	</tfoot>
 	
-	<?php $cptg_taxs = get_option('cptg_taxs'); ?>
+	<?php if ( is_array( $results ) ) : ?>
 	
-	<?php if (is_array($cptg_taxs)) : ?>
-	
-	<?php
-		$counter = 0;
-	?>
-	
-	<?php foreach ($cptg_taxs as $cptg_tax) : ?>
+	<?php foreach ( $results as $result ) : ?>
 	
 		<?php
-			$del_url = admin_url( 'admin.php?page=manage_tax' ) . '&action=del_tax&num=' .$counter;
+			$tax = unserialize( $result->option_value );
+			
+			$del_url = admin_url( 'admin.php?page=manage_tax' ) . '&action=del_tax&key=' .$result->option_name;
 			$del_url = ( function_exists('wp_nonce_url') ) ? wp_nonce_url($del_url, 'nonce_del_tax') : $del_url;
 		
-			$edit_url = admin_url( 'admin.php?page=regist_tax' ) . '&action=edit_tax&num=' .$counter;
+			$edit_url = admin_url( 'admin.php?page=regist_tax' ) . '&action=edit_tax&key=' .$result->option_name;
 			$edit_url = ( function_exists('wp_nonce_url') ) ? wp_nonce_url($edit_url, 'nonce_regist_tax') : $edit_url;
 		?>
 		<tr>
 			<td valign="top">
-				<strong><a class="row-title" href="<?php echo $edit_url; ?>" title="<?php _e('Edit this item'); ?>"><?php echo stripslashes($cptg_tax["taxonomy"]); ?></a></strong>
+				<strong><a class="row-title" href="<?php echo $edit_url; ?>" title="<?php _e('Edit this item'); ?>"><?php echo stripslashes($tax["taxonomy"]); ?></a></strong>
 				<div class="row-actions">
 					<span class="edit"><a href="<?php echo $edit_url; ?>" title="<?php _e('Edit this item'); ?>"><?php _e('Edit', 'cptg'); ?></a> | </span>
 					<span class="trash"><a href="<?php echo $del_url; ?>" title="<?php _e('Move this item to the Trash'); ?>"><?php _e('Delete', 'cptg'); ?></a></span>
 				</div>
 			</td>
-			<td valign="top"><?php echo stripslashes($cptg_tax["label"]); ?></td>
+			<td valign="top"><?php echo stripslashes($tax["label"]); ?></td>
 			<td valign="top">
 			<?php
-			if ( isset( $cptg_tax["cpt_name"] ) ) {
-				echo stripslashes($cptg_tax["cpt_name"]);
-			} elseif ( is_array( $cptg_tax["post_types"] ) ) {
-				foreach ($cptg_tax["post_types"] as $cpt_post_types) {
-					echo $cpt_post_types .'<br />';
+			if ( isset( $tax["cpt_name"] ) ) {
+				echo stripslashes($tax["cpt_name"]);
+			} elseif ( is_array( $tax["post_types"] ) ) {
+				foreach ($tax["post_types"] as $post_type) {
+					echo $post_type .'<br />';
 				}
 			}
 			?>
 			</td>
-			<td valign="top"><?php echo disp_cptg_boolean($cptg_tax["hierarchical"]); ?></td>
 		</tr>
-	
-	<?php
-		$counter++;
-	?>
-	
+		
 	<?php endforeach; ?>
 
 </table>

@@ -5,7 +5,7 @@ Plugin URI: http://hijiriworld.com/web/plugins/custom-post-type-generator/
 Description: Generate Custom Post Types and Custom Taxonomies, from the admin interface which is easy to understand. it's a must have for any user working with WordPress.
 Author: hijiri
 Author URI: http://hijiriworld.com/web/
-Version: 1.0.2
+Version: 2.0.0
 */
 
 /*  Copyright 2013 hijiri
@@ -46,9 +46,6 @@ class Cptg
 {
 	function __construct()
 	{
-		// add_option('cptg_cpts');
-		// add_option('hcpt_taxs');
-		
 		// add_menu
 		add_action( 'admin_menu', array($this, 'add_menus' ));
 		
@@ -111,10 +108,27 @@ class Cptg
 	{
 		
 		// get_option custom post types
-		$cptg_cpts = get_option('cptg_cpts');
 		
-		if ( is_array( $cptg_cpts ) ) {
-			foreach ($cptg_cpts as $cpt) {
+		global $wpdb;
+
+		$sql = "SELECT
+				option_id, 
+				option_name,
+				option_value
+			FROM 
+				$wpdb->options 
+			WHERE 
+				option_name LIKE '%%cptg_cpt%%'
+			ORDER BY 
+				option_id ASC
+			";
+		
+		$results = $wpdb->get_results($sql);
+		
+		if ( is_array( $results ) ) {
+			foreach ( $results as $result ) {
+				
+				$cpt = unserialize( $result->option_value );
 				
 				/* --- Label Options Initialize --- */
 				
@@ -183,45 +197,60 @@ class Cptg
 	************************************************************************************************/
 	
 	function generate_taxs() {
+
+		global $wpdb;
+
+		$sql = "SELECT
+				option_id, 
+				option_name,
+				option_value
+			FROM 
+				$wpdb->options 
+			WHERE 
+				option_name LIKE '%%cptg_tax%%'
+			ORDER BY 
+				option_id ASC
+			";
 		
-		// get_option custom taxonomies
-		$cptg_taxs = get_option('cptg_taxs');
+		$results = $wpdb->get_results($sql);
 		
-		if ( is_array( $cptg_taxs ) ) {
-			foreach ($cptg_taxs as $tax) {
+		if ( is_array( $results ) ) {
+			foreach ( $results as $result ) {
+				
+				$tax = unserialize( $result->option_value );
 				
 				/* --- Label Options Initialize --- */
 				
-				$set_label = $tax["label"] ? esc_html($tax["label"]) : esc_html($tax["taxonomy"]);
+				$tax_label = $tax["label"] ? esc_html($tax["label"]) : esc_html($tax["taxonomy"]);
 					
-					$set_labels['singular_name']				= $tax["labels"]["singular_label"] ? $tax["labels"]["singular_label"] :							$set_label;
-					$set_labels['search_items']					= $tax["labels"]["search_items"] ? $tax["labels"]["search_items"] :								__('Search Tags', 'cptg');
-					$set_labels['popular_items']				= $tax["labels"]["popular_items"] ? $tax["labels"]["popular_items"] :							__('Popular Tags', 'cptg');
-					$set_labels['all_items']					= $tax["labels"]["all_items"] ? $tax["labels"]["all_items"] :									__('All Tags', 'cptg');
-					$set_labels['parent_item']					= $tax["labels"]["parent_item"] ? $tax["labels"]["parent_item"] :								__('Parent Category', 'cptg');
-					$set_labels['parent_item_colon'] 			= $tax["labels"]["parent_item_colon"] ? $tax["labels"]["parent_item_colon"] :					__('Parent Category', 'cptg');
-					$set_labels['edit_item']					= $tax["labels"]["edit_item"] ? $tax["labels"]["edit_item"] :									__('Edit Tag', 'cptg');
-					$set_labels['update_item']					= $tax["labels"]["update_item"] ? $tax["labels"]["update_item"] :								__('Update Tag', 'cptg');
-					$set_labels['add_new_item']					= $tax["labels"]["add_new_item"] ? $tax["labels"]["add_new_item"] :								__('Add New Tag', 'cptg');
-					$set_labels['new_item_name']				= $tax["labels"]["new_item_name"] ? $tax["labels"]["new_item_name"] :							__('New Tag Name', 'cptg');
-					$set_labels['separate_items_with_commas']	= $tax["labels"]["separate_items_with_commas"] ? $tax["labels"]["separate_items_with_commas"] :	__('Separate tags with commas', 'cptg');
-					$set_labels['add_or_remove_items']			= $tax["labels"]["add_or_remove_items"] ? $tax["labels"]["add_or_remove_items"] :				__('Add or remove tags', 'cptg');
-					$set_labels['choose_from_most_used']		= $tax["labels"]["choose_from_most_used"] ? $tax["labels"]["choose_from_most_used"] :			__('Choose from the most used tags', 'cptg');
+					$tax_labels['singular_name']				= $tax["labels"]["singular_label"] ? $tax["labels"]["singular_label"] :							$tax_label;
+					$tax_labels['search_items']					= $tax["labels"]["search_items"] ? $tax["labels"]["search_items"] :								__('Search Tags', 'cptg');
+					$tax_labels['popular_items']				= $tax["labels"]["popular_items"] ? $tax["labels"]["popular_items"] :							__('Popular Tags', 'cptg');
+					$tax_labels['all_items']					= $tax["labels"]["all_items"] ? $tax["labels"]["all_items"] :									__('All Tags', 'cptg');
+					$tax_labels['parent_item']					= $tax["labels"]["parent_item"] ? $tax["labels"]["parent_item"] :								__('Parent Category', 'cptg');
+					$tax_labels['parent_item_colon'] 			= $tax["labels"]["parent_item_colon"] ? $tax["labels"]["parent_item_colon"] :					__('Parent Category', 'cptg');
+					$tax_labels['edit_item']					= $tax["labels"]["edit_item"] ? $tax["labels"]["edit_item"] :									__('Edit Tag', 'cptg');
+					$tax_labels['update_item']					= $tax["labels"]["update_item"] ? $tax["labels"]["update_item"] :								__('Update Tag', 'cptg');
+					$tax_labels['add_new_item']					= $tax["labels"]["add_new_item"] ? $tax["labels"]["add_new_item"] :								__('Add New Tag', 'cptg');
+					$tax_labels['new_item_name']				= $tax["labels"]["new_item_name"] ? $tax["labels"]["new_item_name"] :							__('New Tag Name', 'cptg');
+					$tax_labels['separate_items_with_commas']	= $tax["labels"]["separate_items_with_commas"] ? $tax["labels"]["separate_items_with_commas"] :	__('Separate tags with commas', 'cptg');
+					$tax_labels['add_or_remove_items']			= $tax["labels"]["add_or_remove_items"] ? $tax["labels"]["add_or_remove_items"] :				__('Add or remove tags', 'cptg');
+					$tax_labels['choose_from_most_used']		= $tax["labels"]["choose_from_most_used"] ? $tax["labels"]["choose_from_most_used"] :			__('Choose from the most used tags', 'cptg');
 
 				/* --- Advanced Options Initialize --- */
 				
-				$set_rewrite_slug = $tax["rewrite_slug"] ? esc_html($tax["rewrite_slug"]) : esc_html($tax["taxonomy"]);
-				$set_post_types = $tax["post_types"];
+				$tax_rewrite_slug = $tax["rewrite_slug"] ? esc_html($tax["rewrite_slug"]) : esc_html($tax["taxonomy"]);
+				$tax_post_types = $tax["post_types"];
 				
 				/* --- register_taxonomy() --- */
 				
-				register_taxonomy( $tax["taxonomy"], $set_post_types,
+				register_taxonomy( $tax["taxonomy"], $tax_post_types,
 					array (
-						'label'				=> $set_label,
-						'labels'			=> $set_labels,
+						'label'				=> $tax_label,
+						'labels'			=> $tax_labels,
 						'show_ui'			=> get_disp_cptg_boolean($tax["show_ui"]),
 						'hierarchical'		=> get_disp_cptg_boolean($tax["hierarchical"]),
-						'rewrite'			=> array('slug' => $set_rewrite_slug),
+						'rewrite'			=> array('slug' => $tax_rewrite_slug),
 						'query_var'			=> get_disp_cptg_boolean($tax["query_var"]),
 					)
 				);
@@ -244,160 +273,104 @@ class Cptg
 		/* --- Delete cpt --- */
 		
 		if ( isset( $_GET['action'] ) && $_GET['action'] == 'del_cpt' ) {
-		
 			check_admin_referer( 'nonce_del_cpt' );
-		
-			$del_num = intval( $_GET['num'] );
-			$cptg_cpts = get_option( 'cptg_cpts' );
-			unset( $cptg_cpts[$del_num] );
-			$cptg_cpts = array_values( $cptg_cpts );
-			update_option( 'cptg_cpts', $cptg_cpts );
+			$key = $_GET['key'];
+			delete_option( $key );
 			wp_redirect( 'admin.php?page=manage_cpt&msg=del' );
 		}
 		
 		/* --- Delete tax --- */
 		
 		if ( isset( $_GET['action'] ) && $_GET['action'] == 'del_tax' ) {
-	
 			check_admin_referer( 'nonce_del_tax' );
-		
-			$del_num = intval( $_GET['num'] );
-			$cpt_taxonomies = get_option( 'cptg_taxs' );
-			unset( $cpt_taxonomies[$del_num] );
-			$cpt_taxonomies = array_values( $cpt_taxonomies );
-			update_option( 'cptg_taxs', $cpt_taxonomies );
+			$key = $_GET['key'];
+			delete_option( $key );
 			wp_redirect( 'admin.php?page=manage_tax&msg=del' );
 		}
 		
-		/* --- Edit cpt --- */
 		
-		if ( isset( $_POST['edit_cpt_num'] ) ) {
+		if ( isset( $_POST['cpt_submit'] ) ) {
+			
+			// Edit cpt
+			if ( isset( $_POST['key'] ) ) {
 		
-			check_admin_referer( 'nonce_regist_cpt' );
-	
-			$edit_num = intval( $_POST['edit_cpt_num'] );
-	
-			// get input values
-			$input_cpt = $_POST['input_cpt'];
-			
-			// labels to array
-			$input_cpt += array( 'labels' => $_POST['cpt_labels'] );
-			
-			// supports to array
-			$cpt_supports = ( isset( $_POST['cpt_supports'] ) ) ? $_POST['cpt_supports'] : null;
-			$input_cpt += array( 'supports' => $cpt_supports );
-			
-			//Update cptg_cpts options
-			
-			$cptg_ctps = get_option( 'cptg_cpts' );
-	
-			if ( is_array( $cptg_ctps ) ) {
+				check_admin_referer( 'nonce_regist_cpt' );
+		
+				$key = $_POST['key'];
 				
-				unset( $cptg_ctps[$edit_num] );
+				// get input values
+				$input_data = $_POST['input_cpt'];
 				
-				array_push( $cptg_ctps, $input_cpt);
+				// labels to array
+				$input_data += array( 'labels' => $_POST['cpt_labels'] );
+				// supports to array
+				$cpt_supports = ( isset( $_POST['cpt_supports'] ) ) ? $_POST['cpt_supports'] : array();
 				
-				//$cptg_ctps_new = array_replace( $cptg_ctps, array( $edit_num => $input_cpt) );
+				$input_data += array( 'supports' => $cpt_supports );
 				
-				$cptg_ctps = array_values( $cptg_ctps );
+				update_option( $key, $input_data );
 				
-				update_option( 'cptg_cpts', $cptg_ctps );
 				wp_redirect( 'admin.php?page=manage_cpt&msg=edit' );
+				
+			// Add cpt
+			} else {
+			
+				check_admin_referer( 'nonce_regist_cpt' );
+		
+				// get input values
+				$input_data = $_POST['input_cpt'];
+				
+				// labels to array
+				$input_data += array( 'labels' => $_POST['cpt_labels'] );
+				// supports to array
+				$cpt_supports = ( isset( $_POST['cpt_supports'] ) ) ? $_POST['cpt_supports'] : array();
+				$input_data += array( 'supports' => $cpt_supports );
+					
+				update_option( uniqid('cptg_cpt_'), $input_data );
+				
+				wp_redirect( 'admin.php?page=manage_cpt&msg=add' );
 			}
-		
-		/* --- Add cpt --- */
-		
-		} else if ( isset( $_POST['cpt_submit'] ) ) {
-		
-			check_admin_referer( 'nonce_regist_cpt' );
-	
-			// get input values
-			$input_cpt = $_POST['input_cpt'];
-			
-			// labels to array
-			$input_cpt += array( 'labels' => $_POST['cpt_labels'] );
-			
-			// supports to array
-			$cpt_supports = ( isset( $_POST['cpt_supports'] ) ) ? $_POST['cpt_supports'] : null;
-			$input_cpt += array( 'supports' => $cpt_supports );
-			
-			// Update cptg_cpts options
-			
-			$cptg_options = get_option( 'cptg_cpts' );
-			
-			if ( !is_array( $cptg_options ) ) {
-				$cptg_options = array();
-			}
-			
-			array_push( $cptg_options,  $input_cpt );
-			update_option( 'cptg_cpts', $cptg_options );
-	
-			wp_redirect( 'admin.php?page=manage_cpt&msg=add' );
 		}
 		
-		/* --- Edit tax --- */
+		if ( isset( $_POST['tax_submit'] ) ) {
+			
+			// Eidt tax
+			if ( isset( $_POST['key'] ) ) {
+			
+				check_admin_referer( 'nonce_regist_tax' );
 		
-		if ( isset( $_POST['edit_tax_num'] ) ) {
+				//custom taxonomy to edit
+				$key = $_POST['key'];
 		
-			check_admin_referer( 'nonce_regist_tax' );
-	
-			//custom taxonomy to edit
-			$edit_num = intval( $_POST['edit_tax_num'] );
-	
-			// get input values
-			$input_tax = $_POST['input_tax'];
-			
-			// labels to array
-			$input_tax += array( 'labels' => $_POST['tax_labels'] );
-			
-			// attached post type to array
-			$input_tax += array( 'post_types' => $_POST['tax_post_types'] );
-			
-			// Update cptg_taxs options
+				// get input values
+				$input_data = $_POST['input_tax'];
 				
-			$cptg_options = get_option( 'cptg_taxs' );
-			
-			if ( is_array( $cptg_options ) ) {
+				// labels to array
+				$input_data += array( 'labels' => $_POST['tax_labels'] );
+				// attached post type to array
+				$input_data += array( 'post_types' => $_POST['tax_post_types'] );
 				
-				unset( $cptg_options[$edit_num] );
+				update_option( $key, $input_data );
 				
-				array_push( $cptg_options, $input_tax);
-				
-				//$cptg_options = array_replace( $cptg_options, array( $edit_num => $input_tax) );
-				
-				$cptg_options = array_values( $cptg_options );
-				
-				update_option( 'cptg_taxs', $cptg_options );
 				wp_redirect( 'admin.php?page=manage_tax&msg=edit' );
-			}
+			
+			// Add tax
+			} else {
+				
+				check_admin_referer( 'nonce_regist_tax' );
 		
-		/* --- Add tax --- */
-		
-		} else if ( isset( $_POST['tax_submit'] ) ) {
-			
-			check_admin_referer( 'nonce_regist_tax' );
-	
-			// get input values
-			$input_tax = $_POST['input_tax'];
-			
-			// labels to array
-			$input_tax += array( 'labels' => $_POST['cpt_tax_labels'] );
-			
-			// attached post type to array
-			$input_tax += array( 'post_types' => $_POST['tax_post_types'] );
-			
-			// Update cptg_taxs options
-			
-			$cptg_options = get_option( 'cptg_taxs' );
-	
-			if ( !is_array( $cptg_options ) ) {
-				$cptg_options = array();
+				// get input values
+				$input_data = $_POST['input_tax'];
+				
+				// labels to array
+				$input_data += array( 'labels' => $_POST['tax_labels'] );
+				// attached post type to array
+				$input_data += array( 'post_types' => $_POST['tax_post_types'] );
+				
+				update_option( uniqid('cptg_tax_'), $input_data );
+				
+				wp_redirect( 'admin.php?page=manage_tax&msg=add' );
 			}
-	
-			array_push( $cptg_options, $input_tax );
-			update_option( 'cptg_taxs', $cptg_options );
-	
-			wp_redirect( 'admin.php?page=manage_tax&msg=add' );
 		}
 	}
 }
@@ -449,51 +422,86 @@ function echo_boolean_options($obj, $default)
 
 /*
 
-	[cptg_cpts]
+Array
+(
+    [post_type] =>
+    [label] =>
+    [menu_position] => 
+    [has_archive] =>
+    [description] =>
+    [public] =>
+    [publicly_queryable] =>
+    [exclude_from_search] =>
+    [show_ui] =>
+    [show_in_nav_menus] =>
+    [show_in_menu] =>
+    [show_in_menu_string] => 
+    [menu_icon] => 
+    [capability_type] =>
+    [hierarchical] =>
+    [rewrite] =>
+    [rewrite_slug] =>
+    [query_var] =>
+    [can_export] =>
+    [labels] => Array
+        (
+            [singular_label]=> 
+            [menu_name]=> 
+            [all_items]=> 
+            [add_new]=> 
+            [add_new_item]=> 
+            [edit_item]=> 
+            [new_item]=> 
+            [view_item]=> 
+            [search_items]=> 
+            [not_found]=> 
+            [not_found_in_trash]=> 
+            [parent_item_colon]=> 
+        )
+
+    [supports] => Array
+        (
+            [0] => title
+            ...
+        )
+
+)
 	
-	Array (
-		[0] => Array (
-			[post_type] => 
-			[label] => 
-			[menu_position] => 
-			...
-			
-			[labels] => Array (
-				[singular_label] => 
-				[menu_name] =>
-				...
-			)
-			
-			[supports] => Array (
-				[0] => title
-				[1] => editor
-				...
-			)
-		)
-	)
-	
-	[cptg_taxs]
-	
-	Array (
-		[0] => Array (
-			[taxonomy] => 
-			[label] => 
-			[hierarchical] =>
-			...
-			
-			[labels] => Array (
-				[singular_label] =>
-				[search_items] =>
-				...
-			)
-			
-			[post_types] => Array (
-				[0] => post
-				[1] => page
-				...
-			)
-		)
-	)
+		
+Array
+(
+    [taxonomy] =>
+    [label] => 
+    [public] =>
+    [show_ui] =>
+    [hierarchical] =>
+    [rewrite] =>
+    [rewrite_slug] => 
+    [query_var] =>
+    [labels] => Array
+        (
+            [singular_label] =>
+            [search_items] => 
+            [popular_items] => 
+            [all_items] => 
+            [parent_item] => 
+            [parent_item_colon] => 
+            [edit_item] => 
+            [update_item] => 
+            [add_new_item] => 
+            [new_item_name] => 
+            [separate_items_with_commas] => 
+            [add_or_remove_items] => 
+            [choose_from_most_used] => 
+        )
+
+    [post_types] => Array
+        (
+            [0] => post
+            ...
+        )
+
+)
 
 */
 	

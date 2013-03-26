@@ -4,44 +4,35 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 	
 	check_admin_referer('nonce_regist_cpt');
 	
-	// get edit num
-	$num = intval($_GET['num']);
-
-	// get_option cpts
-	$cptg_options = get_option('cptg_cpts');
-
+	// get edit key
+	$key = $_GET['key'];
+	$cpt = get_option( $key );
 	
-	// load cpts to edit -----
-	
-	// $post_type
-	$cpt_post_type = $cptg_options[$num]["post_type"];
-	
-	// $args
-	
-		// label
-		$cpt_label					= $cptg_options[$num]["label"];
-	
-		// labels
-		$cpt_labels					= $cptg_options[$num]["labels"];
+	// load cpt to edit
+	$cpt_post_type = $cpt["post_type"];
+	$cpt_label					= $cpt["label"];
 		
-		$cpt_description			= $cptg_options[$num]["description"];
-		$cpt_public					= $cptg_options[$num]["public"];
-		$publicly_queryable			= $cptg_options[$num]["publicly_queryable"];
-		$cpt_exclude_from_search	= ( isset( $cptg_options[$num]["exclude_from_search"] ) ) ? $cptg_options[$num]["exclude_from_search"] : null;
-		$cpt_showui					= $cptg_options[$num]["show_ui"];
-		$cpt_show_in_nav_menus		= ( isset( $cptg_options[$num]["show_in_nav_menus"] ) ) ? $cptg_options[$num]["show_in_nav_menus"] : null;
-		$cpt_show_in_menu			= ( isset( $cptg_options[$num]["show_in_menu"] ) ) ? $cptg_options[$num]["show_in_menu"] : null;
-			$cpt_show_in_menu_string	= ( isset( $cptg_options[$num]["show_in_menu_string"] ) ) ? $cptg_options[$num]["show_in_menu_string"] : null;
-		$cpt_menu_position			= $cptg_options[$num]["menu_position"];
-		$cpt_menu_icon				= $cptg_options[$num]["menu_icon"];
-		$cpt_capability				= $cptg_options[$num]["capability_type"];
-		$cpt_hierarchical			= $cptg_options[$num]["hierarchical"];
-		$cpt_supports				= $cptg_options[$num]["supports"];
-		$cpt_has_archive			= ( isset( $cptg_options[$num]["has_archive"] ) ) ? $cptg_options[$num]["has_archive"] : null;
-		$cpt_rewrite				= $cptg_options[$num]["rewrite"];
-			$cpt_rewrite_slug			= $cptg_options[$num]["rewrite_slug"];
-		$cpt_query_var				= $cptg_options[$num]["query_var"];
-		$cpt_can_export				= $cptg_options[$num]["can_export"];
+	// labels
+	$cpt_labels					= $cpt["labels"]; // Array
+		
+	$cpt_description			= $cpt["description"];
+	$cpt_public					= $cpt["public"];
+	$publicly_queryable			= $cpt["publicly_queryable"];
+	$cpt_exclude_from_search	= ( isset( $cpt["exclude_from_search"] ) ) ? $cpt["exclude_from_search"] : null;
+	$cpt_showui					= $cpt["show_ui"];
+	$cpt_show_in_nav_menus		= ( isset( $cpt["show_in_nav_menus"] ) ) ? $cpt["show_in_nav_menus"] : null;
+	$cpt_show_in_menu			= ( isset( $cpt["show_in_menu"] ) ) ? $cpt["show_in_menu"] : null;
+		$cpt_show_in_menu_string	= ( isset( $cpt["show_in_menu_string"] ) ) ? $cpt["show_in_menu_string"] : null;
+	$cpt_menu_position			= $cpt["menu_position"];
+	$cpt_menu_icon				= $cpt["menu_icon"];
+	$cpt_capability				= $cpt["capability_type"];
+	$cpt_hierarchical			= $cpt["hierarchical"];
+	$cpt_supports				= $cpt["supports"];	// Array
+	$cpt_has_archive			= ( isset( $cpt["has_archive"] ) ) ? $cpt["has_archive"] : null;
+	$cpt_rewrite				= $cpt["rewrite"];
+		$cpt_rewrite_slug			= $cpt["rewrite_slug"];
+	$cpt_query_var				= $cpt["query_var"];
+	$cpt_can_export				= $cpt["can_export"];
 		
 		
 	$page_title = __('Edit Custom Post Type', 'cptg');
@@ -80,7 +71,7 @@ flush_rewrite_rules();
 	
 	<!-- edit flg -->
 	<?php if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) : ?>
-		<input type="hidden" name="edit_cpt_num" value="<?php echo esc_attr( $num ); ?>" />
+		<input type="hidden" name="key" value="<?php echo $key; ?>" />
 	<?php endif; ?>
 	
 	<div class="metabox-holder cptg-metabox">

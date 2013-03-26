@@ -2,25 +2,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2013-02-22 19:10+0900\n"
-"PO-Revision-Date: 2013-02-22 19:11+0900\n"
+"PO-Revision-Date: 2013-03-26 18:08+0900\n"
 "Last-Translator: hijiri <hijiriworld@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
-"X-Poedit-KeywordsList: _e;__\n"
 
 #: custom-post-type-generator.php:71
 msgid "Custom Post Type"
 msgstr "カスタム投稿タイプ"
 
-#: custom-post-type-generator.php:72
-#: custom-post-type-generator.php:74
-#: custom-post-type-generator.php:126
-#: include/manage_cpt.php:7
-#: include/manage_tax.php:7
-#: include/regist_cpt.php:53
+#: custom-post-type-generator.php:72 custom-post-type-generator.php:74
+#: custom-post-type-generator.php:126 include/manage_cpt.php:7
+#: include/manage_tax.php:7 include/regist_cpt.php:53
 #: include/regist_tax.php:31
 msgid "Add New"
 msgstr "新規追加"
@@ -77,8 +72,7 @@ msgstr "人気のタグ"
 msgid "All Tags"
 msgstr "すべてのタグ"
 
-#: custom-post-type-generator.php:198
-#: custom-post-type-generator.php:199
+#: custom-post-type-generator.php:198 custom-post-type-generator.php:199
 msgid "Parent Category"
 msgstr "親カテゴリー"
 
@@ -132,40 +126,31 @@ msgid ""
 "that."
 msgstr "カスタム投稿タイプを削除しても記事自体は削除されません。"
 
-#: include/manage_cpt.php:27
-#: include/manage_cpt.php:33
+#: include/manage_cpt.php:27 include/manage_cpt.php:33
 #: include/regist_cpt.php:93
 msgid "Post Type"
 msgstr "カスタム投稿"
 
-#: include/manage_cpt.php:28
-#: include/manage_cpt.php:34
-#: include/manage_tax.php:28
-#: include/manage_tax.php:36
-#: include/regist_cpt.php:102
-#: include/regist_tax.php:84
+#: include/manage_cpt.php:28 include/manage_cpt.php:34
+#: include/manage_tax.php:28 include/manage_tax.php:36
+#: include/regist_cpt.php:102 include/regist_tax.php:84
 msgid "Label"
 msgstr "ラベル"
 
-#: include/manage_cpt.php:60
-#: include/manage_cpt.php:62
-#: include/manage_tax.php:63
-#: include/manage_tax.php:65
+#: include/manage_cpt.php:60 include/manage_cpt.php:62
+#: include/manage_tax.php:63 include/manage_tax.php:65
 msgid "Edit this item"
 msgstr ""
 
-#: include/manage_cpt.php:62
-#: include/manage_tax.php:65
+#: include/manage_cpt.php:62 include/manage_tax.php:65
 msgid "Edit"
 msgstr "編集"
 
-#: include/manage_cpt.php:63
-#: include/manage_tax.php:66
+#: include/manage_cpt.php:63 include/manage_tax.php:66
 msgid "Move this item to the Trash"
 msgstr ""
 
-#: include/manage_cpt.php:63
-#: include/manage_tax.php:66
+#: include/manage_cpt.php:63 include/manage_tax.php:66
 msgid "Delete"
 msgstr "削除"
 
@@ -190,22 +175,18 @@ msgid ""
 "If you delete Custom Taxonomy, Contents will not delete which belong to that."
 msgstr "カスタム分類を削除しても記事自体は削除されません。"
 
-#: include/manage_tax.php:27
-#: include/manage_tax.php:35
+#: include/manage_tax.php:27 include/manage_tax.php:35
 #: include/regist_tax.php:75
 msgid "Taxonomy"
 msgstr "カスタム分類"
 
-#: include/manage_tax.php:29
-#: include/manage_tax.php:37
+#: include/manage_tax.php:29 include/manage_tax.php:37
 #: include/regist_tax.php:91
 msgid "Attached Post Types"
 msgstr "投稿タイプ"
 
-#: include/manage_tax.php:30
-#: include/manage_tax.php:38
-#: include/regist_cpt.php:309
-#: include/regist_tax.php:245
+#: include/manage_tax.php:30 include/manage_tax.php:38
+#: include/regist_cpt.php:309 include/regist_tax.php:245
 msgid "Hierarchical"
 msgstr ""
 
@@ -213,8 +194,7 @@ msgstr ""
 msgid "Edit Custom Post Type"
 msgstr "カスタム投稿タイプの編集"
 
-#: include/regist_cpt.php:48
-#: include/regist_tax.php:26
+#: include/regist_cpt.php:48 include/regist_tax.php:26
 msgid "Update"
 msgstr "更新"
 
@@ -227,8 +207,7 @@ msgstr "新規カスタム投稿タイプを追加"
 msgid "Post Type is required."
 msgstr "カスタム投稿名は必須です。"
 
-#: include/regist_cpt.php:88
-#: include/regist_tax.php:69
+#: include/regist_cpt.php:88 include/regist_tax.php:69
 msgid "Basic"
 msgstr "基本設定"
 
@@ -240,10 +219,8 @@ msgstr ""
 msgid "max. 20 characters, can not contain capital letters or spaces"
 msgstr "半角英数字20文字以内"
 
-#: include/regist_cpt.php:105
-#: include/regist_cpt.php:150
-#: include/regist_cpt.php:157
-#: include/regist_cpt.php:324
+#: include/regist_cpt.php:105 include/regist_cpt.php:150
+#: include/regist_cpt.php:157 include/regist_cpt.php:324
 msgid "(Default: $post_type)"
 msgstr ""
 
@@ -307,20 +284,16 @@ msgstr "フォーマット"
 msgid "Has Archive"
 msgstr "アーカイブ"
 
-#: include/regist_cpt.php:135
-#: include/regist_cpt.php:266
-#: include/regist_cpt.php:313
-#: include/regist_tax.php:249
+#: include/regist_cpt.php:135 include/regist_cpt.php:266
+#: include/regist_cpt.php:313 include/regist_tax.php:249
 msgid "(Default: false)"
 msgstr ""
 
-#: include/regist_cpt.php:143
-#: include/regist_tax.php:114
+#: include/regist_cpt.php:143 include/regist_tax.php:114
 msgid "Label Options"
 msgstr "ラベル設定"
 
-#: include/regist_cpt.php:147
-#: include/regist_tax.php:118
+#: include/regist_cpt.php:147 include/regist_tax.php:118
 msgid "singular name"
 msgstr ""
 
@@ -328,8 +301,7 @@ msgstr ""
 msgid "menu name"
 msgstr ""
 
-#: include/regist_cpt.php:161
-#: include/regist_tax.php:142
+#: include/regist_cpt.php:161 include/regist_tax.php:142
 msgid "all items"
 msgstr ""
 
@@ -345,8 +317,7 @@ msgstr ""
 msgid "(Default: Add New)"
 msgstr "(Default: 新規追加)"
 
-#: include/regist_cpt.php:175
-#: include/regist_tax.php:182
+#: include/regist_cpt.php:175 include/regist_tax.php:182
 msgid "add new item"
 msgstr ""
 
@@ -378,8 +349,7 @@ msgstr ""
 msgid "(Default: View Post)"
 msgstr "(Default: 投稿を表示)"
 
-#: include/regist_cpt.php:203
-#: include/regist_tax.php:126
+#: include/regist_cpt.php:203 include/regist_tax.php:126
 msgid "search items"
 msgstr ""
 
@@ -403,8 +373,7 @@ msgstr ""
 msgid "(Default: No posts found in Trash.)"
 msgstr "(Default: ゴミ箱内に投稿が見つかりませんでした。)"
 
-#: include/regist_cpt.php:224
-#: include/regist_tax.php:158
+#: include/regist_cpt.php:224 include/regist_tax.php:158
 msgid "parent item colon"
 msgstr ""
 
@@ -412,8 +381,7 @@ msgstr ""
 msgid "(Default: Parent Page)"
 msgstr "(Default: 親ページ)"
 
-#: include/regist_cpt.php:236
-#: include/regist_tax.php:225
+#: include/regist_cpt.php:236 include/regist_tax.php:225
 msgid "Advanced Options"
 msgstr "高度な設定"
 
@@ -421,23 +389,16 @@ msgstr "高度な設定"
 msgid "Description"
 msgstr ""
 
-#: include/regist_cpt.php:246
-#: include/regist_tax.php:229
+#: include/regist_cpt.php:246 include/regist_tax.php:229
 msgid "Public"
 msgstr ""
 
-#: include/regist_cpt.php:250
-#: include/regist_cpt.php:258
-#: include/regist_cpt.php:274
-#: include/regist_cpt.php:282
-#: include/regist_cpt.php:290
-#: include/regist_cpt.php:321
-#: include/regist_cpt.php:334
-#: include/regist_cpt.php:342
-#: include/regist_tax.php:233
-#: include/regist_tax.php:241
-#: include/regist_tax.php:257
-#: include/regist_tax.php:269
+#: include/regist_cpt.php:250 include/regist_cpt.php:258
+#: include/regist_cpt.php:274 include/regist_cpt.php:282
+#: include/regist_cpt.php:290 include/regist_cpt.php:321
+#: include/regist_cpt.php:334 include/regist_cpt.php:342
+#: include/regist_tax.php:233 include/regist_tax.php:241
+#: include/regist_tax.php:257 include/regist_tax.php:269
 msgid "(Default: true)"
 msgstr ""
 
@@ -449,8 +410,7 @@ msgstr ""
 msgid "Exclude From Search"
 msgstr ""
 
-#: include/regist_cpt.php:270
-#: include/regist_tax.php:237
+#: include/regist_cpt.php:270 include/regist_tax.php:237
 msgid "Show UI"
 msgstr ""
 
@@ -482,18 +442,15 @@ msgstr ""
 msgid "(Default: post)"
 msgstr ""
 
-#: include/regist_cpt.php:317
-#: include/regist_tax.php:253
+#: include/regist_cpt.php:317 include/regist_tax.php:253
 msgid "Rewrite"
 msgstr ""
 
-#: include/regist_cpt.php:323
-#: include/regist_tax.php:259
+#: include/regist_cpt.php:323 include/regist_tax.php:259
 msgid "Custom Rewrite Slug"
 msgstr ""
 
-#: include/regist_cpt.php:330
-#: include/regist_tax.php:265
+#: include/regist_cpt.php:330 include/regist_tax.php:265
 msgid "Query Var"
 msgstr ""
 
@@ -516,7 +473,7 @@ msgstr "タクソノミー名は必須です。"
 
 #: include/regist_tax.php:47
 msgid "You must allocate at least 1 of Custom Post Type to Custom Taxonomy."
-msgstr "ポストタイプを割り当ててください。"
+msgstr "投稿タイプを割り当ててください。"
 
 #: include/regist_tax.php:76
 msgid "($taxonomy)"
@@ -526,8 +483,7 @@ msgstr ""
 msgid "max. 32 characters, can not contain capital letters or spaces"
 msgstr "半角英数字32文字以内"
 
-#: include/regist_tax.php:87
-#: include/regist_tax.php:121
+#: include/regist_tax.php:87 include/regist_tax.php:121
 #: include/regist_tax.php:260
 msgid "(Default: $taxonomy)"
 msgstr ""
@@ -552,8 +508,7 @@ msgstr "(Default: すべてのタグ)"
 msgid "parent item"
 msgstr ""
 
-#: include/regist_tax.php:153
-#: include/regist_tax.php:161
+#: include/regist_tax.php:153 include/regist_tax.php:161
 msgid "(Default: Parent Category)"
 msgstr "(Default: 親カテゴリー)"
 

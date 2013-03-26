@@ -4,23 +4,21 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_tax' ) {
 	
 	check_admin_referer('nonce_regist_tax');
 
-	// get edit num
-	$num = intval($_GET['num']);
-
-	// get_option taxs
-	$cptg_taxs = get_option('cptg_taxs');
-
-	// load taxs to edit
-	$tax_taxonomy		= $cptg_taxs[$num]["taxonomy"];
-	$tax_label			= $cptg_taxs[$num]["label"];
-	$tax_hierarchical	= $cptg_taxs[$num]["hierarchical"];
-	$tax_show_ui		= $cptg_taxs[$num]["show_ui"];
-	$tax_query_var		= $cptg_taxs[$num]["query_var"];
-	$tax_rewrite		= $cptg_taxs[$num]["rewrite"];
-	$tax_rewrite_slug	= $cptg_taxs[$num]["rewrite_slug"];
+	// get edit key
+	$key = $_GET['key'];
+	$tax = get_option( $key );
 	
-	$tax_labels			= $cptg_taxs[$num]["labels"]; // Array
-	$tax_post_types		= $cptg_taxs[$num]["post_types"]; // Array
+	// load tax to edit
+	$tax_taxonomy		= $tax["taxonomy"];
+	$tax_label			= $tax["label"];
+	$tax_hierarchical	= $tax["hierarchical"];
+	$tax_show_ui		= $tax["show_ui"];
+	$tax_query_var		= $tax["query_var"];
+	$tax_rewrite		= $tax["rewrite"];
+	$tax_rewrite_slug	= $tax["rewrite_slug"];
+	
+	$tax_labels			= $tax["labels"];		// Array
+	$tax_post_types		= $tax["post_types"];	// Array
 	
 	$page_title = __('Edit Custom Taxonomy', 'cptg');
 	$submit_title = __('Update', 'cptg');
@@ -58,7 +56,7 @@ flush_rewrite_rules();
 	
 	<!-- edit flg -->
 	<?php if ( isset($_GET['action']) && $_GET['action'] == 'edit_tax' ) : ?>
-		<input type="hidden" name="edit_tax_num" value="<?php echo $num; ?>" />
+		<input type="hidden" name="key" value="<?php echo $key; ?>" />
 	<?php endif; ?>
 	
 	
