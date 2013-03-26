@@ -41,7 +41,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 		$cpt_rewrite				= $cptg_options[$num]["rewrite"];
 			$cpt_rewrite_slug			= $cptg_options[$num]["rewrite_slug"];
 		$cpt_query_var				= $cptg_options[$num]["query_var"];
-		$cpt_can_export				= $cptg_options[$num]["cpt_can_export"];
+		$cpt_can_export				= $cptg_options[$num]["can_export"];
 		
 		
 	$page_title = __('Edit Custom Post Type', 'cptg');
