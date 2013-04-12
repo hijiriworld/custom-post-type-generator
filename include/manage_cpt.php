@@ -19,14 +19,18 @@ $pre_results = $wpdb->get_results($sql);
 // cptg_orderに従ってソート
 $cptg_order = get_option('cptg_order');
 
-$order = $cptg_order['cptg'];
+if ( is_array( $cptg_order ) ) {
+	$order = $cptg_order['cptg'];
 
-foreach( $order as $num ) {
-	foreach( $pre_results as $pre_result ) {
-		if ( $num == $pre_result->option_id ) {
-			$results[] = $pre_result;
+	foreach( $order as $num ) {
+		foreach( $pre_results as $pre_result ) {
+			if ( $num == $pre_result->option_id ) {
+				$results[] = $pre_result;
+			}
 		}
 	}
+} else {
+	$results = $pre_results;
 }
 
 ?>
