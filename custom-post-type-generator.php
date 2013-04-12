@@ -5,7 +5,7 @@ Plugin URI: http://hijiriworld.com/web/plugins/custom-post-type-generator/
 Description: Generate Custom Post Types and Custom Taxonomies, from the admin interface which is easy to understand. it's a must have for any user working with WordPress.
 Author: hijiri
 Author URI: http://hijiriworld.com/web/
-Version: 2.0.0
+Version: 2.1.1
 */
 
 /*  Copyright 2013 hijiri
@@ -61,6 +61,8 @@ class Cptg
 			add_action( 'admin_head', array($this, 'cptg_js') );
 			add_action( 'admin_head', array($this, 'cptg_css') );
 		}
+		
+		add_action( 'wp_ajax_update-cptg-order', array( &$this, 'update_cptg_order' ) );
 	}
 	
 	function add_menus()
@@ -91,12 +93,21 @@ class Cptg
 	function cptg_js()
 	{
 		wp_enqueue_script( 'jquery' );
+		wp_enqueue_script( 'jquery-ui-sortable' );
 		wp_enqueue_script( 'cptg', plugins_url('/js/cptg.js', __FILE__) );
 	}
 	function cptg_css()
 	{
 		wp_enqueue_style( 'cptg', plugins_url('/css/cptg.css', __FILE__), array(), null );
     }
+	
+	function update_cptg_order()
+	{
+		parse_str($_POST['order'], $data);
+		if ( is_array($data) ) {
+			update_option('cptg_order', $data);
+		}
+	}
 	
 	/************************************************************************************************
 				
@@ -123,8 +134,21 @@ class Cptg
 				option_id ASC
 			";
 		
-		$results = $wpdb->get_results($sql);
-		
+		$pre_results = $wpdb->get_results($sql);
+
+		// cptg_orderに従ってソート
+		$cptg_order = get_option('cptg_order');
+
+		$order = $cptg_order['cptg'];
+
+		foreach( $order as $num ) {
+			foreach( $pre_results as $pre_result ) {
+				if ( $num == $pre_result->option_id ) {
+					$results[] = $pre_result;
+				}
+			}
+		}
+
 		if ( is_array( $results ) ) {
 			foreach ( $results as $result ) {
 				

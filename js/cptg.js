@@ -29,4 +29,28 @@ jQuery(function() {
 			return true;
 		}
 	});
+	
+	// sortable
+	jQuery(document).ready(function() {
+		jQuery("#cptg-list").sortable({
+			'items': 'tr',
+			'axis': 'y',
+			'helper': fixHelper,
+			'update' : function(e, ui) {
+				jQuery.post( ajaxurl, {
+					action: 'update-cptg-order',
+					order: jQuery("#cptg-list").sortable("serialize"),
+				});
+			}
+		});
+		//jQuery("#the-list").disableSelection();
+	});
+	
+	var fixHelper = function(e, ui) {
+		ui.children().children().each(function() {
+			jQuery(this).width(jQuery(this).width());
+		});
+		return ui;
+	};
+
 });

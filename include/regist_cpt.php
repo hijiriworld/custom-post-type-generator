@@ -17,7 +17,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 		
 	$cpt_description			= $cpt["description"];
 	$cpt_public					= $cpt["public"];
-	$publicly_queryable			= $cpt["publicly_queryable"];
+	$cpt_publicly_queryable		= $cpt["publicly_queryable"];
 	$cpt_exclude_from_search	= ( isset( $cpt["exclude_from_search"] ) ) ? $cpt["exclude_from_search"] : null;
 	$cpt_showui					= $cpt["show_ui"];
 	$cpt_show_in_nav_menus		= ( isset( $cpt["show_in_nav_menus"] ) ) ? $cpt["show_in_nav_menus"] : null;

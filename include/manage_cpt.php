@@ -13,8 +13,21 @@ $sql = "SELECT
 	ORDER BY 
 		option_id ASC
 	";
-		 
-$results = $wpdb->get_results($sql);
+
+$pre_results = $wpdb->get_results($sql);
+
+// cptg_orderに従ってソート
+$cptg_order = get_option('cptg_order');
+
+$order = $cptg_order['cptg'];
+
+foreach( $order as $num ) {
+	foreach( $pre_results as $pre_result ) {
+		if ( $num == $pre_result->option_id ) {
+			$results[] = $pre_result;
+		}
+	}
+}
 
 ?>
 
@@ -55,6 +68,7 @@ $results = $wpdb->get_results($sql);
 		</tr>
 	</tfoot>
 	
+	<tbody id="cptg-list">
 	<?php if ( is_array( $results ) ) : ?>
 		
 		<?php foreach ( $results as $result ) : ?>
@@ -68,7 +82,7 @@ $results = $wpdb->get_results($sql);
 				$edit_url = admin_url( 'admin.php?page=regist_cpt' ) .'&action=edit_cpt&key=' .$result->option_name;
 				$edit_url = ( function_exists('wp_nonce_url') ) ? wp_nonce_url($edit_url, 'nonce_regist_cpt') : $edit_url;
 			?>
-			<tr>
+			<tr id="cptg-<?php echo $result->option_id; ?>">
 				<td valign="top">
 					<strong><a class="row-title" href="<?php echo $edit_url; ?>" title="<?php _e('Edit this item'); ?>"><?php echo stripslashes($cpt['post_type']); ?></a></strong>
 					<div class="row-actions">
@@ -81,6 +95,7 @@ $results = $wpdb->get_results($sql);
 		<?php endforeach; ?>
 		
 	<?php endif; ?>
+	</tbody>
 
 </table>
 

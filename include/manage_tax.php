@@ -57,6 +57,7 @@ $results = $wpdb->get_results($sql);
 		</tr>
 	</tfoot>
 	
+	<tbody>
 	<?php if ( is_array( $results ) ) : ?>
 	
 	<?php foreach ( $results as $result ) : ?>
@@ -93,7 +94,8 @@ $results = $wpdb->get_results($sql);
 		</tr>
 		
 	<?php endforeach; ?>
-
+	</tbody>
+	
 </table>
 		
 	<?php endif; ?>
