@@ -21,12 +21,16 @@ $cptg_order = get_option('cptg_order');
 
 if ( is_array( $cptg_order ) ) {
 	$order = $cptg_order['cptg'];
-
 	foreach( $order as $num ) {
 		foreach( $pre_results as $pre_result ) {
 			if ( $num == $pre_result->option_id ) {
 				$results[] = $pre_result;
 			}
+		}
+	}
+	foreach( $pre_results as $pre_result ) {
+		if ( !in_array( $pre_result->option_id, $order ) ) {
+			$results[] = $pre_result;
 		}
 	}
 } else {
