@@ -26,7 +26,7 @@ $pre_results = $wpdb->get_results($sql);
 
 // sort from cptg_order
 $cptg_order = get_option('cptg_order');
-if ( isset( $cptg_order ) ) {
+if ( $cptg_order ) {
 	$order = $cptg_order['cptg'];
 	foreach( $order as $num ) {
 		foreach( $pre_results as $pre_result ) {
