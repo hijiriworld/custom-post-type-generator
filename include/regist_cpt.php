@@ -18,17 +18,15 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 	$cpt_description			= $cpt["description"];
 	$cpt_public					= $cpt["public"];
 	$cpt_publicly_queryable		= $cpt["publicly_queryable"];
-	$cpt_exclude_from_search	= ( isset( $cpt["exclude_from_search"] ) ) ? $cpt["exclude_from_search"] : null;
+	$cpt_exclude_from_search	= isset( $cpt["exclude_from_search"] ) ? $cpt["exclude_from_search"] : null;
 	$cpt_showui					= $cpt["show_ui"];
-	$cpt_show_in_nav_menus		= ( isset( $cpt["show_in_nav_menus"] ) ) ? $cpt["show_in_nav_menus"] : null;
-	$cpt_show_in_menu			= ( isset( $cpt["show_in_menu"] ) ) ? $cpt["show_in_menu"] : null;
-		$cpt_show_in_menu_string	= ( isset( $cpt["show_in_menu_string"] ) ) ? $cpt["show_in_menu_string"] : null;
+	$cpt_show_in_nav_menus		= isset( $cpt["show_in_nav_menus"] ) ? $cpt["show_in_nav_menus"] : null;
 	$cpt_menu_position			= $cpt["menu_position"];
 	$cpt_menu_icon				= $cpt["menu_icon"];
 	$cpt_capability				= $cpt["capability_type"];
 	$cpt_hierarchical			= $cpt["hierarchical"];
 	$cpt_supports				= $cpt["supports"];	// Array
-	$cpt_has_archive			= ( isset( $cpt["has_archive"] ) ) ? $cpt["has_archive"] : null;
+	$cpt_has_archive			= isset( $cpt["has_archive"] ) ? $cpt["has_archive"] : null;
 	$cpt_rewrite				= $cpt["rewrite"];
 		$cpt_rewrite_slug			= $cpt["rewrite_slug"];
 	$cpt_query_var				= $cpt["query_var"];
@@ -271,18 +269,6 @@ flush_rewrite_rules();
 							<select name="input_cpt[show_in_nav_menus]">
 								<?php echo_boolean_options($cpt_show_in_nav_menus, 1); ?>
 							</select> <?php _e('(Default: true)', 'cptg') ?>
-						</td>
-					</tr>
-					<tr valign="top">
-						<th scope="row"><?php _e('Show in Menu', 'cptg') ?></th>
-						<td>
-							<select name="input_cpt[show_in_menu]">
-								<?php echo_boolean_options($cpt_show_in_menu, 1); ?>
-							</select> <?php _e('(Default: true)', 'cptg') ?>
-							<p>
-								<?php _e('top level page', 'cptg'); ?> 
-								<input type="text" name="input_cpt[show_in_menu_string]" value="<?php if (isset($cpt_show_in_menu_string)) { echo esc_attr($cpt_show_in_menu_string); } ?>" /> (e.g. plugins.php)
-							</p>
 						</td>
 					</tr>
 					<tr valign="top">

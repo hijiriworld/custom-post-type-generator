@@ -30,6 +30,20 @@ jQuery(function() {
 		}
 	});
 	
+/*
+	
+	jQuery("#cptg_export_form").submit(function() {
+		jQuery(".error-cptg").hide();
+		if ( !jQuery('#cptg_cpt').val() ) {
+			jQuery("#error1").show();
+			window.scrollTo(0, 0);
+			return false;
+		} else {
+			return true;
+		}
+	});
+*/
+	
 	// sortable
 	jQuery(document).ready(function() {
 		jQuery("#cptg-list").sortable({
