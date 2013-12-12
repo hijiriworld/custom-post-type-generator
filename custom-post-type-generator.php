@@ -5,7 +5,7 @@ Plugin URI: http://hijiriworld.com/web/plugins/custom-post-type-generator/
 Description: Generate Custom Post Types and Custom Taxonomies, from the admin interface which is easy to understand. it's a must have for any user working with WordPress.
 Author: hijiri
 Author URI: http://hijiriworld.com/web/
-Version: 2.2.1
+Version: 2.2.2
 */
 
 /*  Copyright 2013 hijiri
@@ -142,7 +142,7 @@ class Cptg
 		
 		$pre_results = $wpdb->get_results($sql);
 
-		// cptg_orderに従ってソート
+		// sort from 'cptg_order'
 		$cptg_order = get_option('cptg_order');
 		
 		if ( $cptg_order ) {
@@ -338,9 +338,27 @@ class Cptg
 	}
 	function delete_cpt()
 	{
+		global $wpdb;
+		
 		check_admin_referer( 'nonce_del_cpt' );
 		$key = $_GET['key'];
+		
+		// delete id from cptg_order
+		$cptg_order = get_option('cptg_order');
+		if ( $cptg_order ) {
+			$result = $wpdb->get_results( "SELECT option_id FROM $wpdb->options WHERE option_name = '$key'", OBJECT );
+			$key_id = $result[0]->option_id;
+			$order = $cptg_order['cptg'];
+			$offset = array_keys($order, $key_id);
+			if ( !empty($offset) ) {
+				array_splice($order, $offset[0], 1);
+				update_option('cptg_order', array( 'cptg' => $order ) );
+			}	
+		}
+		
+		// delete cptg_xxx
 		delete_option( $key );
+		
 		wp_redirect( 'admin.php?page=cptg-manage-cpt&msg=del' );
 	}
 	function add_tax()
