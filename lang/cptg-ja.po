@@ -1,0 +1,715 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2013-05-22 12:03+0900\n"
+"PO-Revision-Date: 2013-05-22 12:04+0900\n"
+"Last-Translator: hijiri <hijiriworld@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: __;_;_e\n"
+
+#: custom-post-type-generator.php:70
+msgid "Custom Post Type"
+msgstr "カスタム投稿タイプ"
+
+#: custom-post-type-generator.php:71
+#: custom-post-type-generator.php:73
+#: custom-post-type-generator.php:180
+#: include/export.php:128
+#: include/manage_cpt.php:82
+#: include/manage_tax.php:60
+#: include/regist_cpt.php:42
+#: include/regist_tax.php:29
+msgid "Add New"
+msgstr "新規追加"
+
+#: custom-post-type-generator.php:72
+msgid "Custom Taxonomy"
+msgstr "カスタム分類"
+
+#: custom-post-type-generator.php:74
+#: include/export.php:300
+msgid "Export"
+msgstr ""
+
+#: custom-post-type-generator.php:179
+#: include/export.php:127
+msgid "All Posts"
+msgstr "投稿一覧"
+
+#: custom-post-type-generator.php:181
+#: include/export.php:129
+msgid "Add New Post"
+msgstr "新規投稿を追加"
+
+#: custom-post-type-generator.php:182
+#: include/export.php:130
+msgid "Edit Post"
+msgstr "投稿の編集"
+
+#: custom-post-type-generator.php:183
+#: include/export.php:131
+msgid "New Post"
+msgstr "新規投稿"
+
+#: custom-post-type-generator.php:184
+#: include/export.php:132
+msgid "View Post"
+msgstr "投稿を表示"
+
+#: custom-post-type-generator.php:185
+#: include/export.php:133
+msgid "Search Posts"
+msgstr "投稿を検索"
+
+#: custom-post-type-generator.php:186
+#: include/export.php:134
+msgid "No posts found."
+msgstr "投稿が見つかりませんでした。"
+
+#: custom-post-type-generator.php:187
+#: include/export.php:135
+msgid "No posts found in Trash."
+msgstr "ゴミ箱内に投稿が見つかりませんでした。"
+
+#: custom-post-type-generator.php:188
+#: include/export.php:136
+msgid "Parent Page"
+msgstr "親ページ"
+
+#: custom-post-type-generator.php:262
+#: include/export.php:230
+msgid "Search Tags"
+msgstr "タグを検索"
+
+#: custom-post-type-generator.php:263
+#: include/export.php:231
+msgid "Popular Tags"
+msgstr "人気のタグ"
+
+#: custom-post-type-generator.php:264
+#: include/export.php:232
+msgid "All Tags"
+msgstr "すべてのタグ"
+
+#: custom-post-type-generator.php:265
+#: custom-post-type-generator.php:266
+#: include/export.php:233
+#: include/export.php:234
+msgid "Parent Category"
+msgstr "親カテゴリー"
+
+#: custom-post-type-generator.php:267
+#: include/export.php:235
+msgid "Edit Tag"
+msgstr "タグの編集"
+
+#: custom-post-type-generator.php:268
+#: include/export.php:236
+msgid "Update Tag"
+msgstr "タグを更新"
+
+#: custom-post-type-generator.php:269
+#: include/export.php:237
+msgid "Add New Tag"
+msgstr "新規タグを追加"
+
+#: custom-post-type-generator.php:270
+#: include/export.php:238
+msgid "New Tag Name"
+msgstr "新規タグ名"
+
+#: custom-post-type-generator.php:271
+#: include/export.php:239
+msgid "Separate tags with commas"
+msgstr "タグが複数ある場合はコンマで区切ってください"
+
+#: custom-post-type-generator.php:272
+#: include/export.php:240
+msgid "Add or remove tags"
+msgstr "タグの追加もしくは削除"
+
+#: custom-post-type-generator.php:273
+#: include/export.php:241
+msgid "Choose from the most used tags"
+msgstr "よく使われているタグから選択"
+
+#: include/export.php:302
+#: include/export.php:353
+msgid "Export to PHP"
+msgstr ""
+
+#: include/export.php:304
+msgid ""
+"Custom Post Type Generator will create the PHP code to include in your theme."
+msgstr ""
+"Custom Post Type GeneratorプラグインはPHPコードを生成することができます。"
+
+#: include/export.php:306
+msgid ""
+"Registered Custom Post Type and Taxonomy will not appear in the list of "
+"editable object."
+msgstr ""
+"PHPコードによって登録されたカスタム投稿タイプおよびカスタム分類は、編集可能な"
+"オブジェクトリストには表示されません。"
+
+#: include/export.php:306
+msgid "This is useful for including Custom Post Type and Taxonomy in themes."
+msgstr ""
+"これは、テーマにカスタム投稿タイプおよびカスタム分類を含める場合に役立ちま"
+"す。"
+
+#: include/export.php:309
+msgid ""
+"Select Custom Post Type(s) and Taxonomy(s) from the list and click \"Export "
+"to PHP\"."
+msgstr ""
+"リストからカスタム投稿タイプおよびカスタム分類を選択して「Export to PHP」ボタ"
+"ンをクリックしてください。"
+
+#: include/export.php:310
+msgid "Copy the PHP code generated."
+msgstr "生成されたPHPコードをコピーしてください。"
+
+#: include/export.php:311
+msgid "Paste into your functions.php file."
+msgstr "テーマのfunctions.phpファイルにペーストしてください。"
+
+#: include/export.php:319
+#: include/manage_cpt.php:81
+msgid "Custom Post Types"
+msgstr "カスタム投稿タイプ"
+
+#: include/export.php:330
+#: include/manage_cpt.php:135
+msgid "No Custom Post Type found."
+msgstr "カスタム投稿タイプが見つかりませんでした。"
+
+#: include/export.php:335
+#: include/manage_tax.php:59
+msgid "Custom Taxonomies"
+msgstr "カスタム分類"
+
+#: include/export.php:346
+#: include/manage_tax.php:128
+msgid "No Taxonomy found."
+msgstr "カスタム分類が見つかりませんでした。"
+
+#: include/manage_cpt.php:88
+msgid "Custom Post Type is new added."
+msgstr "カスタム投稿タイプを追加しました。"
+
+#: include/manage_cpt.php:90
+msgid "Custom Post Type id edited."
+msgstr "カスタム投稿タイプを編集しました。"
+
+#: include/manage_cpt.php:92
+msgid "Custom Post Type id deleted."
+msgstr "カスタム投稿タイプを削除しました。"
+
+#: include/manage_cpt.php:100
+#: include/manage_cpt.php:106
+#: include/manage_cpt.php:153
+#: include/manage_cpt.php:159
+#: include/regist_cpt.php:82
+msgid "Post Type"
+msgstr "カスタム投稿タイプ"
+
+#: include/manage_cpt.php:101
+#: include/manage_cpt.php:107
+#: include/manage_cpt.php:154
+#: include/manage_cpt.php:160
+#: include/manage_tax.php:79
+#: include/manage_tax.php:87
+#: include/manage_tax.php:147
+#: include/manage_tax.php:155
+#: include/regist_cpt.php:91
+#: include/regist_tax.php:82
+msgid "Label"
+msgstr "ラベル"
+
+#: include/manage_cpt.php:125
+#: include/manage_cpt.php:127
+#: include/manage_tax.php:106
+#: include/manage_tax.php:108
+msgid "Edit this item"
+msgstr ""
+
+#: include/manage_cpt.php:127
+#: include/manage_tax.php:108
+msgid "Edit"
+msgstr "編集"
+
+#: include/manage_cpt.php:128
+#: include/manage_tax.php:109
+msgid "Move this item to the Trash"
+msgstr ""
+
+#: include/manage_cpt.php:128
+#: include/manage_tax.php:109
+msgid "Delete"
+msgstr "削除"
+
+#: include/manage_cpt.php:140
+msgid ""
+"If you delete Custom Post Type(s), Contents will not delete which belong to "
+"that."
+msgstr "カスタム投稿タイプを削除しても記事自体は削除されません。"
+
+#: include/manage_cpt.php:140
+msgid "You can change Order using a Drag and Drop Sortable JavaScript."
+msgstr "ドラッグアンドドロップで並び順を変更できます。"
+
+#: include/manage_cpt.php:146
+msgid "Other Custom Post Types"
+msgstr "他のカスタム投稿タイプ"
+
+#: include/manage_cpt.php:148
+msgid "The Custom Post Types below are registered in your Theme or WordPress."
+msgstr ""
+"以下のカスタム投稿タイプは、テーマ内もしくはWordPressで登録されているもので"
+"す。"
+
+#: include/manage_tax.php:66
+msgid "Custom Taxonomy is new added."
+msgstr "カスタム分類を追加しました。"
+
+#: include/manage_tax.php:68
+msgid "Custom Taxonomy id edited."
+msgstr "カスタム分類を編集しました。"
+
+#: include/manage_tax.php:70
+msgid "Custom Taxonomy id deleted."
+msgstr "カスタム分類を削除しました。"
+
+#: include/manage_tax.php:78
+#: include/manage_tax.php:86
+#: include/manage_tax.php:146
+#: include/manage_tax.php:154
+#: include/regist_tax.php:73
+msgid "Taxonomy"
+msgstr "カスタム分類"
+
+#: include/manage_tax.php:80
+#: include/manage_tax.php:88
+#: include/manage_tax.php:148
+#: include/manage_tax.php:156
+#: include/regist_cpt.php:286
+#: include/regist_tax.php:243
+msgid "Hierarchical"
+msgstr ""
+
+#: include/manage_tax.php:81
+#: include/manage_tax.php:89
+#: include/manage_tax.php:149
+#: include/manage_tax.php:157
+#: include/regist_tax.php:89
+msgid "Attached Post Types"
+msgstr "適用する投稿タイプ"
+
+#: include/manage_tax.php:133
+msgid ""
+"If you delete Custom Taxonomy(s), Contents will not delete which belong to "
+"that."
+msgstr "カスタム分類を削除しても記事自体は削除されません。"
+
+#: include/manage_tax.php:139
+msgid "Other Custom Taxonomies"
+msgstr "他のカスタム分類"
+
+#: include/manage_tax.php:141
+msgid "The Taxonomies below are registered in your Theme or WordPress."
+msgstr ""
+"以下のカスタム分類は、テーマ内もしくはWordPressで登録されているものです。"
+
+#: include/regist_cpt.php:36
+msgid "Edit Custom Post Type"
+msgstr "カスタム投稿タイプの編集"
+
+#: include/regist_cpt.php:37
+#: include/regist_tax.php:24
+msgid "Update"
+msgstr "更新"
+
+#: include/regist_cpt.php:41
+msgid "Add New Custom Post Type"
+msgstr "新規カスタム投稿タイプを追加"
+
+#: include/regist_cpt.php:58
+msgid "Post Type is required."
+msgstr "カスタム投稿名は必須です。"
+
+#: include/regist_cpt.php:77
+#: include/regist_tax.php:67
+msgid "Basic"
+msgstr "基本設定"
+
+#: include/regist_cpt.php:83
+msgid "($post_type)"
+msgstr ""
+
+#: include/regist_cpt.php:87
+msgid "max. 20 characters, can not contain capital letters or spaces"
+msgstr "スペースを含まない半角英数字20文字以内"
+
+#: include/regist_cpt.php:94
+#: include/regist_cpt.php:139
+#: include/regist_cpt.php:146
+#: include/regist_cpt.php:301
+msgid "(Default: $post_type)"
+msgstr ""
+
+#: include/regist_cpt.php:98
+msgid "Menu Position"
+msgstr "メニューの位置"
+
+#: include/regist_cpt.php:100
+msgid "(Default: null - defaults to below Comments)"
+msgstr "(Default: null - コメントの下)"
+
+#: include/regist_cpt.php:104
+msgid "Supports"
+msgstr "サポート"
+
+#: include/regist_cpt.php:106
+msgid "title"
+msgstr "タイトル"
+
+#: include/regist_cpt.php:107
+msgid "editor"
+msgstr "エディター"
+
+#: include/regist_cpt.php:108
+msgid "author"
+msgstr "作成者"
+
+#: include/regist_cpt.php:109
+msgid "thumbnail"
+msgstr "アイキャッチ画像"
+
+#: include/regist_cpt.php:110
+msgid "excerpt"
+msgstr "抜粋"
+
+#: include/regist_cpt.php:111
+msgid "trackbacks"
+msgstr "トラックバック送信"
+
+#: include/regist_cpt.php:112
+msgid "custom-fields"
+msgstr "カスタムフィールド"
+
+#: include/regist_cpt.php:113
+msgid "comments"
+msgstr "コメント"
+
+#: include/regist_cpt.php:114
+msgid "revisions"
+msgstr "リビジョン"
+
+#: include/regist_cpt.php:115
+msgid "page-attributes"
+msgstr "属性"
+
+#: include/regist_cpt.php:116
+msgid "post-formats"
+msgstr "フォーマット"
+
+#: include/regist_cpt.php:120
+msgid "Has Archive"
+msgstr "アーカイブ"
+
+#: include/regist_cpt.php:124
+#: include/regist_cpt.php:255
+#: include/regist_cpt.php:290
+#: include/regist_tax.php:247
+msgid "(Default: false)"
+msgstr ""
+
+#: include/regist_cpt.php:132
+#: include/regist_tax.php:112
+msgid "Label Options"
+msgstr "ラベル設定"
+
+#: include/regist_cpt.php:136
+#: include/regist_tax.php:116
+msgid "singular name"
+msgstr ""
+
+#: include/regist_cpt.php:143
+msgid "menu name"
+msgstr ""
+
+#: include/regist_cpt.php:150
+#: include/regist_tax.php:140
+msgid "all items"
+msgstr ""
+
+#: include/regist_cpt.php:153
+msgid "(Default: All Posts)"
+msgstr "(Default: 投稿一覧)"
+
+#: include/regist_cpt.php:157
+msgid "add new"
+msgstr ""
+
+#: include/regist_cpt.php:160
+msgid "(Default: Add New)"
+msgstr "(Default: 新規追加)"
+
+#: include/regist_cpt.php:164
+#: include/regist_tax.php:180
+msgid "add new item"
+msgstr ""
+
+#: include/regist_cpt.php:167
+msgid "(Default: Add New Post)"
+msgstr "(Default: 新規投稿を追加)"
+
+#: include/regist_cpt.php:171
+msgid "edit item"
+msgstr ""
+
+#: include/regist_cpt.php:174
+msgid "(Default: Edit Post)"
+msgstr "(Default: 投稿の編集)"
+
+#: include/regist_cpt.php:178
+msgid "new item"
+msgstr ""
+
+#: include/regist_cpt.php:181
+msgid "(Default: New Post)"
+msgstr "(Default: 新規投稿)"
+
+#: include/regist_cpt.php:185
+msgid "view item"
+msgstr ""
+
+#: include/regist_cpt.php:188
+msgid "(Default: View Post)"
+msgstr "(Default: 投稿を表示)"
+
+#: include/regist_cpt.php:192
+#: include/regist_tax.php:124
+msgid "search items"
+msgstr ""
+
+#: include/regist_cpt.php:195
+msgid "(Default: Search Posts)"
+msgstr "(Default: 投稿を検索)"
+
+#: include/regist_cpt.php:199
+msgid "not found"
+msgstr ""
+
+#: include/regist_cpt.php:202
+msgid "(Default: No posts found.)"
+msgstr "(Default: 投稿が見つかりませんでした。)"
+
+#: include/regist_cpt.php:206
+msgid "not found in trash"
+msgstr ""
+
+#: include/regist_cpt.php:209
+msgid "(Default: No posts found in Trash.)"
+msgstr "(Default: ゴミ箱内に投稿が見つかりませんでした。)"
+
+#: include/regist_cpt.php:213
+#: include/regist_tax.php:156
+msgid "parent item colon"
+msgstr ""
+
+#: include/regist_cpt.php:216
+msgid "(Default: Parent Page)"
+msgstr "(Default: 親ページ)"
+
+#: include/regist_cpt.php:225
+#: include/regist_tax.php:223
+msgid "Advanced Options"
+msgstr "高度な設定"
+
+#: include/regist_cpt.php:229
+msgid "Description"
+msgstr ""
+
+#: include/regist_cpt.php:235
+#: include/regist_tax.php:227
+msgid "Public"
+msgstr ""
+
+#: include/regist_cpt.php:239
+#: include/regist_cpt.php:247
+#: include/regist_cpt.php:263
+#: include/regist_cpt.php:271
+#: include/regist_cpt.php:298
+#: include/regist_cpt.php:311
+#: include/regist_cpt.php:319
+#: include/regist_tax.php:231
+#: include/regist_tax.php:239
+#: include/regist_tax.php:255
+#: include/regist_tax.php:267
+msgid "(Default: true)"
+msgstr ""
+
+#: include/regist_cpt.php:243
+msgid "Publicly Queryable"
+msgstr ""
+
+#: include/regist_cpt.php:251
+msgid "Exclude From Search"
+msgstr ""
+
+#: include/regist_cpt.php:259
+#: include/regist_tax.php:235
+msgid "Show UI"
+msgstr ""
+
+#: include/regist_cpt.php:267
+msgid "Show in Nav Menus"
+msgstr ""
+
+#: include/regist_cpt.php:275
+msgid "Menu Icon"
+msgstr ""
+
+#: include/regist_cpt.php:277
+msgid "(Default: null - defaults to the posts icon)"
+msgstr ""
+
+#: include/regist_cpt.php:281
+msgid "Capability Type"
+msgstr ""
+
+#: include/regist_cpt.php:282
+msgid "(Default: post)"
+msgstr ""
+
+#: include/regist_cpt.php:294
+#: include/regist_tax.php:251
+msgid "Rewrite"
+msgstr ""
+
+#: include/regist_cpt.php:300
+#: include/regist_tax.php:257
+msgid "Custom Rewrite Slug"
+msgstr ""
+
+#: include/regist_cpt.php:307
+#: include/regist_tax.php:263
+msgid "Query Var"
+msgstr ""
+
+#: include/regist_cpt.php:315
+msgid "Can Export"
+msgstr ""
+
+#: include/regist_tax.php:23
+msgid "Edit Custom Taxonomy"
+msgstr "カスタム分類を編集"
+
+#: include/regist_tax.php:28
+msgid "Add New Custom Taxonomy"
+msgstr "新規カスタム分類を追加"
+
+#: include/regist_tax.php:41
+msgid "Taxonomy is required."
+msgstr "タクソノミー名は必須です。"
+
+#: include/regist_tax.php:45
+msgid "You must allocate at least 1 of Custom Post Type to Custom Taxonomy."
+msgstr ""
+
+#: include/regist_tax.php:74
+msgid "($taxonomy)"
+msgstr ""
+
+#: include/regist_tax.php:78
+msgid "max. 32 characters, can not contain capital letters or spaces"
+msgstr "スペースを含まない半角英数字32文字以内"
+
+#: include/regist_tax.php:85
+#: include/regist_tax.php:119
+#: include/regist_tax.php:258
+msgid "(Default: $taxonomy)"
+msgstr ""
+
+#: include/regist_tax.php:127
+msgid "(Default: Search Tags)"
+msgstr "(Default: タグを検索)"
+
+#: include/regist_tax.php:132
+msgid "popular items"
+msgstr ""
+
+#: include/regist_tax.php:135
+msgid "(Default: Popular Tags)"
+msgstr "(Default: 人気のタグ)"
+
+#: include/regist_tax.php:143
+msgid "(Default: All Tags)"
+msgstr "(Default: すべてのタグ)"
+
+#: include/regist_tax.php:148
+msgid "parent item"
+msgstr ""
+
+#: include/regist_tax.php:151
+#: include/regist_tax.php:159
+msgid "(Default: Parent Category)"
+msgstr "(Default: 親カテゴリー)"
+
+#: include/regist_tax.php:164
+msgid "edit tag"
+msgstr ""
+
+#: include/regist_tax.php:167
+msgid "(Default: Edit Tag)"
+msgstr "(Default:タグの編集)"
+
+#: include/regist_tax.php:172
+msgid "update item"
+msgstr ""
+
+#: include/regist_tax.php:175
+msgid "(Default: Update Tag)"
+msgstr "(Default: タグを更新)"
+
+#: include/regist_tax.php:183
+msgid "(Default: Add New Tag)"
+msgstr "(Default: 新規タグを追加)"
+
+#: include/regist_tax.php:188
+msgid "new item name"
+msgstr ""
+
+#: include/regist_tax.php:191
+msgid "(Default: New Tag Name)"
+msgstr "(Default: 新規タグ名)"
+
+#: include/regist_tax.php:196
+msgid "separate items with commas"
+msgstr ""
+
+#: include/regist_tax.php:199
+msgid "(Default: Separate tags with commas)"
+msgstr "(Default: タグが複数ある場合はコンマで区切ってください)"
+
+#: include/regist_tax.php:204
+msgid "add or remove items"
+msgstr ""
+
+#: include/regist_tax.php:207
+msgid "(Default: Add or remove tags)"
+msgstr "(Default: タグの追加もしくは削除)"
+
+#: include/regist_tax.php:212
+msgid "choose from most used"
+msgstr ""
+
+#: include/regist_tax.php:215
+msgid "(Default: Choose from the most used tags)"
+msgstr "(Default: よく使われているタグから選択)"
