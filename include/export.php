@@ -304,6 +304,7 @@ if ( isset( $_POST['cptg_export'] ) ) {
 					$code .= '\'hierarchical\' => '.$tax_rewrite['hierarchical'];
 				$code .= ' ),'."\n";
 				
+				$code .= "\t\t".'\'sort\' => '.cptg_return_disp_boolean($tax['sort']).','."\n";
 				$code .= "\t\t".'\'query_var\' => '.cptg_return_disp_boolean($tax['query_var']).','."\n";
 				$code .= "\t".');'."\n";
 				
