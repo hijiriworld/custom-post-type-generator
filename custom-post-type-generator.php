@@ -33,11 +33,7 @@ function cptg_activate() {
 			
 			if ( !is_array( $cpt['rewrite'] ) ) {
 				
-				if ( $cpt['rewrite_slug'] == $cpt['post_type'] ) {
-					$update_cpt_rewrite_slug = '';
-				} else {
-					$update_cpt_rewrite_slug = $cpt['rewrite_slug'];
-				}
+				$update_cpt_rewrite_slug = $cpt['rewrite_slug'] == $cpt['post_type'] ? '' : $cpt['rewrite_slug'];
 				
 				$update_cpt_rewrite = array(
 					'rewrite' => $cpt['rewrite'],
