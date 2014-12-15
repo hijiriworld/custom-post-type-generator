@@ -5,40 +5,22 @@ Plugin URI: http://hijiriworld.com/web/plugins/custom-post-type-generator/
 Description: Generate Custom Post Types and Custom Taxonomies, from the admin interface which is easy to understand. it's a must have for any user working with WordPress.
 Author: hijiri
 Author URI: http://hijiriworld.com/web/
-Version: 2.2.2
+Version: 2.2.3
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
-/*  Copyright 2013 hijiri
-
-	This program is free software; you can redistribute it and/or modify
-	it under the terms of the GNU General Public License, version 2, as
-	published by the Free Software Foundation.
-
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-
-	You should have received a copy of the GNU General Public License
-	along with this program; if not, write to the Free Software
-	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-*/
-
-/*************************************************************************
-
+/*
 	Define
-
-*************************************************************************/
+*/
 
 define( 'CPTG_URL', plugin_dir_path(__FILE__) );
 
 load_plugin_textdomain( 'cptg', false, basename(dirname(__FILE__)).'/lang' );
 
-/*************************************************************************
-
+/*
 	CPTG Class
-
-*************************************************************************/
+*/
 
 $cptg = new Cptg;
 
@@ -103,7 +85,7 @@ class Cptg
 	function cptg_css()
 	{
 		wp_enqueue_style( 'cptg', plugins_url('/css/cptg.css', __FILE__), array(), null );
-    }
+	}
 	
 	function update_cptg_order()
 	{
@@ -113,11 +95,11 @@ class Cptg
 		}
 	}
 	
-	/************************************************************************************************
+	/*
 				
-		Genarate Custom Post Type
+		Init: Genarate Custom Post Type
 				
-	************************************************************************************************/
+	*/
 	
 	function generate_ctps()
 	{
@@ -191,7 +173,17 @@ class Cptg
 
 				/* --- Advanced Options Setting --- */
 				
-				$cpt_rewrite_slug = $cpt['rewrite_slug'] ? esc_html($cpt['rewrite_slug']) : esc_html($cpt['post_type']);
+				$cpt_rewrite = array();
+				if ( $cpt['rewrite']['rewrite'] ) {
+					$cpt_rewrite['slug'] = $cpt['post_type'];
+				} else {
+					$cpt_rewrite['slug'] = $cpt['rewrite']['slug'];
+				}
+				$cpt_rewrite['with_front'] = cptg_return_boolean($cpt['rewrite']['with_front']);
+				$cpt_rewrite['feeds'] = cptg_return_boolean($cpt['rewrite']['feeds']);
+				$cpt_rewrite['pages'] = cptg_return_boolean($cpt['rewrite']['pages']);
+				
+				//$cpt_rewrite_slug = $cpt['rewrite_slug'] ? esc_html($cpt['rewrite_slug']) : esc_html($cpt['post_type']);
 				$cpt_menu_position = $cpt['menu_position'] ? intval($cpt['menu_position']) : null;
 				$cpt_supports = $cpt['supports'] ? $cpt['supports'] : array(null);
 				$cpt_menu_icon = $cpt['menu_icon'] ? $cpt['menu_icon'] : null;
@@ -209,23 +201,25 @@ class Cptg
 					'capability_type'		=> $cpt['capability_type'],
 					'has_archive'			=> cptg_return_boolean($cpt['has_archive']),
 					'hierarchical'			=> cptg_return_boolean($cpt['hierarchical']),
-					'rewrite'				=> array('slug' => $cpt_rewrite_slug),
+					'rewrite'				=> $cpt_rewrite,
 					'query_var'				=> cptg_return_boolean($cpt['query_var']),
 					'can_export'			=> cptg_return_boolean($cpt['can_export']),
 					'menu_position'			=> $cpt_menu_position,
 					'menu_icon'				=> $cpt_menu_icon,
 					'supports'				=> $cpt_supports,
-				); 
+				);
 				register_post_type( $cpt['post_type'], $args );
 			}
 		}
+		
+		flush_rewrite_rules();
 	}
 	
-	/************************************************************************************************
+	/*
 				
-		Genarate Custom Taxonomy
+		Init: Genarate Custom Taxonomy
 				
-	************************************************************************************************/
+	*/
 	
 	function generate_taxs() {
 
@@ -252,7 +246,7 @@ class Cptg
 				
 				$tax = unserialize( $result->option_value );
 				
-				/* --- Label Options Setting --- */
+				// Label Options Setting
 				
 				$tax_label = $tax['label'] ? esc_html($tax['label']) : esc_html($tax['taxonomy']);
 				
@@ -273,33 +267,49 @@ class Cptg
 					'choose_from_most_used' => $tax['labels']['choose_from_most_used'] ? $tax['labels']['choose_from_most_used'] : __('Choose from the most used tags', 'cptg'),
 				);
 				
-				/* --- Advanced Options Setting --- */
+				// Advanced Options Setting
+
+				$tax_rewrite = array();
+				if ( $tax['rewrite']['rewrite'] ) {
+					$tax_rewrite['slug'] = $tax['taxonomy'];
+				} else {
+					$tax_rewrite['slug'] = $tax['rewrite']['slug'];
+				}
+				$tax_rewrite['with_front'] = cptg_return_boolean($tax['rewrite']['with_front']);
+				$tax_rewrite['hierarchical'] = cptg_return_boolean($tax['rewrite']['hierarchical']);
 				
-				$tax_rewrite_slug = $tax['rewrite_slug'] ? esc_html($tax['rewrite_slug']) : esc_html($tax['taxonomy']);
+				$tax_sort = cptg_return_boolean($tax['sort']);
+				
 				$tax_post_types = $tax['post_types'];
 				
-				/* --- register_taxonomy() --- */
+				// register_taxonomy()
 				
 				$args = array(
 					'labels'			=> $tax_labels,
 					'show_ui'			=> cptg_return_boolean($tax['show_ui']),
 					'hierarchical'		=> cptg_return_boolean($tax['hierarchical']),
-					'rewrite'			=> array('slug' => $tax_rewrite_slug),
+					'rewrite'			=> $tax_rewrite,
+					'sort'				=> $tax_sort,
 					'query_var'			=> cptg_return_boolean($tax['query_var']),
 				);
 				register_taxonomy( $tax['taxonomy'], $tax_post_types, $args );
 			}
+			
+			flush_rewrite_rules();
 		}
 	}
 	
-
-	
-	/************************************************************************************************
+	/*
 	
 		Actions
 	
-	************************************************************************************************/
+	*/
 	
+	function update_permalink_structure()
+	{
+		$permalink_structure = get_option( 'permalink_structure' );
+		update_option( 'permalink_structure', $permalink_structure );
+	}
 	function add_cpt()
 	{
 		check_admin_referer( 'nonce_regist_cpt' );
@@ -315,7 +325,7 @@ class Cptg
 			
 		update_option( uniqid('cptg_cpt_'), $input_data );
 		
-		wp_redirect( 'admin.php?page=cptg-manage-cpt&msg=add' );	
+		wp_redirect( 'admin.php?page=cptg-manage-cpt&msg=add' );
 	}
 	function edit_cpt()
 	{
@@ -442,11 +452,11 @@ class Cptg
 }
 
 
-/************************************************************************************************
+/*
 				
 	Method
 				
-************************************************************************************************/
+*/
 
 function cptg_return_boolean( $obj )
 {
@@ -490,85 +500,176 @@ function echo_boolean_options( $obj, $default )
 
 Array
 (
-    [post_type] =>
-    [label] =>
-    [menu_position] => 
-    [has_archive] =>
-    [description] =>
-    [public] =>
-    [publicly_queryable] =>
-    [exclude_from_search] =>
-    [show_ui] =>
-    [show_in_nav_menus] =>
-    [show_in_menu] =>
-    [show_in_menu_string] => 
-    [menu_icon] => 
-    [capability_type] =>
-    [hierarchical] =>
-    [rewrite] =>
-    [rewrite_slug] =>
-    [query_var] =>
-    [can_export] =>
-    [labels] => Array
-        (
-            [singular_label]=> 
-            [menu_name]=> 
-            [all_items]=> 
-            [add_new]=> 
-            [add_new_item]=> 
-            [edit_item]=> 
-            [new_item]=> 
-            [view_item]=> 
-            [search_items]=> 
-            [not_found]=> 
-            [not_found_in_trash]=> 
-            [parent_item_colon]=> 
-        )
+	[post_type] =>
+	[label] =>
+	[menu_position] => 
+	[has_archive] =>
+	[description] =>
+	[public] =>
+	[publicly_queryable] =>
+	[exclude_from_search] =>
+	[show_ui] =>
+	[show_in_nav_menus] =>
+	[show_in_menu] =>
+	[show_in_menu_string] => 
+	[menu_icon] => 
+	[capability_type] =>
+	[hierarchical] =>
+	[rewrite] => array
+	(
+		[slug] =>
+		[with_front] =>
+		[feeds] =>
+		[pages] =>
+	),
 
-    [supports] => Array
-        (
-            [0] => title
-            ...
-        )
+	[rewrite_slug] =>
+	[query_var] =>
+	[can_export] =>
+	[labels] => Array
+		(
+			[singular_label] => 
+			[menu_name] => 
+			[all_items] => 
+			[add_new] => 
+			[add_new_item] => 
+			[edit_item] => 
+			[new_item] => 
+			[view_item] => 
+			[search_items] => 
+			[not_found] => 
+			[not_found_in_trash] => 
+			[parent_item_colon] => 
+		)
+
+	[supports] => Array
+		(
+			[0] => title
+			...
+		)
 
 )
 	
 		
 Array
 (
-    [taxonomy] =>
-    [label] => 
-    [public] =>
-    [show_ui] =>
-    [hierarchical] =>
-    [rewrite] =>
-    [rewrite_slug] => 
-    [query_var] =>
-    [labels] => Array
-        (
-            [singular_label] =>
-            [search_items] => 
-            [popular_items] => 
-            [all_items] => 
-            [parent_item] => 
-            [parent_item_colon] => 
-            [edit_item] => 
-            [update_item] => 
-            [add_new_item] => 
-            [new_item_name] => 
-            [separate_items_with_commas] => 
-            [add_or_remove_items] => 
-            [choose_from_most_used] => 
-        )
+	[taxonomy] =>
+	[label] => 
+	[public] =>
+	[show_ui] =>
+	[hierarchical] =>
+	[rewrite] => array
+	(
+		[slug] =>
+		[with_front] =>
+		[hierarchical] =>
+	)
+	[query_var] =>
+	[labels] => Array
+		(
+			[singular_label] =>
+			[search_items] => 
+			[popular_items] => 
+			[all_items] => 
+			[parent_item] => 
+			[parent_item_colon] => 
+			[edit_item] => 
+			[update_item] => 
+			[add_new_item] => 
+			[new_item_name] => 
+			[separate_items_with_commas] => 
+			[add_or_remove_items] => 
+			[choose_from_most_used] => 
+		)
 
-    [post_types] => Array
-        (
-            [0] => post
-            ...
-        )
+	[post_types] => Array
+		(
+			[0] => post
+			...
+		)
 
 )
 
 */
+
+/************************************************************************************************
+				
+	Activate Action from 2.2.2
+				
+************************************************************************************************/
+
+register_activation_hook( __FILE__, 'cptg_activate' );
+function cptg_activate() {
+	global $wpdb;
+	$sql = "
+		SELECT option_id, option_name, option_value 
+		FROM $wpdb->options 
+		WHERE option_name LIKE '%%cptg_cpt%%'
+		ORDER BY option_id ASC
+		";
+	$results = $wpdb->get_results($sql);
 	
+	if ( count( $results ) ) {
+		foreach ( $results as $result ) {
+			$cpt = unserialize( $result->option_value );
+			
+			if ( !is_array( $cpt['rewrite'] ) ) {
+				
+				$update_cpt_rewrite_slug = $cpt['rewrite_slug'] == $cpt['post_type'] ? '' : $cpt['rewrite_slug'];
+				
+				$update_cpt_rewrite = array(
+					'rewrite' => $cpt['rewrite'],
+					'slug' => $update_cpt_rewrite_slug,
+					'with_front' => true,
+					'feeds' => $cpt['has_archive'],
+					'pages' => true,
+				);
+
+				unset( $cpt['rewrite'] );
+				unset( $cpt['rewrite_slug'] );
+				
+				$cpt += array( 'rewrite' => $update_cpt_rewrite );
+				
+				update_option( $result->option_name, $cpt );
+				
+			}
+		}
+	}
+	
+	$sql = "
+		SELECT option_id, option_name, option_value 
+		FROM $wpdb->options 
+		WHERE option_name LIKE '%%cptg_tax%%'
+		ORDER BY option_id ASC
+		";
+	$results = $wpdb->get_results($sql);
+	
+	if ( count( $results ) ) {
+		foreach ( $results as $result ) {
+			$tax = unserialize( $result->option_value );
+			if ( !is_array( $tax['rewrite'] ) ) {
+				
+				$update_tax_rewrite_slug = $tax['rewrite_slug'] == $tax['taxonomy'] ? '' : $tax['rewrite_slug'];
+				
+				$update_tax_rewrite = array(
+					'rewrite' => $tax['rewrite'],
+					'slug' => $update_tax_rewrite_slug,
+					'with_front' => true,
+					'hierarchical' => false,
+				);
+
+				unset( $tax['rewrite'] );
+				unset( $tax['rewrite_slug'] );
+				
+				$tax += array( 'rewrite' => $update_tax_rewrite );
+				$tax += array( 'sort' => false );
+				
+				update_option( $result->option_name, $tax );
+			}
+
+		}
+	}
+}
+
+
 ?>

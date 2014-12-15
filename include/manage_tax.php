@@ -77,7 +77,6 @@ foreach( $all_taxs as $tax ) {
 		<tr>
 			<th width="25%"><?php _e('Taxonomy', 'cptg') ?></th>
 			<th width="25%"><?php _e('Label', 'cptg') ?></th>
-			<th width="25%"><?php _e('Hierarchical', 'cptg') ?></th>
 			<th width="25%"><?php _e('Attached Post Types', 'cptg') ?></th>
 		</tr>
 	</thead>
@@ -85,7 +84,6 @@ foreach( $all_taxs as $tax ) {
 		<tr>
 			<th width="25%"><?php _e('Taxonomy', 'cptg') ?></th>
 			<th width="25%"><?php _e('Label', 'cptg') ?></th>
-			<th width="25%"><?php _e('Hierarchical', 'cptg') ?></th>
 			<th width="25%"><?php _e('Attached Post Types', 'cptg') ?></th>
 		</tr>
 	</tfoot>
@@ -110,14 +108,13 @@ foreach( $all_taxs as $tax ) {
 					</div>
 				</td>
 				<td valign="top"><?php echo stripslashes($tax["label"]); ?></td>
-				<td valign="top"><?php echo cptg_return_disp_boolean( $tax['hierarchical'] ); ?></td>
 				<td valign="top">
 				<?php
 				if ( isset( $tax["cpt_name"] ) ) {
 					echo stripslashes($tax["cpt_name"]);
 				} elseif ( is_array( $tax["post_types"] ) ) {
 					foreach ($tax["post_types"] as $post_type) {
-						echo $post_type.'<br />';
+						echo $post_type.'<br>';
 					}
 				}
 				?>
@@ -134,7 +131,7 @@ foreach( $all_taxs as $tax ) {
 
 <?php if ( count( $theme_taxs ) ) : ?>
 
-<br />
+<br>
 
 <p><strong><?php _e('Other Custom Taxonomies', 'cptg') ?></strong></p>
 
@@ -145,7 +142,6 @@ foreach( $all_taxs as $tax ) {
 		<tr>
 			<th width="25%"><?php _e('Taxonomy', 'cptg') ?></th>
 			<th width="25%"><?php _e('Label', 'cptg') ?></th>
-			<th width="25%"><?php _e('Hierarchical', 'cptg') ?></th>
 			<th width="25%"><?php _e('Attached Post Types', 'cptg') ?></th>
 		</tr>
 	</thead>
@@ -153,7 +149,6 @@ foreach( $all_taxs as $tax ) {
 		<tr>
 			<th width="25%"><?php _e('Taxonomy', 'cptg') ?></th>
 			<th width="25%"><?php _e('Label', 'cptg') ?></th>
-			<th width="25%"><?php _e('Hierarchical', 'cptg') ?></th>
 			<th width="25%"><?php _e('Attached Post Types', 'cptg') ?></th>
 		</tr>
 	</tfoot>
@@ -165,11 +160,10 @@ foreach( $all_taxs as $tax ) {
 				<div class="row-actions">&nbsp;</div>
 			</td>
 			<td valign="top"><?php echo $tax->label; ?></td>
-			<td valign="top"><?php echo cptg_return_disp_boolean( $tax->hierarchical ); ?></td>
 			<td valign="top">
 				<?php
 				foreach( $tax->object_type as $object_type ) {
-					echo $object_type.'<br />';
+					echo $object_type.'<br>';
 				}
 				?>
 			</td>

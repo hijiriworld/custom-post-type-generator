@@ -137,11 +137,11 @@ foreach( $all_cpts as $cpt ) {
 	</tbody>
 </table>
 
-<p><?php _e('If you delete Custom Post Type(s), Contents will not delete which belong to that.', 'cptg') ?><br /><?php _e('You can change Order using a Drag and Drop Sortable JavaScript.', 'cptg') ?></p>
+<p><?php _e('If you delete Custom Post Type(s), Contents will not delete which belong to that.', 'cptg') ?><br><?php _e('You can change Order using a Drag and Drop Sortable JavaScript.', 'cptg') ?></p>
 
 <?php if ( count( $theme_cpts ) ) : ?>
 
-<br />
+<br>
 
 <p><strong><?php _e('Other Custom Post Types', 'cptg') ?></strong></p>
 

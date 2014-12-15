@@ -21,7 +21,7 @@ $pre_results = $wpdb->get_results($sql);
 // cptg_orderに従ってソート
 $cptg_order = get_option('cptg_order');
 
-if ( isset( $cptg_order ) ) {
+if ( $cptg_order ) {
 	$order = $cptg_order['cptg'];
 	foreach( $order as $num ) {
 		foreach( $pre_results as $pre_result ) {
@@ -139,7 +139,19 @@ if ( isset( $_POST['cptg_export'] ) ) {
 				
 				/* --- Advanced Options Setting --- */
 				
-				$cpt_rewrite_slug = $cpt['rewrite_slug'] ? esc_html($cpt['rewrite_slug']) : esc_html($cpt['post_type']);
+				$cpt_rewrite = array();
+				if ( $cpt['rewrite']['rewrite'] ) {
+					$cpt_rewrite['slug'] = $cpt['post_type'];
+				} else {
+					$cpt_rewrite['slug'] = $cpt['rewrite']['slug'];
+				}
+				$cpt_rewrite['with_front'] = cptg_return_disp_boolean($cpt['rewrite']['with_front']);
+				$cpt_rewrite['feeds'] = cptg_return_disp_boolean($cpt['rewrite']['feeds']);
+				$cpt_rewrite['pages'] = cptg_return_disp_boolean($cpt['rewrite']['pages']);
+					
+
+				$cpt_rewite = $cpt['rewrite'] ? $cpt['rewrite'] : array(null);
+				//$cpt_rewrite_slug = $cpt['rewrite_slug'] ? esc_html($cpt['rewrite_slug']) : esc_html($cpt['post_type']);
 				$cpt_menu_position = $cpt['menu_position'] ? intval($cpt['menu_position']) : null;
 				$cpt_supports = $cpt['supports'] ? $cpt['supports'] : array(null);
 				$cpt_menu_icon = $cpt['menu_icon'] ? $cpt['menu_icon'] : null;
@@ -174,7 +186,14 @@ if ( isset( $_POST['cptg_export'] ) ) {
 				$code .= "\t\t".'\'capability_type\' => \''.$cpt['capability_type'].'\','."\n";
 				$code .= "\t\t".'\'has_archive\' => '.cptg_return_disp_boolean($cpt['has_archive']).','."\n";
 				$code .= "\t\t".'\'hierarchical\' => '.cptg_return_disp_boolean($cpt['hierarchical']).','."\n";
-				$code .= "\t\t".'\'rewrite\' => array( \'slug\' => \''.$cpt_rewrite_slug.'\' ),'."\n";
+
+				$code .= "\t\t".'\'rewrite\' => array( ';
+					$code .= '\'slug\' => \''.$cpt_rewrite['slug'].'\',';
+					$code .= '\'with_front\' => '.$cpt_rewrite['with_front'].',';
+					$code .= '\'feeds\' => '.$cpt_rewrite['feeds'].',';
+					$code .= '\'pages\' => '.$cpt_rewrite['pages'];
+				$code .= ' ),'."\n";
+				
 				$code .= "\t\t".'\'query_var\' => '.cptg_return_disp_boolean($cpt['query_var']).','."\n";
 				$code .= "\t\t".'\'can_export\' => '.cptg_return_disp_boolean($cpt['can_export']).','."\n";
 				if ( $cpt_menu_position ) $code .= "\t\t".'\'menu_position\' => '.$cpt_menu_position.','."\n";
@@ -191,7 +210,7 @@ if ( isset( $_POST['cptg_export'] ) ) {
 					$code .= "\t\t".'\'supports\' => array( null ),'."\n";
 				}
 				
-				$code .= "\t".' );'."\n";
+				$code .= "\t".');'."\n";
 				$code .= "\t".'register_post_type( \''.$cpt['post_type'].'\', $args );'."\n";
 	
 			}
@@ -243,7 +262,15 @@ if ( isset( $_POST['cptg_export'] ) ) {
 				
 				/* --- Advanced Options Setting --- */
 				
-				$tax_rewrite_slug = $tax['rewrite_slug'] ? esc_html($tax['rewrite_slug']) : esc_html($tax['taxonomy']);
+				$tax_rewrite = array();
+				if ( $tax['rewrite']['rewrite'] ) {
+					$tax_rewrite['slug'] = $tax['taxonomy'];
+				} else {
+					$tax_rewrite['slug'] = $tax['rewrite']['slug'];
+				}
+				$tax_rewrite['with_front'] = cptg_return_disp_boolean($tax['rewrite']['with_front']);
+				$tax_rewrite['hierarchical'] = cptg_return_disp_boolean($tax['rewrite']['hierarchical']);
+				
 				$tax_post_types = $tax['post_types'];
 				
 				/* --- register_taxonomy() --- */
@@ -269,8 +296,14 @@ if ( isset( $_POST['cptg_export'] ) ) {
 				$code .= "\t\t".'\'labels\' => $labels,'."\n";
 				$code .= "\t\t".'\'show_ui\' => '.cptg_return_disp_boolean($tax['show_ui']).','."\n";
 				$code .= "\t\t".'\'hierarchical\' => '.cptg_return_disp_boolean($tax['hierarchical']).','."\n";
+
+
+				$code .= "\t\t".'\'rewrite\' => array( ';
+					$code .= '\'slug\' => \''.$tax_rewrite['slug'].'\',';
+					$code .= '\'with_front\' => '.$tax_rewrite['with_front'].',';
+					$code .= '\'hierarchical\' => '.$tax_rewrite['hierarchical'];
+				$code .= ' ),'."\n";
 				
-				$code .= "\t\t".'\'rewrite\' => array( \'slug\' => \''.$tax_rewrite_slug.'\' ),'."\n";
 				$code .= "\t\t".'\'query_var\' => '.cptg_return_disp_boolean($tax['query_var']).','."\n";
 				$code .= "\t".');'."\n";
 				
@@ -303,7 +336,7 @@ if ( isset( $_POST['cptg_export'] ) ) {
 
 <p><?php _e('Custom Post Type Generator will create the PHP code to include in your theme.', 'cptg') ?></p>
 
-<p><?php _e('Registered Custom Post Type and Taxonomy will not appear in the list of editable object.', 'cptg') ?><br /><?php _e('This is useful for including Custom Post Type and Taxonomy in themes.', 'cptg') ?></p>
+<p><?php _e('Registered Custom Post Type and Taxonomy will not appear in the list of editable object.', 'cptg') ?><br><?php _e('This is useful for including Custom Post Type and Taxonomy in themes.', 'cptg') ?></p>
 
 <ol>
 	<li><?php _e('Select Custom Post Type(s) and Taxonomy(s) from the list and click "Export to PHP".', 'cptg') ?></li>
@@ -313,42 +346,46 @@ if ( isset( $_POST['cptg_export'] ) ) {
 
 <form id="cptg_export_form" method="post">
 
-<table class="form-table">
-	<tbody>
-		<tr valign="top">
-			<th scope="row"><?php _e('Custom Post Types', 'cptg'); ?></th>
-			<td>
-			<?php if ( count( $results ) ) : ?>
-				<?php foreach ( $results as $result ) : ?>
-				<?php $cpt = unserialize( $result->option_value ); ?>
-				<label>
-					<input type="checkbox" name="cptg_cpts[]" value="<?php echo $result->option_name; ?>" <?php if ( isset($_POST['cptg_cpts'] ) && in_array( $result->option_name, $_POST['cptg_cpts'] ) ) echo 'checked'; ?>>
-					<?php echo stripslashes($cpt['post_type']); ?>
-				</label><br />
-				<?php endforeach; ?>
-			<?php else : ?>
-				<?php _e('No Custom Post Type found.', 'cptg') ?>
-			<?php endif; ?>
-			</td>
-		</tr>
-		<tr valign="top">
-			<th scope="row"><?php _e('Custom Taxonomies', 'cptg'); ?></th>
-			<td>
-			<?php if ( count( $results_tax ) ) : ?>
-				<?php foreach ( $results_tax as $result ) : ?>
-				<?php $tax = unserialize( $result->option_value ); ?>
-				<label>
-					<input type="checkbox" name="cptg_taxs[]" value="<?php echo $result->option_name; ?>" <?php if ( isset($_POST['cptg_taxs'] ) && in_array( $result->option_name, $_POST['cptg_taxs'] ) ) echo 'checked'; ?>>
-					<?php echo stripslashes($tax["taxonomy"]); ?>
-				</label><br />
-				<?php endforeach; ?>
-			<?php else : ?>
-				<?php _e('No Taxonomy found.', 'cptg') ?>
-			<?php endif; ?>
-			</td>
-		</tr>
-	</tbody>
-</table>
+<div id="cptg_export_objects">
+	<table class="form-table">
+		<tbody>
+			<tr valign="top">
+				<th scope="row"><?php _e('Custom Post Types', 'cptg'); ?></th>
+				<td>
+				<?php if ( count( $results ) ) : ?>
+					<?php foreach ( $results as $result ) : ?>
+					<?php $cpt = unserialize( $result->option_value ); ?>
+					<label>
+						<input type="checkbox" name="cptg_cpts[]" value="<?php echo $result->option_name; ?>" <?php if ( isset($_POST['cptg_cpts'] ) && in_array( $result->option_name, $_POST['cptg_cpts'] ) ) echo 'checked'; ?>>
+						<?php echo stripslashes($cpt['post_type']); ?>
+					</label><br>
+					<?php endforeach; ?>
+				<?php else : ?>
+					<?php _e('No Custom Post Type found.', 'cptg') ?>
+				<?php endif; ?>
+				</td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><?php _e('Custom Taxonomies', 'cptg'); ?></th>
+				<td>
+				<?php if ( count( $results_tax ) ) : ?>
+					<?php foreach ( $results_tax as $result ) : ?>
+					<?php $tax = unserialize( $result->option_value ); ?>
+					<label>
+						<input type="checkbox" name="cptg_taxs[]" value="<?php echo $result->option_name; ?>" <?php if ( isset($_POST['cptg_taxs'] ) && in_array( $result->option_name, $_POST['cptg_taxs'] ) ) echo 'checked'; ?>>
+						<?php echo stripslashes($tax["taxonomy"]); ?>
+					</label><br>
+					<?php endforeach; ?>
+				<?php else : ?>
+					<?php _e('No Taxonomy found.', 'cptg') ?>
+				<?php endif; ?>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<p><label><input type="checkbox" id="cptg_export_allcheck"> <?php _e( 'All Check', 'cptg' ) ?></label></p>
 
 <p class="submit"><input type="submit" name="cptg_export" id="cptg_export" class="button button-primary" value="<?php _e('Export to PHP'); ?>"></p>
 
