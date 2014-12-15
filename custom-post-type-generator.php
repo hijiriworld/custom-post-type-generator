@@ -16,7 +16,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 				
 ************************************************************************************************/
 
-register_activation_hook( __FILE__, 'cptg_activate' );
+
+if ( !get_option('cptg_version' ) ) cptg_activate();
 function cptg_activate() {
 	global $wpdb;
 	$sql = "
@@ -80,7 +81,6 @@ function cptg_activate() {
 				
 				update_option( $result->option_name, $tax );
 			}
-
 		}
 	}
 }
@@ -120,6 +120,8 @@ class Cptg
 		}
 		
 		add_action( 'wp_ajax_update-cptg-order', array( &$this, 'update_cptg_order' ) );
+		
+		update_option( 'cptg_version', '2.2.3' );
 	}
 	
 	function add_menus()
