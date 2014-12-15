@@ -33,7 +33,11 @@ function cptg_activate() {
 			
 			if ( !is_array( $cpt['rewrite'] ) ) {
 				
-				$update_cpt_rewrite_slug = $cpt['rewrite_slug'] == $cpt['post_type'] ? null : $cpt['rewrite_slug'];
+				if ( $cpt['rewrite_slug'] == $cpt['post_type'] ) {
+					$update_cpt_rewrite_slug = '';
+				} else {
+					$update_cpt_rewrite_slug = $cpt['rewrite_slug'];
+				}
 				
 				$update_cpt_rewrite = array(
 					'rewrite' => $cpt['rewrite'],
@@ -67,7 +71,7 @@ function cptg_activate() {
 			$tax = unserialize( $result->option_value );
 			if ( !is_array( $tax['rewrite'] ) ) {
 				
-				$update_tax_rewrite_slug = $tax['rewrite_slug'] == $tax['taxonomy'] ? null : $tax['rewrite_slug'];
+				$update_tax_rewrite_slug = $tax['rewrite_slug'] == $tax['taxonomy'] ? '' : $tax['rewrite_slug'];
 				
 				$update_tax_rewrite = array(
 					'rewrite' => $tax['rewrite'],
