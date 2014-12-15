@@ -10,6 +10,85 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
+/************************************************************************************************
+				
+	Activate Action from 2.2.2
+				
+************************************************************************************************/
+
+register_activation_hook( __FILE__, 'cptg_activate' );
+function cptg_activate() {
+	global $wpdb;
+	$sql = "
+		SELECT option_id, option_name, option_value 
+		FROM $wpdb->options 
+		WHERE option_name LIKE '%%cptg_cpt%%'
+		ORDER BY option_id ASC
+		";
+	$results = $wpdb->get_results($sql);
+	
+	if ( count( $results ) ) {
+		foreach ( $results as $result ) {
+			$cpt = unserialize( $result->option_value );
+			
+			if ( !is_array( $cpt['rewrite'] ) ) {
+				
+				$update_cpt_rewrite_slug = $cpt['rewrite_slug'] == $cpt['post_type'] ? '' : $cpt['rewrite_slug'];
+				
+				$update_cpt_rewrite = array(
+					'rewrite' => $cpt['rewrite'],
+					'slug' => $update_cpt_rewrite_slug,
+					'with_front' => true,
+					'feeds' => $cpt['has_archive'],
+					'pages' => true,
+				);
+
+				unset( $cpt['rewrite'] );
+				unset( $cpt['rewrite_slug'] );
+				
+				$cpt += array( 'rewrite' => $update_cpt_rewrite );
+				
+				update_option( $result->option_name, $cpt );
+				
+			}
+		}
+	}
+	
+	$sql = "
+		SELECT option_id, option_name, option_value 
+		FROM $wpdb->options 
+		WHERE option_name LIKE '%%cptg_tax%%'
+		ORDER BY option_id ASC
+		";
+	$results = $wpdb->get_results($sql);
+	
+	if ( count( $results ) ) {
+		foreach ( $results as $result ) {
+			$tax = unserialize( $result->option_value );
+			if ( !is_array( $tax['rewrite'] ) ) {
+				
+				$update_tax_rewrite_slug = $tax['rewrite_slug'] == $tax['taxonomy'] ? '' : $tax['rewrite_slug'];
+				
+				$update_tax_rewrite = array(
+					'rewrite' => $tax['rewrite'],
+					'slug' => $update_tax_rewrite_slug,
+					'with_front' => true,
+					'hierarchical' => false,
+				);
+
+				unset( $tax['rewrite'] );
+				unset( $tax['rewrite_slug'] );
+				
+				$tax += array( 'rewrite' => $update_tax_rewrite );
+				$tax += array( 'sort' => false );
+				
+				update_option( $result->option_name, $tax );
+			}
+
+		}
+	}
+}
+
 /*
 	Define
 */
@@ -591,85 +670,6 @@ Array
 )
 
 */
-
-/************************************************************************************************
-				
-	Activate Action from 2.2.2
-				
-************************************************************************************************/
-
-register_activation_hook( __FILE__, 'cptg_activate' );
-function cptg_activate() {
-	global $wpdb;
-	$sql = "
-		SELECT option_id, option_name, option_value 
-		FROM $wpdb->options 
-		WHERE option_name LIKE '%%cptg_cpt%%'
-		ORDER BY option_id ASC
-		";
-	$results = $wpdb->get_results($sql);
-	
-	if ( count( $results ) ) {
-		foreach ( $results as $result ) {
-			$cpt = unserialize( $result->option_value );
-			
-			if ( !is_array( $cpt['rewrite'] ) ) {
-				
-				$update_cpt_rewrite_slug = $cpt['rewrite_slug'] == $cpt['post_type'] ? '' : $cpt['rewrite_slug'];
-				
-				$update_cpt_rewrite = array(
-					'rewrite' => $cpt['rewrite'],
-					'slug' => $update_cpt_rewrite_slug,
-					'with_front' => true,
-					'feeds' => $cpt['has_archive'],
-					'pages' => true,
-				);
-
-				unset( $cpt['rewrite'] );
-				unset( $cpt['rewrite_slug'] );
-				
-				$cpt += array( 'rewrite' => $update_cpt_rewrite );
-				
-				update_option( $result->option_name, $cpt );
-				
-			}
-		}
-	}
-	
-	$sql = "
-		SELECT option_id, option_name, option_value 
-		FROM $wpdb->options 
-		WHERE option_name LIKE '%%cptg_tax%%'
-		ORDER BY option_id ASC
-		";
-	$results = $wpdb->get_results($sql);
-	
-	if ( count( $results ) ) {
-		foreach ( $results as $result ) {
-			$tax = unserialize( $result->option_value );
-			if ( !is_array( $tax['rewrite'] ) ) {
-				
-				$update_tax_rewrite_slug = $tax['rewrite_slug'] == $tax['taxonomy'] ? '' : $tax['rewrite_slug'];
-				
-				$update_tax_rewrite = array(
-					'rewrite' => $tax['rewrite'],
-					'slug' => $update_tax_rewrite_slug,
-					'with_front' => true,
-					'hierarchical' => false,
-				);
-
-				unset( $tax['rewrite'] );
-				unset( $tax['rewrite_slug'] );
-				
-				$tax += array( 'rewrite' => $update_tax_rewrite );
-				$tax += array( 'sort' => false );
-				
-				update_option( $result->option_name, $tax );
-			}
-
-		}
-	}
-}
 
 
 ?>
