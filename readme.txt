@@ -87,3 +87,14 @@ it's a must have for any user working with WordPress.
 = 1.0.0 =
 
 *Initial Release
+
+== Upgrade Notice ==
+
+= 2.0.0 =
+
+There was the Fatal Error in ver1.0.x. 
+This problem is solved in ver.2.0.0.
+However, WordPress Option Data Structure has been modified fundamentally.
+Please be sure to do backup of 'Custom Post Type Name' and 'Taxonomy Name'.
+But Contents will not delete which belong to.
+Thanks.
