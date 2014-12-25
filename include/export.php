@@ -320,6 +320,8 @@ if ( isset( $_POST['cptg_export'] ) ) {
 		}
 	}
 	
+	$code .= "\t".'flush_rewrite_rules();'."\n";
+	
 	if ( is_array( $export_cpts ) || is_array( $export_taxs ) ) {
 		$code .= '}';
 	}

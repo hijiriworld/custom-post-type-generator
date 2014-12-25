@@ -3,7 +3,7 @@ Contributors: hijiri
 Tags: custom post type, custom taxonomy
 Requires at least: 3.0.0
 Tested up to: 4.0.1
-Stable tag: 2.2.3
+Stable tag: 2.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,6 +27,11 @@ it's a must have for any user working with WordPress.
 3. Export to PHP
 
 == Changelog ==
+
+= 2.2.4 =
+
+* Bug fixed
+ - flush_rewrite_rules() of PHP code.
 
 = 2.2.3 =
 
