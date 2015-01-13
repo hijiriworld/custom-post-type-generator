@@ -5,21 +5,36 @@ Plugin URI: http://hijiriworld.com/web/plugins/custom-post-type-generator/
 Description: Generate Custom Post Types and Custom Taxonomies, from the admin interface which is easy to understand. it's a must have for any user working with WordPress.
 Author: hijiri
 Author URI: http://hijiriworld.com/web/
-Version: 2.2.4
+Version: 2.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
-/************************************************************************************************
-				
-	Activate Action from 2.2.2
-				
-************************************************************************************************/
+// Activate from old version.
 
-
-if ( !get_option('cptg_version' ) ) cptg_activate();
-function cptg_activate() {
+register_activation_hook( __FILE__, 'cptg_activate' );
+function cptg_activate()
+{
 	global $wpdb;
+
+	if ( function_exists( 'is_multisite' ) && is_multisite() ) {
+		$curr_blog = $wpdb->blogid;
+		$blogids = $wpdb->get_col( "SELECT blog_id FROM $wpdb->blogs" );
+		foreach( $blogids as $blog_id ) {
+			switch_to_blog( $blog_id );
+			cptg_activate_db();
+		}
+		switch_to_blog( $curr_blog );
+		
+	} else {
+		cptg_activate_db();
+	}
+}
+
+function cptg_activate_db()
+{	
+	global $wpdb;
+	
 	$sql = "
 		SELECT option_id, option_name, option_value 
 		FROM $wpdb->options 
@@ -32,24 +47,47 @@ function cptg_activate() {
 		foreach ( $results as $result ) {
 			$cpt = unserialize( $result->option_value );
 			
-			if ( !is_array( $cpt['rewrite'] ) ) {
-				
-				$update_cpt_rewrite = array(
+			if ( isset( $cpt['label'] ) ) {
+				$cpt['labels']['name'] = $cpt['label'];
+				unset( $cpt['label'] );
+			}
+			if ( isset( $cpt['labels']['singular_label'] ) ) {
+				$cpt['labels']['singular_name'] = $cpt['labels']['singular_label'];
+				unset( $cpt['labels']['singular_label'] );
+			}
+			if ( !isset( $cpt['labels']['name_admin_bar'] ) ) $cpt['labels']['name_admin_bar'] = '';
+			
+			if ( !isset( $cpt['show_in_menu'] ) ) {
+				$cpt['show_in_menu'] = array(
+					'show_in_menu' => $cpt['show_ui'],
+					'string' => ''
+				);
+			}
+			if ( !isset( $cpt['show_in_admin_bar'] ) ) $cpt['show_in_admin_bar'] = $cpt['show_ui'];
+
+			$update_rewrite = array();
+			if ( isset( $cpt['rewrite_slug'] ) ) { // before.2.2.2
+				$update_rewrite = array(
 					'rewrite' => $cpt['rewrite'],
 					'slug' => $cpt['rewrite_slug'],
-					'with_front' => true,
-					'feeds' => $cpt['has_archive'],
-					'pages' => true,
+					'with_front' => 1,
+					'feeds' => 0,
+					'pages' => 1,	
 				);
-
-				unset( $cpt['rewrite'] );
+				$cpt['rewrite'] = $update_rewrite;
 				unset( $cpt['rewrite_slug'] );
-				
-				$cpt += array( 'rewrite' => $update_cpt_rewrite );
-				
-				update_option( $result->option_name, $cpt );
-				
 			}
+			
+			$update_query_var = array();
+			if ( !is_array( $cpt['query_var'] ) ) { // before 2.2.4
+				$update_query_var = array(
+					'query_var' => $cpt['query_var'],
+					'string' => '',
+				);
+				$cpt['query_var'] = $update_query_var;
+			}
+			
+			update_option( $result->option_name, $cpt );
 		}
 	}
 	
@@ -64,23 +102,46 @@ function cptg_activate() {
 	if ( count( $results ) ) {
 		foreach ( $results as $result ) {
 			$tax = unserialize( $result->option_value );
-			if ( !is_array( $tax['rewrite'] ) ) {
-				
-				$update_tax_rewrite = array(
+			
+			if ( isset( $tax['label'] ) ) {
+				$tax['labels']['name'] = $tax['label'];
+				unset( $tax['label'] );
+			}
+			if ( isset( $tax['labels']['singular_label'] ) ) {
+				$tax['labels']['singular_name'] = $tax['labels']['singular_label'];
+				unset( $tax['labels']['singular_label'] );
+			}
+			if ( !isset( $tax['labels']['menu_name'] ) ) $tax['labels']['menu_name'] = '';
+			if ( !isset( $tax['labels']['view_item'] ) ) $tax['labels']['view_item'] = '';
+			if ( !isset( $tax['labels']['not_found'] ) ) $tax['labels']['not_found'] = '';
+			if ( !isset( $tax['labels']['show_admin_column'] ) ) $tax['show_admin_column'] = 0;
+			
+			if ( !isset( $tax['show_in_nav_menus'] ) ) $tax['show_in_nav_menus'] = $tax['public'];
+			if ( !isset( $tax['show_tagcloud'] ) ) $tax['show_tagcloud'] = $tax['show_ui'];
+			if ( !isset( $tax['sort'] ) ) $tax['sort'] = 0;
+			
+			$update_rewrite = array();
+			if ( isset( $tax['rewrite_slug'] ) ) { // before.2.2.2
+				$update_rewrite = array(
 					'rewrite' => $tax['rewrite'],
 					'slug' => $tax['rewrite_slug'],
-					'with_front' => true,
-					'hierarchical' => false,
+					'with_front' => 1,
+					'hierarchical' => 0,
 				);
-
-				unset( $tax['rewrite'] );
+				$tax['rewrite'] = $update_rewrite;
 				unset( $tax['rewrite_slug'] );
-				
-				$tax += array( 'rewrite' => $update_tax_rewrite );
-				$tax += array( 'sort' => false );
-				
-				update_option( $result->option_name, $tax );
 			}
+			
+			$update_query_var = array();
+			if ( !is_array( $tax['query_var']) ) { // before 2.2.4
+				$update_query_var = array(
+					'query_var' => $tax['query_var'],
+					'string' => '',
+				);
+				$tax['query_var'] = $update_query_var;
+			}
+			
+			update_option( $result->option_name, $tax );
 		}
 	}
 }
@@ -107,8 +168,8 @@ class Cptg
 		add_action( 'admin_menu', array($this, 'add_menus' ));
 		
 		// generate
-		add_action( 'init', array($this,'generate_ctps'), 0 );
-		add_action( 'init', array($this,'generate_taxs'), 0 );
+		add_action( 'init', array($this,'generate_ctps') );
+		add_action( 'init', array($this,'generate_taxs') );
 		
 		// actions
 		add_action( 'admin_init', array($this,'cptg_actions'));
@@ -121,7 +182,8 @@ class Cptg
 		
 		add_action( 'wp_ajax_update-cptg-order', array( &$this, 'update_cptg_order' ) );
 		
-		update_option( 'cptg_version', '2.2.4' );
+		update_option( 'cptg_version', '2.3.0' );
+		
 	}
 	
 	function add_menus()
@@ -174,29 +236,23 @@ class Cptg
 	
 	/*
 				
-		Init: Genarate Custom Post Type
+		Init: Genarate Custom Post Types
 				
 	*/
 	
 	function generate_ctps()
 	{
-		
 		// get_option custom post types
 		
-		global $wpdb;
+		global $wpdb, $cpt_labels_params;
 		
 		$results = $pre_result = array();
 		
-		$sql = "SELECT
-				option_id, 
-				option_name,
-				option_value
-			FROM 
-				$wpdb->options 
-			WHERE 
-				option_name LIKE '%%cptg_cpt%%'
-			ORDER BY 
-				option_id ASC
+		$sql = "
+			SELECT option_id, option_name, option_value 
+			FROM $wpdb->options 
+			WHERE option_name LIKE '%%cptg_cpt%%' 
+			ORDER BY option_id ASC
 			";
 		
 		$pre_results = $wpdb->get_results($sql);
@@ -228,62 +284,43 @@ class Cptg
 				
 				$cpt = unserialize( $result->option_value );
 				
-				/* --- Label Options Setting --- */
+				// labels
+				$cpt_labels = array();
+				$cpt_labels['name'] = $cpt['labels']['name'] ? $cpt['labels']['name'] : $cpt['post_type'];
+				$cpt_labels['singular_name'] = $cpt['labels']['singular_name'] ? esc_html( $cpt['labels']['singular_name'] ) : $cpt_labels['name'];
+				$cpt_labels['menu_name'] = $cpt['labels']['menu_name'] ? esc_html( $cpt['labels']['menu_name'] ) : $cpt_labels['name'];
+				$cpt_labels['name_admin_bar'] = $cpt['labels']['name_admin_bar'] ? esc_html( $cpt['labels']['name_admin_bar'] ) : $cpt_labels['singular_name'];
+				$cpt_labels['all_items'] = $cpt['labels']['all_items'] ? esc_html( $cpt['labels']['all_items'] ) : __('All Posts');
+				$cpt_labels['add_new'] = $cpt['labels']['add_new'] ? esc_html( $cpt['labels']['add_new'] ) : __('Add New', 'cptg');
+				$cpt_labels['add_new_item'] = $cpt['labels']['add_new_item'] ? esc_html( $cpt['labels']['add_new_item'] ) : __('Add New Post');
+				$cpt_labels['edit_item'] = $cpt['labels']['edit_item'] ? esc_html( $cpt['labels']['edit_item'] ) : __('Edit Post');
+				$cpt_labels['new_item'] = $cpt['labels']['new_item'] ? esc_html( $cpt['labels']['new_item'] ) : __('New Post');
+				$cpt_labels['view_item'] = $cpt['labels']['view_item'] ? esc_html( $cpt['labels']['view_item'] ) : __('View Post');
+				$cpt_labels['search_items'] = $cpt['labels']['search_items'] ? esc_html( $cpt['labels']['search_items'] ) : __('Search Posts');
+				$cpt_labels['not_found'] = $cpt['labels']['not_found'] ? esc_html( $cpt['labels']['not_found'] ) : __('No posts found.');
+				$cpt_labels['not_found_in_trash'] = $cpt['labels']['not_found_in_trash'] ? esc_html( $cpt['labels']['not_found_in_trash'] ) : __('No posts found in Trash.');
+				$cpt_labels['parent_item_colon'] = $cpt['labels']['parent_item_colon'] ? esc_html( $cpt['labels']['parent_item_colon'] ) : __('Parent Page');
 				
-				$cpt_label = $cpt['label'] ? esc_html($cpt['label']) : esc_html($cpt['post_type']);
+				// $args
 				
-				$cpt_labels = array(
-					'name' => $cpt_label,
-					'singular_name' => $cpt['labels']['singular_label'] ? $cpt['labels']['singular_label'] : $cpt_label,
-					'all_items' => $cpt['labels']['all_items'] ? $cpt['labels']['all_items'] : __('All Posts', 'cptg'),
-					'add_new' => $cpt['labels']['add_new'] ? $cpt['labels']['add_new'] : __('Add New', 'cptg'),
-					'add_new_item' => $cpt['labels']['add_new_item'] ? $cpt['labels']['add_new_item'] : __('Add New Post', 'cptg'),
-					'edit_item' => $cpt['labels']['edit_item'] ? $cpt['labels']['edit_item'] : __('Edit Post', 'cptg'),
-					'new_item' => $cpt['labels']['new_item'] ? $cpt['labels']['new_item'] : __('New Post', 'cptg'),
-					'view_item' => $cpt['labels']['view_item'] ? $cpt['labels']['view_item'] : __('View Post', 'cptg'),
-					'search_items' => $cpt['labels']['search_items'] ? $cpt['labels']['search_items'] : __('Search Posts', 'cptg'),
-					'not_found' => $cpt['labels']['not_found'] ? $cpt['labels']['not_found'] : __('No posts found.', 'cptg'),
-					'not_found_in_trash' => $cpt['labels']['not_found_in_trash'] ? $cpt['labels']['not_found_in_trash'] : __('No posts found in Trash.', 'cptg'),
-					'parent_item_colon' => $cpt['labels']['parent_item_colon'] ? $cpt['labels']['parent_item_colon'] : __('Parent Page', 'cptg'),
-					'menu_name' => $cpt['labels']['menu_name'] ? $cpt['labels']['menu_name'] : $cpt_label,
-				);
-
-				/* --- Advanced Options Setting --- */
-				
-				$cpt_rewrite = array();
-				if ( $cpt['rewrite']['rewrite'] ) {
-					$cpt_rewrite['slug'] = $cpt['post_type'];
-				} else {
-					$cpt_rewrite['slug'] = $cpt['rewrite']['slug'];
-				}
-				$cpt_rewrite['with_front'] = cptg_return_boolean($cpt['rewrite']['with_front']);
-				$cpt_rewrite['feeds'] = cptg_return_boolean($cpt['rewrite']['feeds']);
-				$cpt_rewrite['pages'] = cptg_return_boolean($cpt['rewrite']['pages']);
-				
-				//$cpt_rewrite_slug = $cpt['rewrite_slug'] ? esc_html($cpt['rewrite_slug']) : esc_html($cpt['post_type']);
-				$cpt_menu_position = $cpt['menu_position'] ? intval($cpt['menu_position']) : null;
-				$cpt_supports = $cpt['supports'] ? $cpt['supports'] : array(null);
-				$cpt_menu_icon = $cpt['menu_icon'] ? $cpt['menu_icon'] : null;
-				
-				/* --- register_post_type() --- */
-
 				$args = array(
 					'labels'				=> $cpt_labels,
-					'description'			=> esc_html($cpt['description']),
-					'public'				=> cptg_return_boolean($cpt['public']),
-					'publicly_queryable'	=> cptg_return_boolean($cpt['publicly_queryable']),
-					'exclude_from_search'	=> cptg_return_boolean($cpt['exclude_from_search']),
-					'show_ui'				=> cptg_return_boolean($cpt['show_ui']),
-					'show_in_nav_menus'		=> cptg_return_boolean($cpt['show_in_nav_menus'] ),
-					'capability_type'		=> $cpt['capability_type'],
-					'has_archive'			=> cptg_return_boolean($cpt['has_archive']),
-					'hierarchical'			=> cptg_return_boolean($cpt['hierarchical']),
-					'rewrite'				=> $cpt_rewrite,
-					'query_var'				=> cptg_return_boolean($cpt['query_var']),
-					'can_export'			=> cptg_return_boolean($cpt['can_export']),
-					'menu_position'			=> $cpt_menu_position,
-					'menu_icon'				=> $cpt_menu_icon,
-					'supports'				=> $cpt_supports,
+					'description'			=> esc_html( $cpt['description'] ),
+					'public'				=> cptg_return_boolean( $cpt['public'] ),
+					'exclude_from_search'	=> cptg_return_boolean( $cpt['exclude_from_search'] ),
+					'publicly_queryable'	=> cptg_return_boolean( $cpt['publicly_queryable'] ),
+					'show_ui'				=> cptg_return_boolean( $cpt['show_ui'] ),
+					'show_in_nav_menus'		=> cptg_return_boolean( $cpt['show_in_nav_menus'] ),
+					'show_in_menu'			=> $cpt['show_in_menu']['show_in_menu'] && $cpt['show_in_menu']['string'] ? $cpt['show_in_menu']['string'] : cptg_return_boolean( $cpt['show_in_menu']['show_in_menu'] ),
+					'show_in_admin_bar'		=> cptg_return_boolean( $cpt['show_in_admin_bar'] ),
+					'has_archive'			=> cptg_return_boolean( $cpt['has_archive'] ),
+					'hierarchical'			=> cptg_return_boolean( $cpt['hierarchical'] ),
+					'rewrite'				=> $cpt['rewrite']['rewrite'] ? $cpt['rewrite'] : cptg_return_boolean( $cpt['rewrite']['rewrite'] ),
+					'query_var'				=> $cpt['query_var']['query_var'] && $cpt['query_var']['string'] ? $cpt['query_var']['string'] : cptg_return_boolean( $cpt['query_var']['query_var'] ),
+					'can_export'			=> cptg_return_boolean( $cpt['can_export'] ),
+					'menu_position'			=> $cpt['menu_position'] ? intval($cpt['menu_position']) : null,
+					'menu_icon'				=> $cpt['menu_icon'] ? esc_html( $cpt['menu_icon'] ) : null,
+					'supports'				=> count( $cpt['supports'] ) ? $cpt['supports'] : cptg_return_boolean( 0 ),
 				);
 				register_post_type( $cpt['post_type'], $args );
 			}
@@ -294,26 +331,21 @@ class Cptg
 	
 	/*
 				
-		Init: Genarate Custom Taxonomy
+		Init: Genarate Custom Taxonomies
 				
 	*/
 	
 	function generate_taxs() {
 
-		global $wpdb;
+		global $wpdb, $tax_labels_params;
 		
 		$results = array();
 		
-		$sql = "SELECT
-				option_id, 
-				option_name,
-				option_value
-			FROM 
-				$wpdb->options 
-			WHERE 
-				option_name LIKE '%%cptg_tax%%'
-			ORDER BY 
-				option_id ASC
+		$sql = "
+			SELECT option_id, option_name, option_value 
+			FROM $wpdb->options 
+			WHERE option_name LIKE '%%cptg_tax%%' 
+			ORDER BY option_id ASC
 			";
 		
 		$results = $wpdb->get_results($sql);
@@ -323,53 +355,41 @@ class Cptg
 				
 				$tax = unserialize( $result->option_value );
 				
-				// Label Options Setting
+				// $labels
+				$tax_labels = array();
+				$tax_labels['name'] = $tax['labels']['name'] ? esc_html($tax['labels']['name']) : $tax['taxonomy'];
+				$tax_labels['singular_name'] = $tax['labels']['singular_name'] ? esc_html($tax['labels']['singular_name']) : $tax_labels['name'];
+				$tax_labels['menu_name'] = $tax['labels']['menu_name'] ? esc_html($tax['labels']['menu_name']) : $tax_labels['name'];
+				$tax_labels['all_items'] = $tax['labels']['all_items'] ? esc_html($tax['labels']['all_items']) : __('All Tags');
+				$tax_labels['edit_item'] = $tax['labels']['edit_item'] ? esc_html($tax['labels']['edit_item']) : __('Edit Tag');
+				$tax_labels['view_item'] = $tax['labels']['view_item'] ? esc_html($tax['labels']['view_item']) : __('View Tag');
+				$tax_labels['update_item'] = $tax['labels']['update_item'] ? esc_html($tax['labels']['update_item']) : __('Update Tag');
+				$tax_labels['add_new_item'] = $tax['labels']['add_new_item'] ? esc_html($tax['labels']['add_new_item']) : __('Add New Tag');
+				$tax_labels['new_item_name'] = $tax['labels']['new_item_name'] ? esc_html($tax['labels']['new_item_name']) : __('New Tag Name');
+				$tax_labels['parent_item'] = $tax['labels']['parent_item'] ? esc_html($tax['labels']['parent_item']) : __('Parent Category');
+				$tax_labels['parent_item_colon'] = $tax['labels']['parent_item_colon'] ? esc_html($tax['labels']['parent_item_colon']) : __('Parent Category');
+				$tax_labels['search_items'] = $tax['labels']['search_items'] ? esc_html($tax['labels']['search_items']) : __('Search Tags');
+				$tax_labels['popular_items'] = $tax['labels']['popular_items'] ? esc_html($tax['labels']['popular_items']) : __('Popular Tags');
+				$tax_labels['separate_items_with_commas'] = $tax['labels']['separate_items_with_commas'] ? esc_html($tax['labels']['separate_items_with_commas']) : __('Separate tags with commas');
+				$tax_labels['add_or_remove_items'] = $tax['labels']['add_or_remove_items'] ? esc_html($tax['labels']['add_or_remove_items']) : __('Add or remove tags');
+				$tax_labels['choose_from_most_used'] = $tax['labels']['choose_from_most_used'] ? esc_html($tax['labels']['choose_from_most_used']) : __('Choose from the most used tags');
+				$tax_labels['not_found'] = $tax['labels']['not_found'] ? esc_html($tax['labels']['not_found']) : __('No tags found.');
 				
-				$tax_label = $tax['label'] ? esc_html($tax['label']) : esc_html($tax['taxonomy']);
-				
-				$tax_labels = array(
-					'name' => $tax_label,
-					'singular_name' => $tax['labels']['singular_label'] ? $tax['labels']['singular_label'] : $tax_label,
-					'search_items' => $tax['labels']['search_items'] ? $tax['labels']['search_items'] : __('Search Tags', 'cptg'),
-					'popular_items' => $tax['labels']['popular_items'] ? $tax['labels']['popular_items'] : __('Popular Tags', 'cptg'),
-					'all_items' => $tax['labels']['all_items'] ? $tax['labels']['all_items'] : __('All Tags', 'cptg'),
-					'parent_item' => $tax['labels']['parent_item'] ? $tax['labels']['parent_item'] : __('Parent Category', 'cptg'),
-					'parent_item_colon' => $tax['labels']['parent_item_colon'] ? $tax['labels']['parent_item_colon'] : __('Parent Category', 'cptg'),
-					'edit_item' => $tax['labels']['edit_item'] ? $tax['labels']['edit_item'] : __('Edit Tag', 'cptg'),
-					'update_item' => $tax['labels']['update_item'] ? $tax['labels']['update_item'] : __('Update Tag', 'cptg'),
-					'add_new_item' => $tax['labels']['add_new_item'] ? $tax['labels']['add_new_item'] : __('Add New Tag', 'cptg'),
-					'new_item_name' => $tax['labels']['new_item_name'] ? $tax['labels']['new_item_name'] : __('New Tag Name', 'cptg'),
-					'separate_items_with_commas' => $tax['labels']['separate_items_with_commas'] ? $tax['labels']['separate_items_with_commas'] : __('Separate tags with commas', 'cptg'),
-					'add_or_remove_items' => $tax['labels']['add_or_remove_items'] ? $tax['labels']['add_or_remove_items'] : __('Add or remove tags', 'cptg'),
-					'choose_from_most_used' => $tax['labels']['choose_from_most_used'] ? $tax['labels']['choose_from_most_used'] : __('Choose from the most used tags', 'cptg'),
-				);
-				
-				// Advanced Options Setting
-
-				$tax_rewrite = array();
-				if ( $tax['rewrite']['rewrite'] ) {
-					$tax_rewrite['slug'] = $tax['taxonomy'];
-				} else {
-					$tax_rewrite['slug'] = $tax['rewrite']['slug'];
-				}
-				$tax_rewrite['with_front'] = cptg_return_boolean($tax['rewrite']['with_front']);
-				$tax_rewrite['hierarchical'] = cptg_return_boolean($tax['rewrite']['hierarchical']);
-				
-				$tax_sort = cptg_return_boolean($tax['sort']);
-				
-				$tax_post_types = $tax['post_types'];
-				
-				// register_taxonomy()
-				
+				// $args
 				$args = array(
-					'labels'			=> $tax_labels,
-					'show_ui'			=> cptg_return_boolean($tax['show_ui']),
-					'hierarchical'		=> cptg_return_boolean($tax['hierarchical']),
-					'rewrite'			=> $tax_rewrite,
-					'sort'				=> $tax_sort,
-					'query_var'			=> cptg_return_boolean($tax['query_var']),
+					'labels'				=> $tax_labels,
+					'public'				=> cptg_return_boolean( $tax['public'] ),
+					'show_ui'				=> cptg_return_boolean( $tax['show_ui'] ),
+					'show_in_nav_menus'		=> cptg_return_boolean( $tax['show_in_nav_menus'] ),
+					'show_tagcloud'			=> cptg_return_boolean( $tax['show_tagcloud'] ),
+					'show_admin_column'		=> cptg_return_boolean( $tax['show_admin_column'] ),
+					'hierarchical'			=> cptg_return_boolean( $tax['hierarchical'] ),
+					'query_var'				=> $tax['query_var']['query_var'] && $tax['query_var']['string'] ? $tax['query_var']['string'] : cptg_return_boolean( $tax['query_var']['query_var'] ),
+					'rewrite'				=> $tax['rewrite']['rewrite'] ? $tax['rewrite'] : cptg_return_boolean( $tax['rewrite']['rewrite'] ),
+					'sort'					=> cptg_return_boolean( $tax['sort'] ),
 				);
-				register_taxonomy( $tax['taxonomy'], $tax_post_types, $args );
+				
+				register_taxonomy( $tax['taxonomy'], $tax['post_types'], $args );
 			}
 			
 			flush_rewrite_rules();
@@ -382,45 +402,25 @@ class Cptg
 	
 	*/
 	
-	function update_permalink_structure()
-	{
-		$permalink_structure = get_option( 'permalink_structure' );
-		update_option( 'permalink_structure', $permalink_structure );
-	}
 	function add_cpt()
 	{
 		check_admin_referer( 'nonce_regist_cpt' );
-
-		// get input values
+		
 		$input_data = $_POST['input_cpt'];
+		if ( !isset( $input_data['supports'] ) ) $input_data['supports'] = array();
 		
-		// labels to array
-		$input_data += array( 'labels' => $_POST['cpt_labels'] );
-		// supports to array
-		$cpt_supports = ( isset( $_POST['cpt_supports'] ) ) ? $_POST['cpt_supports'] : array();
-		$input_data += array( 'supports' => $cpt_supports );
-			
 		update_option( uniqid('cptg_cpt_'), $input_data );
-		
 		wp_redirect( 'admin.php?page=cptg-manage-cpt&msg=add' );
 	}
 	function edit_cpt()
 	{
 		check_admin_referer( 'nonce_regist_cpt' );
-
 		$key = $_POST['key'];
 		
-		// get input values
 		$input_data = $_POST['input_cpt'];
-		
-		// labels to array
-		$input_data += array( 'labels' => $_POST['cpt_labels'] );
-		// supports to array
-		$cpt_supports = ( isset( $_POST['cpt_supports'] ) ) ? $_POST['cpt_supports'] : array();
-		$input_data += array( 'supports' => $cpt_supports );
+		if ( !isset( $input_data['supports'] ) ) $input_data['supports'] = array();
 		
 		update_option( $key, $input_data );
-		
 		wp_redirect( 'admin.php?page=cptg-manage-cpt&msg=edit' );
 	}
 	function delete_cpt()
@@ -451,36 +451,16 @@ class Cptg
 	function add_tax()
 	{
 		check_admin_referer( 'nonce_regist_tax' );
-
-		// get input values
 		$input_data = $_POST['input_tax'];
-		
-		// labels to array
-		$input_data += array( 'labels' => $_POST['tax_labels'] );
-		// attached post type to array
-		$input_data += array( 'post_types' => $_POST['tax_post_types'] );
-		
 		update_option( uniqid('cptg_tax_'), $input_data );
-		
 		wp_redirect( 'admin.php?page=cptg-manage-tax&msg=add' );
 	}
 	function edit_tax()
 	{
 		check_admin_referer( 'nonce_regist_tax' );
-
-		//custom taxonomy to edit
 		$key = $_POST['key'];
-
-		// get input values
 		$input_data = $_POST['input_tax'];
-		
-		// labels to array
-		$input_data += array( 'labels' => $_POST['tax_labels'] );
-		// attached post type to array
-		$input_data += array( 'post_types' => $_POST['tax_post_types'] );
-		
 		update_option( $key, $input_data );
-		
 		wp_redirect( 'admin.php?page=cptg-manage-tax&msg=edit' );
 	}
 	function delete_tax()
@@ -494,40 +474,20 @@ class Cptg
 	
 	function cptg_actions()
 	{
-		// Delete cpt
 		if ( isset( $_GET['action'] ) && $_GET['action'] == 'del_cpt' ) {
 			$this->delete_cpt();
 		}
-		
-		// Delete tax
 		if ( isset( $_GET['action'] ) && $_GET['action'] == 'del_tax' ) {
 			$this->delete_tax();
 		}
-		
 		if ( isset( $_POST['cpt_submit'] ) ) {
-			// Edit cpt
-			if ( isset( $_POST['key'] ) ) {
-				$this->edit_cpt();
-			// Add cpt
-			} else{
-				$this->add_cpt();
-			}
+			isset( $_POST['key'] ) ? $this->edit_cpt() : $this->add_cpt();
 		}
-		
 		if ( isset( $_POST['tax_submit'] ) ) {
-			
-			// Eidt tax
-			if ( isset( $_POST['key'] ) ) {
-				$this->edit_tax();
-			// Add tax
-			} else {
-				$this->add_tax();
-
-			}
+			isset( $_POST['key'] ) ? $this->edit_tax() : $this->add_tax();
 		}
 	}
 }
-
 
 /*
 				
@@ -565,109 +525,5 @@ function echo_boolean_options( $obj, $default )
 		}
 	}
 }
-
-
-/************************************************************************************************
-				
-	Note: WP Options Structure
-				
-************************************************************************************************/
-
-/*
-
-Array
-(
-	[post_type] =>
-	[label] =>
-	[menu_position] => 
-	[has_archive] =>
-	[description] =>
-	[public] =>
-	[publicly_queryable] =>
-	[exclude_from_search] =>
-	[show_ui] =>
-	[show_in_nav_menus] =>
-	[show_in_menu] =>
-	[show_in_menu_string] => 
-	[menu_icon] => 
-	[capability_type] =>
-	[hierarchical] =>
-	[rewrite] => array
-	(
-		[slug] =>
-		[with_front] =>
-		[feeds] =>
-		[pages] =>
-	),
-
-	[rewrite_slug] =>
-	[query_var] =>
-	[can_export] =>
-	[labels] => Array
-		(
-			[singular_label] => 
-			[menu_name] => 
-			[all_items] => 
-			[add_new] => 
-			[add_new_item] => 
-			[edit_item] => 
-			[new_item] => 
-			[view_item] => 
-			[search_items] => 
-			[not_found] => 
-			[not_found_in_trash] => 
-			[parent_item_colon] => 
-		)
-
-	[supports] => Array
-		(
-			[0] => title
-			...
-		)
-
-)
-	
-		
-Array
-(
-	[taxonomy] =>
-	[label] => 
-	[public] =>
-	[show_ui] =>
-	[hierarchical] =>
-	[rewrite] => array
-	(
-		[slug] =>
-		[with_front] =>
-		[hierarchical] =>
-	)
-	[query_var] =>
-	[labels] => Array
-		(
-			[singular_label] =>
-			[search_items] => 
-			[popular_items] => 
-			[all_items] => 
-			[parent_item] => 
-			[parent_item_colon] => 
-			[edit_item] => 
-			[update_item] => 
-			[add_new_item] => 
-			[new_item_name] => 
-			[separate_items_with_commas] => 
-			[add_or_remove_items] => 
-			[choose_from_most_used] => 
-		)
-
-	[post_types] => Array
-		(
-			[0] => post
-			...
-		)
-
-)
-
-*/
-
 
 ?>

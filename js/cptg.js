@@ -1,21 +1,5 @@
 (function($){
 	
-	// cpt rewrite input controll
-	
-	var input_rewrite_rewrite = $('#input_rewrite_rewrite');
-	var input_rewrite_slug = $('#input_rewrite_slug');
-	if ( input_rewrite_rewrite.val() == 1 ) {
-		input_rewrite_slug.attr('disabled', 'desabled');
-	}
-	
-	input_rewrite_rewrite.on('change', function() {
-		if ( $(this).val() == 1 ) {
-			input_rewrite_slug.attr('disabled', 'desabled');
-		} else {
-			input_rewrite_slug.removeAttr('disabled');
-		}
-	});
-	
 	// slide toggle
 	
 	var handle = $('.cptg-metabox .handlediv');
@@ -26,6 +10,53 @@
 			postbox.removeClass('closed');
 		} else {
 			postbox.addClass('closed');
+		}
+	});
+	
+	// auto select - cpt
+	
+	var input_cpt_public = $('#input_cpt_public');
+	var input_cpt_exclude_from_search = $('#input_cpt_exclude_from_search');
+	var input_cpt_publicly_queryable = $('#input_cpt_publicly_queryable');
+	var input_cpt_show_ui = $('#input_cpt_show_ui');
+	var input_cpt_show_in_nav_menus = $('#input_cpt_show_in_nav_menus');
+	var input_cpt_show_in_menu = $('#input_cpt_show_in_menu');
+	var input_cpt_show_in_admin_bar = $('#input_cpt_show_in_admin_bar');
+	
+	input_cpt_public.on( 'change', function(){
+		if ( $('#input_cpt_public_check').is(':checked') ) {
+			if ( $(this).val() == 1 ) opposite_public_val = 0;
+			else opposite_public_val = 1;
+			input_cpt_exclude_from_search.val( opposite_public_val );
+			input_cpt_publicly_queryable.val( $(this).val() );
+			input_cpt_show_ui.val( $(this).val() );
+			input_cpt_show_in_nav_menus.val( $(this).val() );
+			input_cpt_show_in_menu.val( $(this).val() );
+			input_cpt_show_in_admin_bar.val( $(this).val() );
+		}
+	});
+	
+	var input_cpt_has_archive = $('#input_cpt_has_archive');
+	var input_cpt_rewrite_feeds = $('#input_cpt_rewrite_feeds');
+	
+	input_cpt_has_archive.on( 'change', function(){
+		if ( $('#input_cpt_has_archive_check').is(':checked') ) {
+			input_cpt_rewrite_feeds.val( $(this).val() );
+		}
+	});
+	
+	// auto select - tax
+	
+	var input_tax_public = $('#input_tax_public');
+	var input_tax_show_ui = $('#input_tax_show_ui');
+	var input_tax_show_in_nav_menus = $('#input_tax_show_in_nav_menus');
+	var input_tax_show_tagcloud = $('#input_tax_show_tagcloud');
+	
+	input_tax_public.on( 'change', function(){
+		if ( $('#input_tax_public_check').is(':checked') ) {
+			input_tax_show_ui.val( $(this).val() );
+			input_tax_show_in_nav_menus.val( $(this).val() );
+			input_tax_show_tagcloud.val( $(this).val() );
 		}
 	});
 	
@@ -60,7 +91,7 @@
 			$('#error2').show();
 			window.scrollTo(0, 0);
 			return false;
-		} else if ( !$('input:checked[name^=tax_post_types]')[0] ) {
+		} else if ( !$('input:checked[class=input_tax_post_types]')[0] ) {
 			$('#error3').show();
 			window.scrollTo(0, 0);
 			return false;

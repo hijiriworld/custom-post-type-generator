@@ -2,11 +2,7 @@
 
 global $wpdb;
 
-/************************************************************************************************
-
-	Taxonomies list
-
-************************************************************************************************/
+//	Taxonomies in Custom Post Type Generator
 
 $results = array();
 
@@ -24,16 +20,12 @@ $sql = "SELECT
 		 
 $results = $wpdb->get_results($sql);
 
-/************************************************************************************************
-
-	in your Theme list
-
-************************************************************************************************/
+// Taxonomies in Your Theme
 
 $cptg_tax_names = $theme_taxs = array();
 
 $args = array(
-	'public'   => true
+//	'public'   => true
 );
 $output = 'object';
 $all_taxs = get_taxonomies( $args, $output );
@@ -43,10 +35,10 @@ foreach( $results as $result ) {
 	$cptg_tax_names[] = $tax["taxonomy"];
 }
 foreach( $all_taxs as $tax ) {
-	if ( !in_array( strtolower( $tax->name ), array( 'post_format' ) ) ) {
-		if ( !in_array( strtolower( $tax->name ), $cptg_tax_names ) ) {
-			$theme_taxs[] = $tax;
-		}
+	if ( in_array( strtolower( $tax->name ), array( 'category', 'post_tag', 'nav_menu', 'link_category', 'post_format' ) ) ) {
+		$wp_taxs[] = $tax;
+	} else if ( !in_array( strtolower( $tax->name ), $cptg_tax_names ) ) {
+		$theme_taxs[] = $tax;
 	}
 }
 ?>
@@ -89,7 +81,7 @@ foreach( $all_taxs as $tax ) {
 	</tfoot>
 	<tbody>
 	<?php if ( count( $results ) ) : ?>
-		<?php foreach ( $results as $result ) : ?>
+		<?php foreach ( $results as $key => $result ) : ?>
 			<?php
 				$tax = unserialize( $result->option_value );
 				
@@ -99,7 +91,7 @@ foreach( $all_taxs as $tax ) {
 				$edit_url = admin_url( 'admin.php?page=cptg-regist-tax' ) . '&action=edit_tax&key=' .$result->option_name;
 				$edit_url = ( function_exists('wp_nonce_url') ) ? wp_nonce_url($edit_url, 'nonce_regist_tax') : $edit_url;
 			?>
-			<tr>
+			<tr <?php if ( $key%2 == 0 ) echo 'class="alternate"' ?>>
 				<td valign="top">
 					<strong><a class="row-title" href="<?php echo $edit_url; ?>" title="<?php _e('Edit this item'); ?>"><?php echo stripslashes($tax["taxonomy"]); ?></a></strong>
 					<div class="row-actions">
@@ -107,13 +99,13 @@ foreach( $all_taxs as $tax ) {
 						<span class="trash"><a href="<?php echo $del_url; ?>" title="<?php _e('Move this item to the Trash'); ?>"><?php _e('Delete', 'cptg'); ?></a></span>
 					</div>
 				</td>
-				<td valign="top"><?php echo stripslashes($tax["label"]); ?></td>
+				<td valign="top"><?php echo stripslashes($tax['labels']['name']); ?></td>
 				<td valign="top">
 				<?php
-				if ( isset( $tax["cpt_name"] ) ) {
-					echo stripslashes($tax["cpt_name"]);
-				} elseif ( is_array( $tax["post_types"] ) ) {
-					foreach ($tax["post_types"] as $post_type) {
+				if ( isset( $tax['cpt_name'] ) ) {
+					echo stripslashes($tax['cpt_name']);
+				} elseif ( is_array( $tax['post_types'] ) ) {
+					foreach ($tax['post_types'] as $post_type) {
 						echo $post_type.'<br>';
 					}
 				}
@@ -129,48 +121,93 @@ foreach( $all_taxs as $tax ) {
 
 <p><?php _e('If you delete Custom Taxonomy(s), Contents will not delete which belong to that.', 'cptg') ?></p>
 
-<?php if ( count( $theme_taxs ) ) : ?>
+<?php if ( count( $theme_taxs ) || count( $wp_taxs ) ) : ?>
 
 <br>
 
-<p><strong><?php _e('Other Custom Taxonomies', 'cptg') ?></strong></p>
+<h3><?php _e('Other Custom Taxonomies', 'cptg') ?></h3>
 
 <p><?php _e('The Taxonomies below are registered in your Theme or WordPress.', 'cptg') ?></p>
 
-<table width="100%" class="widefat">
-	<thead>
-		<tr>
-			<th width="25%"><?php _e('Taxonomy', 'cptg') ?></th>
-			<th width="25%"><?php _e('Label', 'cptg') ?></th>
-			<th width="25%"><?php _e('Attached Post Types', 'cptg') ?></th>
-		</tr>
-	</thead>
-	<tfoot>
-		<tr>
-			<th width="25%"><?php _e('Taxonomy', 'cptg') ?></th>
-			<th width="25%"><?php _e('Label', 'cptg') ?></th>
-			<th width="25%"><?php _e('Attached Post Types', 'cptg') ?></th>
-		</tr>
-	</tfoot>
-	<tbody>
-		<?php foreach( $theme_taxs as $tax ) : ?>
-		<tr>
-			<td valign="top">
-				<strong><?php echo $tax->name; ?></strong>
-				<div class="row-actions">&nbsp;</div>
-			</td>
-			<td valign="top"><?php echo $tax->label; ?></td>
-			<td valign="top">
-				<?php
-				foreach( $tax->object_type as $object_type ) {
-					echo $object_type.'<br>';
-				}
-				?>
-			</td>
-		</tr>
-		<?php endforeach; ?>
-	</tbody>
-</table>
+	<?php if ( count( $theme_taxs ) ) : ?>
+	
+	<p><strong><?php _e('in Your Theme', 'cptg') ?></strong></p>
+	
+	<table width="100%" class="widefat">
+		<thead>
+			<tr>
+				<th width="25%"><?php _e('Taxonomy', 'cptg') ?></th>
+				<th width="25%"><?php _e('Label', 'cptg') ?></th>
+				<th width="25%"><?php _e('Attached Post Types', 'cptg') ?></th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<th width="25%"><?php _e('Taxonomy', 'cptg') ?></th>
+				<th width="25%"><?php _e('Label', 'cptg') ?></th>
+				<th width="25%"><?php _e('Attached Post Types', 'cptg') ?></th>
+			</tr>
+		</tfoot>
+		<tbody>
+			<?php foreach( $theme_taxs as $key => $tax ) : ?>
+			<tr <?php if ( $key%2 == 0 ) echo 'class="alternate"' ?>>
+				<td valign="top">
+					<strong><?php echo $tax->name; ?></strong>
+				</td>
+				<td valign="top"><?php echo $tax->label; ?></td>
+				<td valign="top">
+					<?php
+					foreach( $tax->object_type as $object_type ) {
+						echo $object_type.'<br>';
+					}
+					?>
+				</td>
+			</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+	
+	<?php endif; ?>
+
+	<?php if ( count( $wp_taxs ) ) : ?>
+	
+	<p><strong><?php _e('in WordPress', 'cptg') ?></strong></p>
+	
+	<table width="100%" class="widefat">
+		<thead>
+			<tr>
+				<th width="25%"><?php _e('Taxonomy', 'cptg') ?></th>
+				<th width="25%"><?php _e('Label', 'cptg') ?></th>
+				<th width="25%"><?php _e('Attached Post Types', 'cptg') ?></th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<th width="25%"><?php _e('Taxonomy', 'cptg') ?></th>
+				<th width="25%"><?php _e('Label', 'cptg') ?></th>
+				<th width="25%"><?php _e('Attached Post Types', 'cptg') ?></th>
+			</tr>
+		</tfoot>
+		<tbody>
+			<?php foreach( $wp_taxs as $key => $tax ) : ?>
+			<tr <?php if ( $key%2 == 0 ) echo 'class="alternate"' ?>>
+				<td valign="top">
+					<strong><?php echo $tax->name; ?></strong>
+				</td>
+				<td valign="top"><?php echo $tax->label; ?></td>
+				<td valign="top">
+					<?php
+					foreach( $tax->object_type as $object_type ) {
+						echo $object_type.'<br>';
+					}
+					?>
+				</td>
+			</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+	
+	<?php endif; ?>
 
 <?php endif; ?>
 

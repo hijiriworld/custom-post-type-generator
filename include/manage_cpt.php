@@ -2,11 +2,7 @@
 
 global $wpdb;
 
-/************************************************************************************************
-
-	Custom Post Types list
-
-************************************************************************************************/
+//	Post Types in Custom Post Type Generator
 
 $results = $pre_result = array();
 
@@ -44,16 +40,11 @@ if ( $cptg_order ) {
 	$results = $pre_results;
 }
 
-/************************************************************************************************
-
-	in your Theme list
-
-************************************************************************************************/
+// Post Types in Your Theme
 
 $cptg_cpt_names = $theme_cpts = array();
 
 $args = array(
-	'public'   => true
 );
 $output = 'object';
 $all_cpts = get_post_types( $args, $output );
@@ -64,10 +55,10 @@ foreach( $results as $result ) {
 }
 
 foreach( $all_cpts as $cpt ) {
-	if ( !in_array( strtolower( $cpt->name ), array( 'post', 'page', 'attachment', 'acf' ) ) ) {
-		if ( !in_array( strtolower( $cpt->name ), $cptg_cpt_names ) ) {
-			$theme_cpts[] = $cpt;
-		}
+	if ( in_array( strtolower( $cpt->name ), array( 'post', 'page', 'attachment', 'revision', 'nav_menu_item' ) ) ) {
+		$wp_cpts[] = $cpt;
+	} else if ( !in_array( strtolower( $cpt->name ), $cptg_cpt_names ) ) {
+		$theme_cpts[] = $cpt;
 	}
 }
 
@@ -110,7 +101,7 @@ foreach( $all_cpts as $cpt ) {
 	
 	<tbody id="cptg-list">
 	<?php if ( count( $results ) ) : ?>
-		<?php foreach ( $results as $result ) : ?>
+		<?php foreach ( $results as $key => $result ) : ?>
 			<?php
 				$cpt = unserialize( $result->option_value );
 				
@@ -120,7 +111,7 @@ foreach( $all_cpts as $cpt ) {
 				$edit_url = admin_url( 'admin.php?page=cptg-regist-cpt' ) .'&action=edit_cpt&key=' .$result->option_name;
 				$edit_url = ( function_exists('wp_nonce_url') ) ? wp_nonce_url($edit_url, 'nonce_regist_cpt') : $edit_url;
 			?>
-			<tr id="cptg-<?php echo $result->option_id; ?>">
+			<tr id="cptg-<?php echo $result->option_id; ?>" <?php if ( $key%2 == 0 ) echo 'class="alternate"' ?>>
 				<td valign="top">
 					<strong><a class="row-title" href="<?php echo $edit_url; ?>" title="<?php _e('Edit this item'); ?>"><?php echo stripslashes($cpt['post_type']); ?></a></strong>
 					<div class="row-actions">
@@ -128,7 +119,7 @@ foreach( $all_cpts as $cpt ) {
 						<span class="trash"><a href="<?php echo $del_url; ?>" title="<?php _e('Move this item to the Trash'); ?>"><?php _e('Delete', 'cptg'); ?></a></span>
 					</div>
 				</td>
-				<td valign="top"><?php echo stripslashes($cpt['label']); ?></td>
+				<td valign="top"><?php echo stripslashes($cpt['labels']['name']); ?></td>
 			</tr>
 		<?php endforeach; ?>
 	<?php else : ?>
@@ -139,39 +130,73 @@ foreach( $all_cpts as $cpt ) {
 
 <p><?php _e('If you delete Custom Post Type(s), Contents will not delete which belong to that.', 'cptg') ?><br><?php _e('You can change Order using a Drag and Drop Sortable JavaScript.', 'cptg') ?></p>
 
-<?php if ( count( $theme_cpts ) ) : ?>
+<?php if ( count( $theme_cpts ) || count( $wp_cpts ) ) : ?>
 
 <br>
-
-<p><strong><?php _e('Other Custom Post Types', 'cptg') ?></strong></p>
-
+<h3><?php _e('Other Custom Post Types', 'cptg') ?></strong></h3>
 <p><?php _e('The Custom Post Types below are registered in your Theme or WordPress.', 'cptg') ?></p>
 
-<table width="100%" class="widefat">
-	<thead>
-		<tr>
-			<th width="50%"><?php _e('Post Type', 'cptg');?></th>
-			<th width="50%"><?php _e('Label', 'cptg');?></th>
-		</tr>
-	</thead>
-	<tfoot>
-		<tr>
-			<th width="50%"><?php _e('Post Type', 'cptg');?></th>
-			<th width="50%"><?php _e('Label', 'cptg');?></th>
-		</tr>
-	</tfoot>
-	<tbody>
-		<?php foreach( $theme_cpts as $cpt ) : ?>
-		<tr>
-			<td valign="top">
-				<strong><?php echo $cpt->name; ?></strong>
-				<div class="row-actions">&nbsp;</div>
-			</td>
-			<td valign="top"><?php echo $cpt->label; ?></td>
-		</tr>
-		<?php endforeach; ?>
-	</tbody>
-</table>
+	<?php if ( count( $theme_cpts ) ) : ?>
+	
+	<p><strong><?php _e('in your Theme', 'cptg') ?></strong></p>
+	
+	<table width="100%" class="widefat">
+		<thead>
+			<tr>
+				<th width="50%"><?php _e('Post Type', 'cptg');?></th>
+				<th width="50%"><?php _e('Label', 'cptg');?></th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<th width="50%"><?php _e('Post Type', 'cptg');?></th>
+				<th width="50%"><?php _e('Label', 'cptg');?></th>
+			</tr>
+		</tfoot>
+		<tbody>
+			<?php foreach( $theme_cpts as $key => $cpt ) : ?>
+			<tr <?php if ( $key%2 == 0 ) echo 'class="alternate"' ?>>
+				<td valign="top">
+					<strong><?php echo $cpt->name; ?></strong>
+				</td>
+				<td valign="top"><?php echo $cpt->label; ?></td>
+			</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+	
+	<?php endif; ?>
+	
+	<?php if ( count( $wp_cpts ) ) : ?>
+	
+	<p><strong><?php _e('in WordPress', 'cptg') ?></strong></p>
+	
+	<table width="100%" class="widefat">
+		<thead>
+			<tr>
+				<th width="50%"><?php _e('Post Type', 'cptg');?></th>
+				<th width="50%"><?php _e('Label', 'cptg');?></th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<th width="50%"><?php _e('Post Type', 'cptg');?></th>
+				<th width="50%"><?php _e('Label', 'cptg');?></th>
+			</tr>
+		</tfoot>
+		<tbody>
+			<?php foreach( $wp_cpts as $key => $cpt ) : ?>
+			<tr <?php if ( $key%2 == 0 ) echo 'class="alternate"' ?>>
+				<td valign="top">
+					<strong><?php echo $cpt->name; ?></strong>
+				</td>
+				<td valign="top"><?php echo $cpt->label; ?></td>
+			</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+	
+	<?php endif; ?>
 
 <?php endif; ?>
 

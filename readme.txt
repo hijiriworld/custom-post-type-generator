@@ -1,9 +1,9 @@
 === Custom Post Type Generator ===
 Contributors: hijiri
 Tags: custom post type, custom taxonomy
-Requires at least: 3.0.0
-Tested up to: 4.0.1
-Stable tag: 2.2.4
+Requires at least: 3.6.0
+Tested up to: 4.1.0
+Stable tag: 2.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,6 +27,14 @@ it's a must have for any user working with WordPress.
 3. Export to PHP
 
 == Changelog ==
+
+= 2.3.0 =
+
+* Support for the most parameters.
+* Admin UI improved.
+* Objects List improved.
+* Exported PHP Code improved.
+* Bug fixed
 
 = 2.2.4 =
 
