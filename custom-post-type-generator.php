@@ -5,157 +5,20 @@ Plugin URI: http://hijiriworld.com/web/plugins/custom-post-type-generator/
 Description: Generate Custom Post Types and Custom Taxonomies, from the admin interface which is easy to understand. it's a must have for any user working with WordPress.
 Author: hijiri
 Author URI: http://hijiriworld.com/web/
-Version: 2.3.0
+Version: 2.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
-// Activate from old version.
-
-register_activation_hook( __FILE__, 'cptg_activate' );
-function cptg_activate()
-{
-	global $wpdb;
-
-	if ( function_exists( 'is_multisite' ) && is_multisite() ) {
-		$curr_blog = $wpdb->blogid;
-		$blogids = $wpdb->get_col( "SELECT blog_id FROM $wpdb->blogs" );
-		foreach( $blogids as $blog_id ) {
-			switch_to_blog( $blog_id );
-			cptg_activate_db();
-		}
-		switch_to_blog( $curr_blog );
-		
-	} else {
-		cptg_activate_db();
-	}
-}
-
-function cptg_activate_db()
-{	
-	global $wpdb;
-	
-	$sql = "
-		SELECT option_id, option_name, option_value 
-		FROM $wpdb->options 
-		WHERE option_name LIKE '%%cptg_cpt%%'
-		ORDER BY option_id ASC
-		";
-	$results = $wpdb->get_results($sql);
-	
-	if ( count( $results ) ) {
-		foreach ( $results as $result ) {
-			$cpt = unserialize( $result->option_value );
-			
-			if ( isset( $cpt['label'] ) ) {
-				$cpt['labels']['name'] = $cpt['label'];
-				unset( $cpt['label'] );
-			}
-			if ( isset( $cpt['labels']['singular_label'] ) ) {
-				$cpt['labels']['singular_name'] = $cpt['labels']['singular_label'];
-				unset( $cpt['labels']['singular_label'] );
-			}
-			if ( !isset( $cpt['labels']['name_admin_bar'] ) ) $cpt['labels']['name_admin_bar'] = '';
-			
-			if ( !isset( $cpt['show_in_menu'] ) ) {
-				$cpt['show_in_menu'] = array(
-					'show_in_menu' => $cpt['show_ui'],
-					'string' => ''
-				);
-			}
-			if ( !isset( $cpt['show_in_admin_bar'] ) ) $cpt['show_in_admin_bar'] = $cpt['show_ui'];
-
-			$update_rewrite = array();
-			if ( isset( $cpt['rewrite_slug'] ) ) { // before.2.2.2
-				$update_rewrite = array(
-					'rewrite' => $cpt['rewrite'],
-					'slug' => $cpt['rewrite_slug'],
-					'with_front' => 1,
-					'feeds' => 0,
-					'pages' => 1,	
-				);
-				$cpt['rewrite'] = $update_rewrite;
-				unset( $cpt['rewrite_slug'] );
-			}
-			
-			$update_query_var = array();
-			if ( !is_array( $cpt['query_var'] ) ) { // before 2.2.4
-				$update_query_var = array(
-					'query_var' => $cpt['query_var'],
-					'string' => '',
-				);
-				$cpt['query_var'] = $update_query_var;
-			}
-			
-			update_option( $result->option_name, $cpt );
-		}
-	}
-	
-	$sql = "
-		SELECT option_id, option_name, option_value 
-		FROM $wpdb->options 
-		WHERE option_name LIKE '%%cptg_tax%%'
-		ORDER BY option_id ASC
-		";
-	$results = $wpdb->get_results($sql);
-	
-	if ( count( $results ) ) {
-		foreach ( $results as $result ) {
-			$tax = unserialize( $result->option_value );
-			
-			if ( isset( $tax['label'] ) ) {
-				$tax['labels']['name'] = $tax['label'];
-				unset( $tax['label'] );
-			}
-			if ( isset( $tax['labels']['singular_label'] ) ) {
-				$tax['labels']['singular_name'] = $tax['labels']['singular_label'];
-				unset( $tax['labels']['singular_label'] );
-			}
-			if ( !isset( $tax['labels']['menu_name'] ) ) $tax['labels']['menu_name'] = '';
-			if ( !isset( $tax['labels']['view_item'] ) ) $tax['labels']['view_item'] = '';
-			if ( !isset( $tax['labels']['not_found'] ) ) $tax['labels']['not_found'] = '';
-			if ( !isset( $tax['labels']['show_admin_column'] ) ) $tax['show_admin_column'] = 0;
-			
-			if ( !isset( $tax['show_in_nav_menus'] ) ) $tax['show_in_nav_menus'] = $tax['public'];
-			if ( !isset( $tax['show_tagcloud'] ) ) $tax['show_tagcloud'] = $tax['show_ui'];
-			if ( !isset( $tax['sort'] ) ) $tax['sort'] = 0;
-			
-			$update_rewrite = array();
-			if ( isset( $tax['rewrite_slug'] ) ) { // before.2.2.2
-				$update_rewrite = array(
-					'rewrite' => $tax['rewrite'],
-					'slug' => $tax['rewrite_slug'],
-					'with_front' => 1,
-					'hierarchical' => 0,
-				);
-				$tax['rewrite'] = $update_rewrite;
-				unset( $tax['rewrite_slug'] );
-			}
-			
-			$update_query_var = array();
-			if ( !is_array( $tax['query_var']) ) { // before 2.2.4
-				$update_query_var = array(
-					'query_var' => $tax['query_var'],
-					'string' => '',
-				);
-				$tax['query_var'] = $update_query_var;
-			}
-			
-			update_option( $result->option_name, $tax );
-		}
-	}
-}
-
-/*
-	Define
+/**
+* Define
 */
 
 define( 'CPTG_URL', plugin_dir_path(__FILE__) );
-
 load_plugin_textdomain( 'cptg', false, basename(dirname(__FILE__)).'/lang' );
 
-/*
-	CPTG Class
+/**
+* Class & Method
 */
 
 $cptg = new Cptg;
@@ -164,26 +27,140 @@ class Cptg
 {
 	function __construct()
 	{
-		// add_menu
-		add_action( 'admin_menu', array($this, 'add_menus' ));
+		if ( !get_option( 'cptg_activation' ) ) $this->cptg_activation();
+		
+		add_action( 'admin_menu', array( $this, 'add_menus' ) );
 		
 		// generate
-		add_action( 'init', array($this,'generate_ctps') );
-		add_action( 'init', array($this,'generate_taxs') );
+		add_action( 'init', array( $this,'generate_ctps') );
+		add_action( 'init', array( $this,'generate_taxs') );
 		
 		// actions
-		add_action( 'admin_init', array($this,'cptg_actions'));
+		add_action( 'admin_init', array( $this,'cptg_actions'));
 		
 		// load JavaScript and CSS
 		if ( strpos( $_SERVER['REQUEST_URI'], 'cptg-' ) > 0 || strpos( $_SERVER['REQUEST_URI'], '_tax' ) > 0 ) {
-			add_action( 'admin_head', array($this, 'cptg_js') );
-			add_action( 'admin_head', array($this, 'cptg_css') );
+			add_action( 'admin_head', array( $this, 'cptg_js') );
+			add_action( 'admin_head', array( $this, 'cptg_css') );
 		}
 		
-		add_action( 'wp_ajax_update-cptg-order', array( &$this, 'update_cptg_order' ) );
+		add_action( 'wp_ajax_update-cptg-order', array( $this, 'update_cptg_order' ) );
+	}
+	
+	function cptg_activation()
+	{	
+		global $wpdb;
+
+		$sql = "
+			SELECT option_id, option_name, option_value 
+			FROM $wpdb->options 
+			WHERE option_name LIKE '%%cptg_cpt%%'
+			ORDER BY option_id ASC
+			";
+		$results = $wpdb->get_results($sql);
 		
-		update_option( 'cptg_version', '2.3.0' );
+		if ( count( $results ) ) {
+			foreach ( $results as $result ) {
+				$cpt = unserialize( $result->option_value );
+				
+				if ( isset( $cpt['label'] ) ) {
+					$cpt['labels']['name'] = $cpt['label'];
+					unset( $cpt['label'] );
+				}
+				if ( isset( $cpt['labels']['singular_label'] ) ) {
+					$cpt['labels']['singular_name'] = $cpt['labels']['singular_label'];
+					unset( $cpt['labels']['singular_label'] );
+				}
+				if ( !isset( $cpt['labels']['name_admin_bar'] ) ) $cpt['labels']['name_admin_bar'] = '';
+				
+				if ( !isset( $cpt['show_in_menu'] ) ) {
+					$cpt['show_in_menu'] = array(
+						'show_in_menu' => $cpt['show_ui'],
+						'string' => ''
+					);
+				}
+				if ( !isset( $cpt['show_in_admin_bar'] ) ) $cpt['show_in_admin_bar'] = $cpt['show_ui'];
+	
+				$update_rewrite = array();
+				if ( isset( $cpt['rewrite_slug'] ) ) { // before.2.2.2
+					$update_rewrite = array(
+						'rewrite' => $cpt['rewrite'],
+						'slug' => $cpt['rewrite_slug'],
+						'with_front' => 1,
+						'feeds' => 0,
+						'pages' => 1,	
+					);
+					$cpt['rewrite'] = $update_rewrite;
+					unset( $cpt['rewrite_slug'] );
+				}
+				
+				$update_query_var = array();
+				if ( !is_array( $cpt['query_var'] ) ) { // before 2.2.4
+					$update_query_var = array(
+						'query_var' => $cpt['query_var'],
+						'string' => '',
+					);
+					$cpt['query_var'] = $update_query_var;
+				}
+				
+				update_option( $result->option_name, $cpt );
+			}
+		}
 		
+		$sql = "
+			SELECT option_id, option_name, option_value 
+			FROM $wpdb->options 
+			WHERE option_name LIKE '%%cptg_tax%%'
+			ORDER BY option_id ASC
+			";
+		$results = $wpdb->get_results($sql);
+		
+		if ( count( $results) ) {	
+			foreach ( $results as $result ) {
+				$tax = unserialize( $result->option_value );
+				
+				if ( isset( $tax['label'] ) ) {
+					$tax['labels']['name'] = $tax['label'];
+					unset( $tax['label'] );
+				}
+				if ( isset( $tax['labels']['singular_label'] ) ) {
+					$tax['labels']['singular_name'] = $tax['labels']['singular_label'];
+					unset( $tax['labels']['singular_label'] );
+				}
+				if ( !isset( $tax['labels']['menu_name'] ) ) $tax['labels']['menu_name'] = '';
+				if ( !isset( $tax['labels']['view_item'] ) ) $tax['labels']['view_item'] = '';
+				if ( !isset( $tax['labels']['not_found'] ) ) $tax['labels']['not_found'] = '';
+				if ( !isset( $tax['labels']['show_admin_column'] ) ) $tax['show_admin_column'] = 0;
+				
+				if ( !isset( $tax['show_in_nav_menus'] ) ) $tax['show_in_nav_menus'] = $tax['public'];
+				if ( !isset( $tax['show_tagcloud'] ) ) $tax['show_tagcloud'] = $tax['show_ui'];
+				if ( !isset( $tax['sort'] ) ) $tax['sort'] = 0;
+				
+				$update_rewrite = array();
+				if ( isset( $tax['rewrite_slug'] ) ) { // before.2.2.2
+					$update_rewrite = array(
+						'rewrite' => $tax['rewrite'],
+						'slug' => $tax['rewrite_slug'],
+						'with_front' => 1,
+						'hierarchical' => 0,
+					);
+					$tax['rewrite'] = $update_rewrite;
+					unset( $tax['rewrite_slug'] );
+				}
+				
+				$update_query_var = array();
+				if ( !is_array( $tax['query_var']) ) { // before 2.2.4
+					$update_query_var = array(
+						'query_var' => $tax['query_var'],
+						'string' => '',
+					);
+					$tax['query_var'] = $update_query_var;
+				}
+				update_option( $result->option_name, $tax );
+			}
+		}
+		update_option( 'cptg_activation', 1 );
+		delete_option( 'cptg_version' ); // before ver.2.3.1
 	}
 	
 	function add_menus()
@@ -489,10 +466,8 @@ class Cptg
 	}
 }
 
-/*
-				
-	Method
-				
+/**
+* Method
 */
 
 function cptg_return_boolean( $obj )

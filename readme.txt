@@ -3,7 +3,7 @@ Contributors: hijiri
 Tags: custom post type, custom taxonomy
 Requires at least: 3.6.0
 Tested up to: 4.1.0
-Stable tag: 2.3.0
+Stable tag: 2.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,6 +27,12 @@ it's a must have for any user working with WordPress.
 3. Export to PHP
 
 == Changelog ==
+
+= 2.3.1 =
+
+* Activation improved. 
+* Support non public objects( show_ui=true, show_in_menu=true ).
+* Admin UI improved.
 
 = 2.3.0 =
 

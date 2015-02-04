@@ -80,7 +80,8 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_tax' ) {
 							<td>
 								<?php
 								$args = array(
-									'public' => true
+									'show_ui' => true,
+									'show_in_menu' => true,
 								);
 								$output = 'objects'; // or objects
 								$post_types = get_post_types( $args, $output );
@@ -231,10 +232,10 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_tax' ) {
 						<tr valign="top">
 							<th scope="row"><?php _e('public', 'cptg') ?></th>
 							<td>
-								<select name="input_tax[public]" id="input_tax_public">
-									<?php echo_boolean_options($tax['public'], 1); ?>
-								</select> <?php _e('(Default: true)', 'cptg') ?>
 								<p><label><input type="checkbox" id="input_tax_public_check"><?php _e( 'Update related configurations below as well.', 'cptg' ) ?></label></p>
+								<p><select name="input_tax[public]" id="input_tax_public">
+									<?php echo_boolean_options($tax['public'], 1); ?>
+								</select> <?php _e('(Default: true)', 'cptg') ?></p>
 							</td>
 						</tr>
 						<tr valign="top">

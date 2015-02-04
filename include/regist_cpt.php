@@ -89,10 +89,10 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 						<tr valign="top">
 							<th scope="row"><?php _e('Has Archive', 'cptg') ?></th>
 							<td>
-								<select name="input_cpt[has_archive]" id="input_cpt_has_archive">
-									<?php echo_boolean_options($cpt['has_archive'], 0); ?>
-								</select> <?php _e('(Default: false)'); ?>
 								<p><label><input type="checkbox" id="input_cpt_has_archive_check"><?php _e( 'Update related configurations below as well.', 'cptg' ) ?></label></p>
+								<p><select name="input_cpt[has_archive]" id="input_cpt_has_archive">
+									<?php echo_boolean_options($cpt['has_archive'], 0); ?>
+								</select> <?php _e('(Default: false)'); ?></p>
 							</td>
 						</tr>
 					</table>
@@ -214,10 +214,10 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 						<tr>
 							<th scope="row"><?php _e('public', 'cptg') ?></th>
 							<td>
-								<select name="input_cpt[public]" id="input_cpt_public">
-									<?php echo_boolean_options($cpt['public'], 0); ?>
-								</select> <?php _e('(Default: false)', 'cptg') ?>
 								<p><label><input type="checkbox" id="input_cpt_public_check"><?php _e( 'Update related configurations below as well.', 'cptg' ) ?></label></p>
+								<p><select name="input_cpt[public]" id="input_cpt_public">
+									<?php echo_boolean_options($cpt['public'], 0); ?>
+								</select> <?php _e('(Default: false)', 'cptg') ?></p>
 							</td>
 						</tr>
 						<tr valign="top">
