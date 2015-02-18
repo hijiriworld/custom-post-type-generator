@@ -24,10 +24,6 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_tax' ) {
 </div>
 
 <div class="error error-cptg" id="error2" style="display: none;">
-	<p><?php _e('Do not contain capital letters or spaces.', 'cptg'); ?></p>
-</div>
-
-<div class="error error-cptg" id="error3" style="display: none;">
 	<p><?php _e('You must allocate at least 1 of Custom Post Type to Custom Taxonomy.', 'cptg'); ?></p>
 </div>
 

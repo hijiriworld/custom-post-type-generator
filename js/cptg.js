@@ -69,10 +69,6 @@
 			$('#error1').show();
 			window.scrollTo(0, 0);
 			return false;
-		} else if( post_type_name.match( /[^\x01-\x7E]/ ) ) { // 全角と半角カタカナをはじく
-			$('#error2').show();
-			window.scrollTo(0, 0);
-			return false;
 		} else {
 			return true;
 		}
@@ -87,12 +83,8 @@
 			$('#error1').show();
 			window.scrollTo(0, 0);
 			return false;
-		} else if( tax_name.match( /[^\x01-\x7E]/ ) ) { // 全角と半角カタカナをはじく
-			$('#error2').show();
-			window.scrollTo(0, 0);
-			return false;
 		} else if ( !$('input:checked[class=input_tax_post_types]')[0] ) {
-			$('#error3').show();
+			$('#error2').show();
 			window.scrollTo(0, 0);
 			return false;
 		} else {

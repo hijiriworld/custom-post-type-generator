@@ -23,10 +23,6 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 	<p><?php _e('Post Type is required.', 'cptg'); ?></p>
 </div>
 
-<div class="error error-cptg" id="error2" style="display: none;">
-	<p><?php _e('Do not contain capital letters or spaces.', 'cptg'); ?></p>
-</div>
-
 <?php screen_icon( 'plugins' ); ?>
 
 <h2><?php echo $page_title; ?></h2>
