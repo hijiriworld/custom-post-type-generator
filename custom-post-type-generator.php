@@ -5,7 +5,7 @@ Plugin URI: http://hijiriworld.com/web/plugins/custom-post-type-generator/
 Description: Generate Custom Post Types and Custom Taxonomies, from the admin interface which is easy to understand. it's a must have for any user working with WordPress.
 Author: hijiri
 Author URI: http://hijiriworld.com/web/
-Version: 2.3.2
+Version: 2.3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -30,20 +30,12 @@ class Cptg
 		if ( !get_option( 'cptg_activation' ) ) $this->cptg_activation();
 		
 		add_action( 'admin_menu', array( $this, 'add_menus' ) );
-		
-		// generate
-		add_action( 'init', array( $this,'generate_ctps') );
-		add_action( 'init', array( $this,'generate_taxs') );
-		
-		// actions
 		add_action( 'admin_init', array( $this,'cptg_actions'));
-		
-		// load JavaScript and CSS
+		add_action( 'init', array( $this,'cptg_generate') );
 		if ( strpos( $_SERVER['REQUEST_URI'], 'cptg-' ) > 0 || strpos( $_SERVER['REQUEST_URI'], '_tax' ) > 0 ) {
 			add_action( 'admin_head', array( $this, 'cptg_js') );
 			add_action( 'admin_head', array( $this, 'cptg_css') );
 		}
-		
 		add_action( 'wp_ajax_update-cptg-order', array( $this, 'update_cptg_order' ) );
 	}
 	
@@ -212,16 +204,12 @@ class Cptg
 	}
 	
 	/*
-				
-		Init: Genarate Custom Post Types
-				
-	*/
-	
-	function generate_ctps()
+	* Init: Generate Custom Post Types & Taxonomies
+	*/			
+
+	function cptg_generate()
 	{
-		// get_option custom post types
-		
-		global $wpdb, $cpt_labels_params;
+		global $wpdb;
 		
 		$results = $pre_result = array();
 		
@@ -279,7 +267,6 @@ class Cptg
 				$cpt_labels['parent_item_colon'] = $cpt['labels']['parent_item_colon'] ? esc_html( $cpt['labels']['parent_item_colon'] ) : __('Parent Page');
 				
 				// $args
-				
 				$args = array(
 					'labels'				=> $cpt_labels,
 					'description'			=> esc_html( $cpt['description'] ),
@@ -302,19 +289,6 @@ class Cptg
 				register_post_type( $cpt['post_type'], $args );
 			}
 		}
-		
-		flush_rewrite_rules();
-	}
-	
-	/*
-				
-		Init: Genarate Custom Taxonomies
-				
-	*/
-	
-	function generate_taxs() {
-
-		global $wpdb, $tax_labels_params;
 		
 		$results = array();
 		
@@ -374,9 +348,7 @@ class Cptg
 	}
 	
 	/*
-	
-		Actions
-	
+	* Actions
 	*/
 	
 	function add_cpt()

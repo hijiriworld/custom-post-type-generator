@@ -20,24 +20,25 @@ $sql = "SELECT
 		 
 $results = $wpdb->get_results($sql);
 
-// Taxonomies in Your Theme
+// Taxonomies in Your Theme or in WordPress
 
 $cptg_tax_names = $theme_taxs = array();
-
-$args = array(
-//	'public'   => true
-);
-$output = 'object';
-$all_taxs = get_taxonomies( $args, $output );
 
 foreach( $results as $result ) {
 	$tax = unserialize( $result->option_value );
 	$cptg_tax_names[] = $tax["taxonomy"];
 }
-foreach( $all_taxs as $tax ) {
-	if ( in_array( strtolower( $tax->name ), array( 'category', 'post_tag', 'nav_menu', 'link_category', 'post_format' ) ) ) {
-		$wp_taxs[] = $tax;
-	} else if ( !in_array( strtolower( $tax->name ), $cptg_tax_names ) ) {
+
+$builtin_taxs = get_taxonomies( array(
+	'_builtin' => true,
+	), 'object'
+);
+$no_builtin_taxs = get_taxonomies( array(
+	'_builtin' => false,
+	), 'object'
+);
+foreach( $no_builtin_taxs as $tax ) {
+	if ( !in_array( strtolower( $tax->name ), $cptg_tax_names ) ) {
 		$theme_taxs[] = $tax;
 	}
 }
@@ -121,7 +122,7 @@ foreach( $all_taxs as $tax ) {
 
 <p><?php _e('If you delete Custom Taxonomy(s), Contents will not delete which belong to that.', 'cptg') ?></p>
 
-<?php if ( count( $theme_taxs ) || count( $wp_taxs ) ) : ?>
+<?php if ( count( $theme_taxs ) || count( $builtin_taxs ) ) : ?>
 
 <br>
 
@@ -169,9 +170,9 @@ foreach( $all_taxs as $tax ) {
 	
 	<?php endif; ?>
 
-	<?php if ( count( $wp_taxs ) ) : ?>
+	<?php if ( count( $builtin_taxs ) ) : ?>
 	
-	<p><strong><?php _e('in WordPress', 'cptg') ?></strong></p>
+	<p><strong><?php _e('builtin', 'cptg') ?></strong></p>
 	
 	<table width="100%" class="widefat">
 		<thead>
@@ -189,7 +190,7 @@ foreach( $all_taxs as $tax ) {
 			</tr>
 		</tfoot>
 		<tbody>
-			<?php foreach( $wp_taxs as $key => $tax ) : ?>
+			<?php foreach( $builtin_taxs as $key => $tax ) : ?>
 			<tr <?php if ( $key%2 == 0 ) echo 'class="alternate"' ?>>
 				<td valign="top">
 					<strong><?php echo $tax->name; ?></strong>

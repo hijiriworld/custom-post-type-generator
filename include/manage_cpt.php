@@ -40,24 +40,25 @@ if ( $cptg_order ) {
 	$results = $pre_results;
 }
 
-// Post Types in Your Theme
+// Post Types in Your Theme or in WordPress
 
-$cptg_cpt_names = $theme_cpts = array();
-
-$args = array(
-);
-$output = 'object';
-$all_cpts = get_post_types( $args, $output );
+$cptg_cpt_names = $builtin_cpts = $no_builtin_cpts = array();
 
 foreach( $results as $result ) {
 	$cpt = unserialize( $result->option_value );
 	$cptg_cpt_names[] = $cpt['post_type'];
 }
 
-foreach( $all_cpts as $cpt ) {
-	if ( in_array( strtolower( $cpt->name ), array( 'post', 'page', 'attachment', 'revision', 'nav_menu_item' ) ) ) {
-		$wp_cpts[] = $cpt;
-	} else if ( !in_array( strtolower( $cpt->name ), $cptg_cpt_names ) ) {
+$builtin_cpts = get_post_types( array(
+	'_builtin' => true,
+	), 'object'
+);
+$no_builtin_cpts = get_post_types( array(
+	'_builtin' => false,
+	), 'object'
+);
+foreach( $no_builtin_cpts as $cpt ) {
+	if ( !in_array( strtolower( $cpt->name ), $cptg_cpt_names ) ) {
 		$theme_cpts[] = $cpt;
 	}
 }
@@ -130,7 +131,7 @@ foreach( $all_cpts as $cpt ) {
 
 <p><?php _e('If you delete Custom Post Type(s), Contents will not delete which belong to that.', 'cptg') ?><br><?php _e('You can change Order using a Drag and Drop Sortable JavaScript.', 'cptg') ?></p>
 
-<?php if ( count( $theme_cpts ) || count( $wp_cpts ) ) : ?>
+<?php if ( count( $theme_cpts ) || count( $builtin_cpts ) ) : ?>
 
 <br>
 <h3><?php _e('Other Custom Post Types', 'cptg') ?></strong></h3>
@@ -167,9 +168,9 @@ foreach( $all_cpts as $cpt ) {
 	
 	<?php endif; ?>
 	
-	<?php if ( count( $wp_cpts ) ) : ?>
+	<?php if ( count( $builtin_cpts ) ) : ?>
 	
-	<p><strong><?php _e('in WordPress', 'cptg') ?></strong></p>
+	<p><strong><?php _e('builtin', 'cptg') ?></strong></p>
 	
 	<table width="100%" class="widefat">
 		<thead>
@@ -185,7 +186,7 @@ foreach( $all_cpts as $cpt ) {
 			</tr>
 		</tfoot>
 		<tbody>
-			<?php foreach( $wp_cpts as $key => $cpt ) : ?>
+			<?php foreach( $builtin_cpts as $key => $cpt ) : ?>
 			<tr <?php if ( $key%2 == 0 ) echo 'class="alternate"' ?>>
 				<td valign="top">
 					<strong><?php echo $cpt->name; ?></strong>
