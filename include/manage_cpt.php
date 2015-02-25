@@ -42,7 +42,7 @@ if ( $cptg_order ) {
 
 // Post Types in Your Theme or in WordPress
 
-$cptg_cpt_names = $builtin_cpts = $no_builtin_cpts = array();
+$cptg_cpt_names = $theme_cpts = array();
 
 foreach( $results as $result ) {
 	$cpt = unserialize( $result->option_value );
