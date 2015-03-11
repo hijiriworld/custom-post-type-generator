@@ -125,6 +125,7 @@ if ( isset( $_POST['cptg_export'] ) ) {
 				$code .= "\t\t".'\'name\' => \''.$cpt_labels['name'].'\','."\n";
 				$code .= "\t\t".'\'singular_name\' => \''.$cpt_labels['singular_name'].'\','."\n";
 				$code .= "\t\t".'\'menu_name\' => \''.$cpt_labels['menu_name'].'\','."\n";
+				$code .= "\t\t".'\'name_admin_bar\' => \''.$cpt_labels['name_admin_bar'].'\','."\n";
 				$code .= "\t\t".'\'all_items\' => \''.$cpt_labels['all_items'].'\','."\n";
 				$code .= "\t\t".'\'add_new\' => \''.$cpt_labels['add_new'].'\','."\n";
 				$code .= "\t\t".'\'add_new_item\' => \''.$cpt_labels['add_new_item'].'\','."\n";
@@ -143,14 +144,33 @@ if ( isset( $_POST['cptg_export'] ) ) {
 				$code .= "\t\t".'\'labels\' => $labels,'."\n";
 				if ( $cpt['description'] ) $code .= "\t\t".'\'description\' => \''.esc_html($cpt['description']).'\','."\n";
 				$code .= "\t\t".'\'public\' => '.cptg_return_disp_boolean($cpt['public']).','."\n";
-				$code .= "\t\t".'\'publicly_queryable\' => '.cptg_return_disp_boolean($cpt['publicly_queryable']).','."\n";
 				$code .= "\t\t".'\'exclude_from_search\' => '.cptg_return_disp_boolean($cpt['exclude_from_search']).','."\n";
+				$code .= "\t\t".'\'publicly_queryable\' => '.cptg_return_disp_boolean($cpt['publicly_queryable']).','."\n";
 				$code .= "\t\t".'\'show_ui\' => '.cptg_return_disp_boolean($cpt['show_ui']).','."\n";
 				$code .= "\t\t".'\'show_in_nav_menus\' => '.cptg_return_disp_boolean($cpt['show_in_nav_menus'] ).','."\n";
-				$code .= "\t\t".'\'has_archive\' => '.cptg_return_disp_boolean($cpt['has_archive']).','."\n";
-				$code .= "\t\t".'\'hierarchical\' => '.cptg_return_disp_boolean($cpt['hierarchical']).','."\n";
-
 				
+				if ( $cpt['show_in_menu']['string'] ) {
+					$code .= "\t\t".'\'show_in_menu\' => \''.esc_html( $cpt['show_in_menu']['string'] ).'\','."\n";
+				} else {
+					$code .= "\t\t".'\'show_in_menu\' => '.cptg_return_disp_boolean($cpt['show_in_menu']['show_in_menu']).','."\n";
+				}
+				
+				$code .= "\t\t".'\'show_in_admin_bar\' => '.cptg_return_disp_boolean($cpt['show_in_admin_bar']).','."\n";
+				
+				$code .= "\t\t".'\'has_archive\' => '.cptg_return_disp_boolean($cpt['has_archive']).','."\n";
+				
+				if ( $cpt['menu_position'] ) {
+					$code .= "\t\t".'\'menu_position\' => '.intval( $cpt['menu_position'] ).','."\n";
+				} else {
+					$code .= "\t\t".'\'menu_position\' => null,'."\n";
+				}
+				if ( $cpt['menu_icon'] ) {
+					$code .= "\t\t".'\'menu_icon\' => \''.$cpt['menu_icon'].'\','."\n";
+				} else {
+					$code .= "\t\t".'\'menu_icon\' => null,'."\n";
+				}
+				
+				$code .= "\t\t".'\'hierarchical\' => '.cptg_return_disp_boolean($cpt['hierarchical']).','."\n";
 				
 				if ( $cpt['rewrite']['rewrite'] ) {
 					$code .= "\t\t".'\'rewrite\' => array( ';
@@ -166,6 +186,7 @@ if ( isset( $_POST['cptg_export'] ) ) {
 				} else {
 					$code .= "\t\t".'\'rewrite\' => '.cptg_return_disp_boolean( $cpt['rewrite']['rewrite'] ).','."\n";	
 				}
+				
 				if ( $cpt['query_var']['query_var'] && $cpt['query_var']['string'] ) {
 					$code .= "\t\t".'\'query_var\' => \''.esc_html($cpt['query_var']['string']).'\','."\n";
 				} else {
@@ -173,16 +194,7 @@ if ( isset( $_POST['cptg_export'] ) ) {
 				}
 				
 				$code .= "\t\t".'\'can_export\' => '.cptg_return_disp_boolean($cpt['can_export']).','."\n";
-				if ( $cpt['menu_position'] ) {
-					$code .= "\t\t".'\'menu_position\' => '.intval( $cpt['menu_position'] ).','."\n";
-				} else {
-					$code .= "\t\t".'\'menu_position\' => null,'."\n";
-				}
-				if ( $cpt['menu_icon'] ) {
-					$code .= "\t\t".'\'menu_icon\' => \''.$cpt['menu_icon'].'\','."\n";
-				} else {
-					$code .= "\t\t".'\'menu_icon\' => null,'."\n";
-				}
+				
 				if ( count( $cpt['supports'] ) ) {
 					$code .= "\t\t".'\'supports\' => array( ';
 					foreach ( $cpt['supports'] as $support ) {
@@ -265,6 +277,7 @@ if ( isset( $_POST['cptg_export'] ) ) {
 				
 				$code .= "\t".'$args = array('."\n";
 				$code .= "\t\t".'\'labels\' => $labels,'."\n";
+				$code .= "\t\t".'\'public\' => '.cptg_return_disp_boolean($tax['public']).','."\n";
 				$code .= "\t\t".'\'show_ui\' => '.cptg_return_disp_boolean($tax['show_ui']).','."\n";
 				$code .= "\t\t".'\'show_in_nav_menus\' => '.cptg_return_disp_boolean($tax['show_in_nav_menus']).','."\n";
 				$code .= "\t\t".'\'show_tagcloud\' => '.cptg_return_disp_boolean($tax['show_tagcloud']).','."\n";
