@@ -14,6 +14,8 @@ Generate Custom Post Types and Custom Taxonomies.
 Generate Custom Post Types and Custom Taxonomies, from the admin interface which is easy to understand.
 it's a must have for any user working with WordPress.
 
+<a href="https://github.com/hijiriworld/custom-post-type-generator">This Plugin published on GitHub.</a>
+
 == Installation ==
 
 1. Upload 'custom-post-type-generator' folder to the `/wp-content/plugins/` directory
