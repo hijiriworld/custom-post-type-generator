@@ -1,0 +1,775 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2015-02-20 15:05+0900\n"
+"PO-Revision-Date: 2015-02-20 15:05+0900\n"
+"Last-Translator: hijiri <hijiriworld@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:160
+msgid "Custom Post Type"
+msgstr ""
+
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:161
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:163
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:259
+#: plugins/custom-post-type-generator/include/export.php:114
+#: plugins/custom-post-type-generator/include/manage_cpt.php:74
+#: plugins/custom-post-type-generator/include/manage_tax.php:53
+#: plugins/custom-post-type-generator/include/regist_cpt.php:14
+#: plugins/custom-post-type-generator/include/regist_tax.php:14
+msgid "Add New"
+msgstr ""
+
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:162
+msgid "Custom Taxonomy"
+msgstr ""
+
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:164
+#: plugins/custom-post-type-generator/include/export.php:322
+msgid "Export"
+msgstr ""
+
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:258
+#: plugins/custom-post-type-generator/include/export.php:113
+#: plugins/custom-post-type-generator/include/regist_cpt.php:128
+msgid "All Posts"
+msgstr ""
+
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:260
+#: plugins/custom-post-type-generator/include/export.php:115
+#: plugins/custom-post-type-generator/include/regist_cpt.php:142
+msgid "Add New Post"
+msgstr ""
+
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:261
+#: plugins/custom-post-type-generator/include/export.php:116
+#: plugins/custom-post-type-generator/include/regist_cpt.php:149
+msgid "Edit Post"
+msgstr ""
+
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:262
+#: plugins/custom-post-type-generator/include/export.php:117
+#: plugins/custom-post-type-generator/include/regist_cpt.php:156
+msgid "New Post"
+msgstr ""
+
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:263
+#: plugins/custom-post-type-generator/include/export.php:118
+#: plugins/custom-post-type-generator/include/regist_cpt.php:163
+msgid "View Post"
+msgstr ""
+
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:264
+#: plugins/custom-post-type-generator/include/export.php:119
+#: plugins/custom-post-type-generator/include/regist_cpt.php:170
+msgid "Search Posts"
+msgstr ""
+
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:265
+#: plugins/custom-post-type-generator/include/export.php:120
+#: plugins/custom-post-type-generator/include/regist_cpt.php:177
+msgid "No posts found."
+msgstr ""
+
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:266
+#: plugins/custom-post-type-generator/include/export.php:121
+#: plugins/custom-post-type-generator/include/regist_cpt.php:184
+msgid "No posts found in Trash."
+msgstr ""
+
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:267
+#: plugins/custom-post-type-generator/include/export.php:122
+#: plugins/custom-post-type-generator/include/regist_cpt.php:191
+msgid "Parent Page"
+msgstr ""
+
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:314
+#: plugins/custom-post-type-generator/include/export.php:228
+#: plugins/custom-post-type-generator/include/regist_tax.php:121
+msgid "All Tags"
+msgstr ""
+
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:315
+#: plugins/custom-post-type-generator/include/export.php:229
+#: plugins/custom-post-type-generator/include/regist_tax.php:128
+msgid "Edit Tag"
+msgstr ""
+
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:316
+#: plugins/custom-post-type-generator/include/export.php:230
+#: plugins/custom-post-type-generator/include/regist_tax.php:135
+msgid "View Tag"
+msgstr ""
+
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:317
+#: plugins/custom-post-type-generator/include/export.php:231
+#: plugins/custom-post-type-generator/include/regist_tax.php:142
+msgid "Update Tag"
+msgstr ""
+
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:318
+#: plugins/custom-post-type-generator/include/export.php:232
+#: plugins/custom-post-type-generator/include/regist_tax.php:149
+msgid "Add New Tag"
+msgstr ""
+
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:319
+#: plugins/custom-post-type-generator/include/export.php:233
+#: plugins/custom-post-type-generator/include/regist_tax.php:156
+msgid "New Tag Name"
+msgstr ""
+
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:320
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:321
+#: plugins/custom-post-type-generator/include/export.php:234
+#: plugins/custom-post-type-generator/include/export.php:235
+#: plugins/custom-post-type-generator/include/regist_tax.php:163
+#: plugins/custom-post-type-generator/include/regist_tax.php:170
+msgid "Parent Category"
+msgstr ""
+
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:322
+#: plugins/custom-post-type-generator/include/export.php:236
+#: plugins/custom-post-type-generator/include/regist_tax.php:177
+msgid "Search Tags"
+msgstr ""
+
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:323
+#: plugins/custom-post-type-generator/include/export.php:237
+#: plugins/custom-post-type-generator/include/regist_tax.php:185
+msgid "Popular Tags"
+msgstr ""
+
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:324
+#: plugins/custom-post-type-generator/include/export.php:238
+#: plugins/custom-post-type-generator/include/regist_tax.php:192
+msgid "Separate tags with commas"
+msgstr ""
+
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:325
+#: plugins/custom-post-type-generator/include/export.php:239
+#: plugins/custom-post-type-generator/include/regist_tax.php:199
+msgid "Add or remove tags"
+msgstr ""
+
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:326
+#: plugins/custom-post-type-generator/include/export.php:240
+#: plugins/custom-post-type-generator/include/regist_tax.php:206
+msgid "Choose from the most used tags"
+msgstr ""
+
+#: plugins/custom-post-type-generator/custom-post-type-generator.php:327
+#: plugins/custom-post-type-generator/include/export.php:241
+#: plugins/custom-post-type-generator/include/regist_tax.php:213
+msgid "No tags found."
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/export.php:324
+#: plugins/custom-post-type-generator/include/export.php:379
+msgid "Export to PHP"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/export.php:326
+msgid ""
+"Custom Post Type Generator will create the PHP code to include in your theme."
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/export.php:328
+msgid ""
+"Registered Custom Post Type and Taxonomy will not appear in the list of "
+"editable object."
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/export.php:328
+msgid "This is useful for including Custom Post Type and Taxonomy in themes."
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/export.php:331
+msgid ""
+"Select Custom Post Type(s) and Taxonomy(s) from the list and click \"Export "
+"to PHP\"."
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/export.php:332
+msgid "Copy the PHP code generated."
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/export.php:333
+msgid "Paste into your functions.php file."
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/export.php:342
+#: plugins/custom-post-type-generator/include/manage_cpt.php:73
+msgid "Custom Post Types"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/export.php:353
+#: plugins/custom-post-type-generator/include/manage_cpt.php:127
+msgid "No Custom Post Type found."
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/export.php:358
+#: plugins/custom-post-type-generator/include/manage_tax.php:52
+msgid "Custom Taxonomies"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/export.php:369
+#: plugins/custom-post-type-generator/include/manage_tax.php:118
+msgid "No Taxonomy found."
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/export.php:377
+msgid "All Check"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/manage_cpt.php:80
+msgid "Custom Post Type is new added."
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/manage_cpt.php:82
+msgid "Custom Post Type id edited."
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/manage_cpt.php:84
+msgid "Custom Post Type id deleted."
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/manage_cpt.php:92
+#: plugins/custom-post-type-generator/include/manage_cpt.php:98
+#: plugins/custom-post-type-generator/include/manage_cpt.php:147
+#: plugins/custom-post-type-generator/include/manage_cpt.php:153
+#: plugins/custom-post-type-generator/include/manage_cpt.php:178
+#: plugins/custom-post-type-generator/include/manage_cpt.php:184
+#: plugins/custom-post-type-generator/include/regist_cpt.php:51
+msgid "Post Type"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/manage_cpt.php:93
+#: plugins/custom-post-type-generator/include/manage_cpt.php:99
+#: plugins/custom-post-type-generator/include/manage_cpt.php:148
+#: plugins/custom-post-type-generator/include/manage_cpt.php:154
+#: plugins/custom-post-type-generator/include/manage_cpt.php:179
+#: plugins/custom-post-type-generator/include/manage_cpt.php:185
+#: plugins/custom-post-type-generator/include/manage_tax.php:72
+#: plugins/custom-post-type-generator/include/manage_tax.php:79
+#: plugins/custom-post-type-generator/include/manage_tax.php:141
+#: plugins/custom-post-type-generator/include/manage_tax.php:148
+#: plugins/custom-post-type-generator/include/manage_tax.php:181
+#: plugins/custom-post-type-generator/include/manage_tax.php:188
+#: plugins/custom-post-type-generator/include/regist_cpt.php:61
+#: plugins/custom-post-type-generator/include/regist_tax.php:66
+msgid "Label"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/manage_cpt.php:117
+#: plugins/custom-post-type-generator/include/manage_cpt.php:119
+#: plugins/custom-post-type-generator/include/manage_tax.php:97
+#: plugins/custom-post-type-generator/include/manage_tax.php:99
+msgid "Edit this item"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/manage_cpt.php:119
+#: plugins/custom-post-type-generator/include/manage_tax.php:99
+msgid "Edit"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/manage_cpt.php:120
+#: plugins/custom-post-type-generator/include/manage_tax.php:100
+msgid "Move this item to the Trash"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/manage_cpt.php:120
+#: plugins/custom-post-type-generator/include/manage_tax.php:100
+msgid "Delete"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/manage_cpt.php:132
+msgid ""
+"If you delete Custom Post Type(s), Contents will not delete which belong to "
+"that."
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/manage_cpt.php:132
+msgid "You can change Order using a Drag and Drop Sortable JavaScript."
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/manage_cpt.php:137
+msgid "Other Custom Post Types"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/manage_cpt.php:138
+msgid "The Custom Post Types below are registered in your Theme or WordPress."
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/manage_cpt.php:142
+msgid "in your Theme"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/manage_cpt.php:173
+#: plugins/custom-post-type-generator/include/manage_tax.php:175
+msgid "builtin"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/manage_tax.php:59
+msgid "Custom Taxonomy is new added."
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/manage_tax.php:61
+msgid "Custom Taxonomy id edited."
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/manage_tax.php:63
+msgid "Custom Taxonomy id deleted."
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/manage_tax.php:71
+#: plugins/custom-post-type-generator/include/manage_tax.php:78
+#: plugins/custom-post-type-generator/include/manage_tax.php:140
+#: plugins/custom-post-type-generator/include/manage_tax.php:147
+#: plugins/custom-post-type-generator/include/manage_tax.php:180
+#: plugins/custom-post-type-generator/include/manage_tax.php:187
+#: plugins/custom-post-type-generator/include/regist_tax.php:56
+msgid "Taxonomy"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/manage_tax.php:73
+#: plugins/custom-post-type-generator/include/manage_tax.php:80
+#: plugins/custom-post-type-generator/include/manage_tax.php:142
+#: plugins/custom-post-type-generator/include/manage_tax.php:149
+#: plugins/custom-post-type-generator/include/manage_tax.php:182
+#: plugins/custom-post-type-generator/include/manage_tax.php:189
+#: plugins/custom-post-type-generator/include/regist_tax.php:75
+msgid "Attached Post Types"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/manage_tax.php:123
+msgid ""
+"If you delete Custom Taxonomy(s), Contents will not delete which belong to "
+"that."
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/manage_tax.php:129
+msgid "Other Custom Taxonomies"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/manage_tax.php:131
+msgid "The Taxonomies below are registered in your Theme or WordPress."
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/manage_tax.php:135
+msgid "in Your Theme"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:10
+msgid "Edit Custom Post Type"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:11
+#: plugins/custom-post-type-generator/include/regist_tax.php:11
+msgid "Update"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:13
+msgid "Add New Custom Post Type"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:23
+msgid "Post Type is required."
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:45
+#: plugins/custom-post-type-generator/include/regist_cpt.php:99
+#: plugins/custom-post-type-generator/include/regist_cpt.php:200
+#: plugins/custom-post-type-generator/include/regist_tax.php:49
+#: plugins/custom-post-type-generator/include/regist_tax.php:99
+#: plugins/custom-post-type-generator/include/regist_tax.php:224
+msgid "Click to toggle"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:46
+#: plugins/custom-post-type-generator/include/regist_tax.php:50
+msgid "Basic"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:52
+msgid "($post_type)"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:56
+msgid "max. 20 characters, can not contain capital letters or spaces"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:62
+#: plugins/custom-post-type-generator/include/regist_tax.php:67
+msgid "($name)"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:66
+#: plugins/custom-post-type-generator/include/regist_cpt.php:299
+msgid "(Default: $post_type)"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:70
+msgid "Supports"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:72
+msgid "title"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:73
+msgid "editor"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:74
+msgid "author"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:75
+msgid "thumbnail"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:76
+msgid "excerpt"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:77
+msgid "trackbacks"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:78
+msgid "custom-fields"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:79
+msgid "comments"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:80
+msgid "revisions"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:81
+msgid "page-attributes"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:82
+msgid "post-formats"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:86
+msgid "Has Archive"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:88
+#: plugins/custom-post-type-generator/include/regist_cpt.php:213
+#: plugins/custom-post-type-generator/include/regist_tax.php:231
+msgid "Update related configurations below as well."
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:91
+#: plugins/custom-post-type-generator/include/regist_cpt.php:216
+#: plugins/custom-post-type-generator/include/regist_cpt.php:287
+#: plugins/custom-post-type-generator/include/regist_tax.php:266
+#: plugins/custom-post-type-generator/include/regist_tax.php:275
+#: plugins/custom-post-type-generator/include/regist_tax.php:309
+#: plugins/custom-post-type-generator/include/regist_tax.php:319
+msgid "(Default: false)"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:100
+#: plugins/custom-post-type-generator/include/regist_tax.php:100
+msgid "Label Options"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:104
+#: plugins/custom-post-type-generator/include/regist_tax.php:104
+msgid "singular_name"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:107
+#: plugins/custom-post-type-generator/include/regist_cpt.php:114
+#: plugins/custom-post-type-generator/include/regist_tax.php:107
+#: plugins/custom-post-type-generator/include/regist_tax.php:114
+msgid "(Default: $name)"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:111
+#: plugins/custom-post-type-generator/include/regist_tax.php:111
+msgid "menu_name"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:118
+msgid "name_admin_bar"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:121
+msgid "(Default: $singular_name)"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:125
+#: plugins/custom-post-type-generator/include/regist_tax.php:118
+msgid "all_items"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:132
+msgid "add_new"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:135
+msgid "(Default: Add New)"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:139
+#: plugins/custom-post-type-generator/include/regist_tax.php:146
+msgid "add_new_item"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:146
+#: plugins/custom-post-type-generator/include/regist_tax.php:125
+msgid "edit_item"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:153
+msgid "new_item"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:160
+#: plugins/custom-post-type-generator/include/regist_tax.php:132
+msgid "view_item"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:167
+#: plugins/custom-post-type-generator/include/regist_tax.php:174
+msgid "search_items"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:174
+#: plugins/custom-post-type-generator/include/regist_tax.php:210
+msgid "not_found"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:181
+msgid "not_found_in_trash"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:188
+#: plugins/custom-post-type-generator/include/regist_tax.php:167
+msgid "parent_item_colon"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:201
+#: plugins/custom-post-type-generator/include/regist_tax.php:225
+msgid "Advanced Options"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:205
+msgid "description"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:211
+#: plugins/custom-post-type-generator/include/regist_tax.php:229
+msgid "public"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:220
+msgid "exclude_from_search"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:224
+msgid "(Default: true - opposite of $public)"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:228
+msgid "publicly_queryable"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:232
+#: plugins/custom-post-type-generator/include/regist_cpt.php:240
+#: plugins/custom-post-type-generator/include/regist_cpt.php:248
+msgid "(Default: false - $public)"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:236
+#: plugins/custom-post-type-generator/include/regist_tax.php:238
+msgid "show_ui"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:244
+#: plugins/custom-post-type-generator/include/regist_tax.php:246
+msgid "show_in_nav_menus"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:252
+msgid "show_in_menu"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:256
+msgid "(Default: false - $show_ui)"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:257
+#: plugins/custom-post-type-generator/include/regist_cpt.php:328
+#: plugins/custom-post-type-generator/include/regist_tax.php:284
+msgid "string"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:262
+msgid "show_in_admin_bar"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:266
+msgid "(Default: false - $show_ui_menu)"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:270
+msgid "menu_position"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:272
+msgid "(Default: null - defaults to below Comments)"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:276
+msgid "menu_icon"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:278
+msgid "(Default: null - defaults to the posts icon)"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:283
+#: plugins/custom-post-type-generator/include/regist_tax.php:271
+#: plugins/custom-post-type-generator/include/regist_tax.php:306
+msgid "hierarchical"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:291
+#: plugins/custom-post-type-generator/include/regist_tax.php:289
+msgid "rewrite"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:295
+#: plugins/custom-post-type-generator/include/regist_cpt.php:305
+#: plugins/custom-post-type-generator/include/regist_cpt.php:317
+#: plugins/custom-post-type-generator/include/regist_cpt.php:327
+#: plugins/custom-post-type-generator/include/regist_cpt.php:337
+#: plugins/custom-post-type-generator/include/regist_tax.php:234
+#: plugins/custom-post-type-generator/include/regist_tax.php:283
+#: plugins/custom-post-type-generator/include/regist_tax.php:293
+#: plugins/custom-post-type-generator/include/regist_tax.php:303
+msgid "(Default: true)"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:298
+#: plugins/custom-post-type-generator/include/regist_tax.php:296
+msgid "slug"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:302
+#: plugins/custom-post-type-generator/include/regist_tax.php:300
+msgid "with_front"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:308
+msgid "feeds"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:311
+msgid "(Default: false - $has_archive)"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:314
+msgid "pages"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:323
+#: plugins/custom-post-type-generator/include/regist_tax.php:279
+msgid "query_var"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_cpt.php:333
+msgid "can_export"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_tax.php:10
+msgid "Edit Custom Taxonomy"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_tax.php:13
+msgid "Add New Custom Taxonomy"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_tax.php:23
+msgid "Taxonomy is required."
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_tax.php:27
+msgid "You must allocate at least 1 of Custom Post Type to Custom Taxonomy."
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_tax.php:57
+msgid "($taxonomy)"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_tax.php:61
+msgid "max. 32 characters, can not contain capital letters or spaces"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_tax.php:71
+#: plugins/custom-post-type-generator/include/regist_tax.php:297
+msgid "(Default: $taxonomy)"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_tax.php:139
+msgid "update_item"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_tax.php:153
+msgid "new_item_name"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_tax.php:160
+msgid "parent_item"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_tax.php:182
+msgid "popular_items"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_tax.php:189
+msgid "separate_items_with_commas"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_tax.php:196
+msgid "add_or_remove_items"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_tax.php:203
+msgid "choose_from_most_used"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_tax.php:242
+#: plugins/custom-post-type-generator/include/regist_tax.php:250
+msgid "(Default: true - $public)"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_tax.php:254
+msgid "show_tagcloud"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_tax.php:258
+msgid "(Default: true - $show_ui)"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_tax.php:262
+msgid "show_admin_column"
+msgstr ""
+
+#: plugins/custom-post-type-generator/include/regist_tax.php:315
+msgid "sort"
+msgstr ""
