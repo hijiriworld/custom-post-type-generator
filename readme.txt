@@ -3,7 +3,7 @@ Contributors: hijiri
 Tags: custom post type, custom taxonomy
 Requires at least: 3.6.0
 Tested up to: 4.1.0
-Stable tag: 2.3.5
+Stable tag: 2.3.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,6 +30,10 @@ it's a must have for any user working with WordPress.
 
 == Changelog ==
 
+= 2.3.6 =
+
+* Delete flush_rewrite_rules() from init hook.
+
 = 2.3.5 =
 
 * Bug fixed
@@ -50,7 +54,7 @@ it's a must have for any user working with WordPress.
 
 = 2.3.1 =
 
-* Activation improved. 
+* Activation improved.
 * Support non public objects( show_ui=true, show_in_menu=true ).
 * Admin UI improved.
 
@@ -75,7 +79,7 @@ it's a must have for any user working with WordPress.
 * Input error check improved.
 * Bug fixed
  - flush_rewrite_rules()
- 
+
 = 2.2.2 =
 
 * Bug fixed
@@ -89,7 +93,7 @@ it's a must have for any user working with WordPress.
 * Export to PHP
 * Add 'Other Objects' List.
 * Bug fixed
- 
+
 = 2.1.3 =
 
 * Bug fixed
@@ -117,7 +121,7 @@ it's a must have for any user working with WordPress.
 
 *Bug fixed
  - menu_icon (Default: null - defaults to the posts icon)
- 
+
 = 1.0.1 =
 
 *Bug fixed
@@ -131,7 +135,7 @@ it's a must have for any user working with WordPress.
 
 = 2.0.0 =
 
-There was the Fatal Error in ver1.0.x. 
+There was the Fatal Error in ver1.0.x.
 This problem is solved in ver.2.0.0.
 However, WordPress Option Data Structure has been modified fundamentally.
 Please be sure to do backup of 'Custom Post Type Name' and 'Taxonomy Name'.

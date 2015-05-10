@@ -5,7 +5,7 @@ Plugin URI: http://hijiriworld.com/web/plugins/custom-post-type-generator/
 Description: Generate Custom Post Types and Custom Taxonomies, from the admin interface which is easy to understand. it's a must have for any user working with WordPress.
 Author: hijiri
 Author URI: http://hijiriworld.com/web/
-Version: 2.3.5
+Version: 2.3.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -28,7 +28,6 @@ class Cptg
 	function __construct()
 	{
 		if ( !get_option( 'cptg_activation' ) ) $this->cptg_activation();
-		
 		add_action( 'admin_menu', array( $this, 'add_menus' ) );
 		add_action( 'admin_init', array( $this,'cptg_actions'));
 		add_action( 'init', array( $this,'cptg_generate') );
@@ -38,23 +37,23 @@ class Cptg
 		}
 		add_action( 'wp_ajax_update-cptg-order', array( $this, 'update_cptg_order' ) );
 	}
-	
+
 	function cptg_activation()
-	{	
+	{
 		global $wpdb;
 
 		$sql = "
-			SELECT option_id, option_name, option_value 
-			FROM $wpdb->options 
+			SELECT option_id, option_name, option_value
+			FROM $wpdb->options
 			WHERE option_name LIKE '%%cptg_cpt%%'
 			ORDER BY option_id ASC
 			";
 		$results = $wpdb->get_results($sql);
-		
+
 		if ( count( $results ) ) {
 			foreach ( $results as $result ) {
 				$cpt = unserialize( $result->option_value );
-				
+
 				if ( isset( $cpt['label'] ) ) {
 					$cpt['labels']['name'] = $cpt['label'];
 					unset( $cpt['label'] );
@@ -64,7 +63,7 @@ class Cptg
 					unset( $cpt['labels']['singular_label'] );
 				}
 				if ( !isset( $cpt['labels']['name_admin_bar'] ) ) $cpt['labels']['name_admin_bar'] = '';
-				
+
 				if ( !isset( $cpt['show_in_menu'] ) ) {
 					$cpt['show_in_menu'] = array(
 						'show_in_menu' => $cpt['show_ui'],
@@ -72,7 +71,7 @@ class Cptg
 					);
 				}
 				if ( !isset( $cpt['show_in_admin_bar'] ) ) $cpt['show_in_admin_bar'] = $cpt['show_ui'];
-	
+
 				$update_rewrite = array();
 				if ( isset( $cpt['rewrite_slug'] ) ) { // before.2.2.2
 					$update_rewrite = array(
@@ -80,12 +79,12 @@ class Cptg
 						'slug' => $cpt['rewrite_slug'],
 						'with_front' => 1,
 						'feeds' => 0,
-						'pages' => 1,	
+						'pages' => 1,
 					);
 					$cpt['rewrite'] = $update_rewrite;
 					unset( $cpt['rewrite_slug'] );
 				}
-				
+
 				$update_query_var = array();
 				if ( !is_array( $cpt['query_var'] ) ) { // before 2.2.4
 					$update_query_var = array(
@@ -94,23 +93,23 @@ class Cptg
 					);
 					$cpt['query_var'] = $update_query_var;
 				}
-				
+
 				update_option( $result->option_name, $cpt );
 			}
 		}
-		
+
 		$sql = "
-			SELECT option_id, option_name, option_value 
-			FROM $wpdb->options 
+			SELECT option_id, option_name, option_value
+			FROM $wpdb->options
 			WHERE option_name LIKE '%%cptg_tax%%'
 			ORDER BY option_id ASC
 			";
 		$results = $wpdb->get_results($sql);
-		
-		if ( count( $results) ) {	
+
+		if ( count( $results) ) {
 			foreach ( $results as $result ) {
 				$tax = unserialize( $result->option_value );
-				
+
 				if ( isset( $tax['label'] ) ) {
 					$tax['labels']['name'] = $tax['label'];
 					unset( $tax['label'] );
@@ -123,11 +122,11 @@ class Cptg
 				if ( !isset( $tax['labels']['view_item'] ) ) $tax['labels']['view_item'] = '';
 				if ( !isset( $tax['labels']['not_found'] ) ) $tax['labels']['not_found'] = '';
 				if ( !isset( $tax['labels']['show_admin_column'] ) ) $tax['show_admin_column'] = 0;
-				
+
 				if ( !isset( $tax['show_in_nav_menus'] ) ) $tax['show_in_nav_menus'] = $tax['public'];
 				if ( !isset( $tax['show_tagcloud'] ) ) $tax['show_tagcloud'] = $tax['show_ui'];
 				if ( !isset( $tax['sort'] ) ) $tax['sort'] = 0;
-				
+
 				$update_rewrite = array();
 				if ( isset( $tax['rewrite_slug'] ) ) { // before.2.2.2
 					$update_rewrite = array(
@@ -139,7 +138,7 @@ class Cptg
 					$tax['rewrite'] = $update_rewrite;
 					unset( $tax['rewrite_slug'] );
 				}
-				
+
 				$update_query_var = array();
 				if ( !is_array( $tax['query_var']) ) { // before 2.2.4
 					$update_query_var = array(
@@ -154,7 +153,7 @@ class Cptg
 		update_option( 'cptg_activation', 1 );
 		delete_option( 'cptg_version' ); // before ver.2.3.1
 	}
-	
+
 	function add_menus()
 	{
 		$menu_top = add_utility_page(__('Custom Post Type', 'cptg'), __('Custom Post Type', 'cptg'),  'administrator', 'cptg-manage-cpt', array( $this,'manage_cpt' ) );
@@ -163,7 +162,7 @@ class Cptg
 		add_submenu_page( $menu_top, __('Add New', 'cptg'), __('Add New', 'cptg'), 'administrator', 'cptg-regist-tax', array( $this,'regist_tax' ) );
 		add_submenu_page( 'cptg-manage-cpt', __('Export', 'cptg'), __('Export', 'cptg'), 'administrator', 'cptg-export', array( $this,'export' ) );
 	}
-	
+
 	function manage_cpt()
 	{
 		require CPTG_URL.'include/manage_cpt.php';
@@ -194,7 +193,7 @@ class Cptg
 	{
 		wp_enqueue_style( 'cptg', plugins_url('/css/cptg.css', __FILE__), array(), null );
 	}
-	
+
 	function update_cptg_order()
 	{
 		parse_str($_POST['order'], $data);
@@ -202,29 +201,29 @@ class Cptg
 			update_option('cptg_order', $data);
 		}
 	}
-	
+
 	/*
 	* Init: Generate Custom Post Types & Taxonomies
-	*/			
+	*/
 
 	function cptg_generate()
 	{
 		global $wpdb;
-		
+
 		$results = $pre_result = array();
-		
+
 		$sql = "
-			SELECT option_id, option_name, option_value 
-			FROM $wpdb->options 
-			WHERE option_name LIKE '%%cptg_cpt%%' 
+			SELECT option_id, option_name, option_value
+			FROM $wpdb->options
+			WHERE option_name LIKE '%%cptg_cpt%%'
 			ORDER BY option_id ASC
 			";
-		
+
 		$pre_results = $wpdb->get_results($sql);
 
 		// sort from 'cptg_order'
 		$cptg_order = get_option('cptg_order');
-		
+
 		if ( $cptg_order ) {
 			$order = $cptg_order['cptg'];
 			foreach( $order as $num ) {
@@ -246,9 +245,9 @@ class Cptg
 
 		if ( count( $results ) ) {
 			foreach ( $results as $result ) {
-				
+
 				$cpt = unserialize( $result->option_value );
-				
+
 				// labels
 				$cpt_labels = array();
 				$cpt_labels['name'] = $cpt['labels']['name'] ? $cpt['labels']['name'] : $cpt['post_type'];
@@ -265,7 +264,7 @@ class Cptg
 				$cpt_labels['not_found'] = $cpt['labels']['not_found'] ? esc_html( $cpt['labels']['not_found'] ) : __('No posts found.');
 				$cpt_labels['not_found_in_trash'] = $cpt['labels']['not_found_in_trash'] ? esc_html( $cpt['labels']['not_found_in_trash'] ) : __('No posts found in Trash.');
 				$cpt_labels['parent_item_colon'] = $cpt['labels']['parent_item_colon'] ? esc_html( $cpt['labels']['parent_item_colon'] ) : __('Parent Page');
-				
+
 				// $args
 				$args = array(
 					'labels'				=> $cpt_labels,
@@ -289,23 +288,23 @@ class Cptg
 				register_post_type( $cpt['post_type'], $args );
 			}
 		}
-		
+
 		$results = array();
-		
+
 		$sql = "
-			SELECT option_id, option_name, option_value 
-			FROM $wpdb->options 
-			WHERE option_name LIKE '%%cptg_tax%%' 
+			SELECT option_id, option_name, option_value
+			FROM $wpdb->options
+			WHERE option_name LIKE '%%cptg_tax%%'
 			ORDER BY option_id ASC
 			";
-		
+
 		$results = $wpdb->get_results($sql);
-		
+
 		if ( count( $results ) ) {
 			foreach ( $results as $result ) {
-				
+
 				$tax = unserialize( $result->option_value );
-				
+
 				// $labels
 				$tax_labels = array();
 				$tax_labels['name'] = $tax['labels']['name'] ? esc_html($tax['labels']['name']) : $tax['taxonomy'];
@@ -325,7 +324,7 @@ class Cptg
 				$tax_labels['add_or_remove_items'] = $tax['labels']['add_or_remove_items'] ? esc_html($tax['labels']['add_or_remove_items']) : __('Add or remove tags');
 				$tax_labels['choose_from_most_used'] = $tax['labels']['choose_from_most_used'] ? esc_html($tax['labels']['choose_from_most_used']) : __('Choose from the most used tags');
 				$tax_labels['not_found'] = $tax['labels']['not_found'] ? esc_html($tax['labels']['not_found']) : __('No tags found.');
-				
+
 				// $args
 				$args = array(
 					'labels'				=> $tax_labels,
@@ -339,25 +338,23 @@ class Cptg
 					'rewrite'				=> $tax['rewrite']['rewrite'] ? $tax['rewrite'] : cptg_return_boolean( $tax['rewrite']['rewrite'] ),
 					'sort'					=> cptg_return_boolean( $tax['sort'] ),
 				);
-				
+
 				register_taxonomy( $tax['taxonomy'], $tax['post_types'], $args );
 			}
-			
-			flush_rewrite_rules();
 		}
 	}
-	
+
 	/*
 	* Actions
 	*/
-	
+
 	function add_cpt()
 	{
 		check_admin_referer( 'nonce_regist_cpt' );
-		
+
 		$input_data = $_POST['input_cpt'];
 		if ( !isset( $input_data['supports'] ) ) $input_data['supports'] = array();
-		
+
 		update_option( uniqid('cptg_cpt_'), $input_data );
 		wp_redirect( 'admin.php?page=cptg-manage-cpt&msg=add' );
 	}
@@ -365,20 +362,20 @@ class Cptg
 	{
 		check_admin_referer( 'nonce_regist_cpt' );
 		$key = $_POST['key'];
-		
+
 		$input_data = $_POST['input_cpt'];
 		if ( !isset( $input_data['supports'] ) ) $input_data['supports'] = array();
-		
+
 		update_option( $key, $input_data );
 		wp_redirect( 'admin.php?page=cptg-manage-cpt&msg=edit' );
 	}
 	function delete_cpt()
 	{
 		global $wpdb;
-		
+
 		check_admin_referer( 'nonce_del_cpt' );
 		$key = $_GET['key'];
-		
+
 		// delete id from cptg_order
 		$cptg_order = get_option('cptg_order');
 		if ( $cptg_order ) {
@@ -389,12 +386,12 @@ class Cptg
 			if ( !empty($offset) ) {
 				array_splice($order, $offset[0], 1);
 				update_option('cptg_order', array( 'cptg' => $order ) );
-			}	
+			}
 		}
-		
+
 		// delete cptg_xxx
 		delete_option( $key );
-		
+
 		wp_redirect( 'admin.php?page=cptg-manage-cpt&msg=del' );
 	}
 	function add_tax()
@@ -419,8 +416,8 @@ class Cptg
 		delete_option( $key );
 		wp_redirect( 'admin.php?page=cptg-manage-tax&msg=del' );
 	}
-	
-	
+
+
 	function cptg_actions()
 	{
 		if ( isset( $_GET['action'] ) && $_GET['action'] == 'del_cpt' ) {
@@ -449,7 +446,7 @@ function cptg_return_boolean( $obj )
 
 function cptg_return_disp_boolean( $obj )
 {
-	return $obj ? 'true' : 'false';	
+	return $obj ? 'true' : 'false';
 }
 
 function echo_boolean_options( $obj, $default )

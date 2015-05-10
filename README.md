@@ -23,6 +23,10 @@ it's a must have for any user working with WordPress.
 
 ## Changelog
 
+**2.3.6**
+
+* Delete flush_rewrite_rules() from 'init' hook.
+
 **2.3.5**
 
 * Bug fixed
