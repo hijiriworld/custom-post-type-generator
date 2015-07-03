@@ -259,6 +259,14 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_tax' ) {
 							</td>
 						</tr>
 						<tr valign="top">
+							<th scope="row"><?php _e('meta_box_cb', 'cptg') ?></th>
+							<td>
+								<select name="input_tax[meta_box_cb]">
+									<?php echo_boolean_null_false_options($tax['meta_box_cb'], 1); ?>
+								</select> <?php _e('(Default: null)', 'cptg') ?>
+							</td>
+						</tr>
+						<tr valign="top">
 							<th scope="row"><?php _e('show_admin_column', 'cptg') ?></th>
 							<td>
 								<select name="input_tax[show_admin_column]">

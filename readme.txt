@@ -2,8 +2,8 @@
 Contributors: hijiri
 Tags: custom post type, custom taxonomy
 Requires at least: 3.6.0
-Tested up to: 4.1.0
-Stable tag: 2.3.6
+Tested up to: 4.2.2
+Stable tag: 2.3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,16 +11,16 @@ Generate Custom Post Types and Custom Taxonomies.
 
 == Description ==
 
-Generate Custom Post Types and Custom Taxonomies, from the admin interface which is easy to understand.
-it's a must have for any user working with WordPress.
+Generate Custom Post Types and Custom Taxonomies from the WordPress administration which is easy to understand.
+It's a must have for any user working with WordPress.
 
-<a href="https://github.com/hijiriworld/custom-post-type-generator">This Plugin published on GitHub.</a>
+This Plugin published on <a href="https://github.com/hijiriworld/custom-post-type-generator">GitHub.</a>
 
 == Installation ==
 
-1. Upload 'custom-post-type-generator' folder to the `/wp-content/plugins/` directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Navigate to the Custom Post Type Generator Menu
+1. Upload 'custom-post-type-generator' folder to the `/wp-content/plugins/` directory.
+2. Activate the plugin through the 'Plugins' menu in WordPress.
+3. Navigate to the 'Custom Post Type Generator' menu in WordPress.
 
 == Screenshots ==
 
@@ -29,6 +29,10 @@ it's a must have for any user working with WordPress.
 3. Export to PHP
 
 == Changelog ==
+
+= 2.3.7 =
+
+* Support for the 'meta_box_cb' parameter of Custom Taxonomy.
 
 = 2.3.6 =
 
@@ -73,8 +77,8 @@ it's a must have for any user working with WordPress.
 
 = 2.2.3 =
 
-* Support for the 'rewrite' settings.
-* Support fot the 'sort' setting of Custom Taxonomy.
+* Support for the 'rewrite' parameter.
+* Support for the 'sort' parameter of Custom Taxonomy.
 * Admin UI improved.
 * Input error check improved.
 * Bug fixed

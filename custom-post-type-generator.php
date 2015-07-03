@@ -5,7 +5,7 @@ Plugin URI: http://hijiriworld.com/web/plugins/custom-post-type-generator/
 Description: Generate Custom Post Types and Custom Taxonomies, from the admin interface which is easy to understand. it's a must have for any user working with WordPress.
 Author: hijiri
 Author URI: http://hijiriworld.com/web/
-Version: 2.3.6
+Version: 2.3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -332,6 +332,8 @@ class Cptg
 					'show_ui'				=> cptg_return_boolean( $tax['show_ui'] ),
 					'show_in_nav_menus'		=> cptg_return_boolean( $tax['show_in_nav_menus'] ),
 					'show_tagcloud'			=> cptg_return_boolean( $tax['show_tagcloud'] ),
+					// since 2.3.7
+					'meta_box_cb'			=> isset( $tax['meta_box_cb'] ) ? cptg_return_null_false( $tax['meta_box_cb'] ) : null,
 					'show_admin_column'		=> cptg_return_boolean( $tax['show_admin_column'] ),
 					'hierarchical'			=> cptg_return_boolean( $tax['hierarchical'] ),
 					'query_var'				=> $tax['query_var']['query_var'] && $tax['query_var']['string'] ? $tax['query_var']['string'] : cptg_return_boolean( $tax['query_var']['query_var'] ),
@@ -443,31 +445,56 @@ function cptg_return_boolean( $obj )
 {
 	return $obj ? true : false;
 }
-
+function cptg_return_null_false( $obj )
+{
+	return $obj ? null : false;	
+}
 function cptg_return_disp_boolean( $obj )
 {
 	return $obj ? 'true' : 'false';
 }
-
+function cptg_return_disp_null_false( $obj )
+{
+	return $obj ? 'null' : 'false';
+}
 function echo_boolean_options( $obj, $default )
 {
-	if (isset($obj)) {
-		if ($obj == 0) {
+	if ( isset( $obj ) ) {
+		if ( $obj == 0 ) {
 			echo '<option value="0" selected="selected">false</option>';
 			echo '<option value="1">true</option>';
-		} else if($obj == 1) {
+		} else if( $obj == 1 ) {
 			echo '<option value="0">false</option>';
 			echo '<option value="1" selected="selected">true</option>';
 		}
 	} else {
-		if ($default == 0) {
+		if ( $default == 0 ) {
 			echo '<option value="0" selected="selected">false</option>';
 			echo '<option value="1">true</option>';
-		} else if($default == 1) {
+		} else if( $default == 1 ) {
 			echo '<option value="0">false</option>';
 			echo '<option value="1" selected="selected">true</option>';
 		}
 	}
 }
-
+function echo_boolean_null_false_options( $obj, $default )
+{
+	if ( isset( $obj ) ) {
+		if ( $obj == 0 ) {
+			echo '<option value="0" selected="selected">false</option>';
+			echo '<option value="1">null</option>';
+		} else if( $obj == 1 ) {
+			echo '<option value="0">false</option>';
+			echo '<option value="1" selected="selected">null</option>';
+		}
+	} else {
+		if ( $default == 0 ) {
+			echo '<option value="0" selected="selected">false</option>';
+			echo '<option value="1">null</option>';
+		} else if( $default == 1 ) {
+			echo '<option value="0">false</option>';
+			echo '<option value="1" selected="selected">null</option>';
+		}
+	}
+}
 ?>

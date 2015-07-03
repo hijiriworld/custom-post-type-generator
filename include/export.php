@@ -281,6 +281,10 @@ if ( isset( $_POST['cptg_export'] ) ) {
 					$code .= "\t\t".'\'show_ui\' => '.cptg_return_disp_boolean($tax['show_ui']).','."\n";
 					$code .= "\t\t".'\'show_in_nav_menus\' => '.cptg_return_disp_boolean($tax['show_in_nav_menus']).','."\n";
 					$code .= "\t\t".'\'show_tagcloud\' => '.cptg_return_disp_boolean($tax['show_tagcloud']).','."\n";
+					
+					// since 2.3.7
+					$code .= isset( $tax['meta_box_cb'] ) ? "\t\t".'\'meta_box_cb\' => '.cptg_return_disp_null_false($tax['meta_box_cb']).','."\n" : "\t\t".'\'meta_box_cb\' => null,'."\n";
+					
 					$code .= "\t\t".'\'show_admin_column\' => '.cptg_return_disp_boolean($tax['show_admin_column']).','."\n";
 					$code .= "\t\t".'\'hierarchical\' => '.cptg_return_disp_boolean($tax['hierarchical']).','."\n";
 
