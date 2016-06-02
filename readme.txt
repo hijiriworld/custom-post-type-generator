@@ -2,8 +2,8 @@
 Contributors: hijiri
 Tags: custom post type, custom taxonomy
 Requires at least: 3.6.0
-Tested up to: 4.2.2
-Stable tag: 2.3.7
+Tested up to: 4.5.2
+Stable tag: 2.3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,6 +29,11 @@ This Plugin published on <a href="https://github.com/hijiriworld/custom-post-typ
 3. Export to PHP
 
 == Changelog ==
+
+= 2.3.8 =
+
+* Support WordPress v4.5.x.
+ - Replace the 'add_utility_page()' to 'add_menu_page()'.
 
 = 2.3.7 =
 

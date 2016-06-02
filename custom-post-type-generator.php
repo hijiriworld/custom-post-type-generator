@@ -5,7 +5,7 @@ Plugin URI: http://hijiriworld.com/web/plugins/custom-post-type-generator/
 Description: Generate Custom Post Types and Custom Taxonomies, from the admin interface which is easy to understand. it's a must have for any user working with WordPress.
 Author: hijiri
 Author URI: http://hijiriworld.com/web/
-Version: 2.3.7
+Version: 2.3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -156,7 +156,7 @@ class Cptg
 
 	function add_menus()
 	{
-		$menu_top = add_utility_page(__('Custom Post Type', 'cptg'), __('Custom Post Type', 'cptg'),  'administrator', 'cptg-manage-cpt', array( $this,'manage_cpt' ) );
+		$menu_top = add_menu_page(__('Custom Post Type', 'cptg'), __('Custom Post Type', 'cptg'),  'administrator', 'cptg-manage-cpt', array( $this,'manage_cpt' ) );
 		add_submenu_page( $menu_top, __('Add New', 'cptg'), __('Add New', 'cptg'), 'administrator', 'cptg-regist-cpt', array( $this,'regist_cpt' ) );
 		add_submenu_page( 'cptg-manage-cpt', __('Custom Taxonomy', 'cptg'), __('Custom Taxonomy', 'cptg'), 'administrator', 'cptg-manage-tax', array( $this,'manage_tax' ) );
 		add_submenu_page( $menu_top, __('Add New', 'cptg'), __('Add New', 'cptg'), 'administrator', 'cptg-regist-tax', array( $this,'regist_tax' ) );
