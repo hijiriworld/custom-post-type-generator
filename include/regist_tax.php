@@ -46,7 +46,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_tax' ) {
 		<div class="meta-box-sortables">
 			
 			<div class="postbox">
-				<div class="handlediv" title="<?php _e('Click to toggle') ?>"></div>
+				<button type="button" class="handlediv button-link" aria-expanded="true"><span class="screen-reader-text"><?php _e('Click to toggle', 'cptg') ?></span><span class="toggle-indicator" aria-hidden="true"></span></button>
 				<h3 class="hndle"><span><?php _e('Basic', 'cptg'); ?></span></h3>
 				<div class="inside">
 					<table class="form-table">
@@ -96,7 +96,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_tax' ) {
 			</div>
 			
 			<div class="postbox">
-				<div class="handlediv" title="<?php _e('Click to toggle') ?>"></div>
+				<button type="button" class="handlediv button-link" aria-expanded="true"><span class="screen-reader-text"><?php _e('Click to toggle', 'cptg') ?></span><span class="toggle-indicator" aria-hidden="true"></span></button>
 				<h3 class="hndle"><span><?php _e('Label Options', 'cptg'); ?></span></h3>
 				<div class="inside">
 					<table class="form-table">
@@ -221,7 +221,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_tax' ) {
 			</div>
 			
 			<div class="postbox">
-				<div class="handlediv" title="<?php _e('Click to toggle') ?>"></div>
+				<button type="button" class="handlediv button-link" aria-expanded="true"><span class="screen-reader-text"><?php _e('Click to toggle', 'cptg') ?></span><span class="toggle-indicator" aria-hidden="true"></span></button>
 				<h3 class="hndle"><span><?php _e('Advanced Options', 'cptg'); ?></span></h3>
 				<div class="inside">
 					<table class="form-table">
@@ -230,7 +230,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_tax' ) {
 							<td>
 								<p><label><input type="checkbox" id="input_tax_public_check"><?php _e( 'Update related configurations below as well.', 'cptg' ) ?></label></p>
 								<p><select name="input_tax[public]" id="input_tax_public">
-									<?php echo_boolean_options($tax['public'], 1); ?>
+									<?php echo_boolean_options( ( isset($tax['public']) )?$tax['public']:1 ); ?>
 								</select> <?php _e('(Default: true)', 'cptg') ?></p>
 							</td>
 						</tr>
@@ -238,7 +238,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_tax' ) {
 							<th scope="row"><?php _e('show_ui', 'cptg') ?></th>
 							<td>
 								<select name="input_tax[show_ui]" id="input_tax_show_ui">
-									<?php echo_boolean_options($tax['show_ui'], 1); ?>
+									<?php echo_boolean_options( ( isset($tax['show_ui']) )?$tax['show_ui']:1); ?>
 								</select> <?php _e('(Default: true - $public)', 'cptg') ?>
 							</td>
 						</tr>
@@ -246,7 +246,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_tax' ) {
 							<th scope="row"><?php _e('show_in_nav_menus', 'cptg') ?></th>
 							<td>
 								<select name="input_tax[show_in_nav_menus]" id="input_tax_show_in_nav_menus">
-									<?php echo_boolean_options($tax['show_in_nav_menus'], 1); ?>
+									<?php echo_boolean_options( ( isset($tax['show_in_nav_menus']) )?$tax['show_in_nav_menus']:1); ?>
 								</select> <?php _e('(Default: true - $public)', 'cptg') ?>
 							</td>
 						</tr>
@@ -254,7 +254,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_tax' ) {
 							<th scope="row"><?php _e('show_tagcloud', 'cptg') ?></th>
 							<td>
 								<select name="input_tax[show_tagcloud]" id="input_tax_show_tagcloud">
-									<?php echo_boolean_options($tax['show_tagcloud'], 1); ?>
+									<?php echo_boolean_options( ( isset($tax['show_tagcloud']) )?$tax['show_tagcloud']:1); ?>
 								</select> <?php _e('(Default: true - $show_ui)', 'cptg') ?>
 							</td>
 						</tr>
@@ -262,7 +262,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_tax' ) {
 							<th scope="row"><?php _e('meta_box_cb', 'cptg') ?></th>
 							<td>
 								<select name="input_tax[meta_box_cb]">
-									<?php echo_boolean_null_false_options($tax['meta_box_cb'], 1); ?>
+									<?php echo_boolean_null_false_options( ( isset( $tax['meta_box_cb'] ) )?$tax['meta_box_cb']:1); ?>
 								</select> <?php _e('(Default: null)', 'cptg') ?>
 							</td>
 						</tr>
@@ -270,7 +270,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_tax' ) {
 							<th scope="row"><?php _e('show_admin_column', 'cptg') ?></th>
 							<td>
 								<select name="input_tax[show_admin_column]">
-									<?php echo_boolean_options($tax['show_admin_column'], 0); ?>
+									<?php echo_boolean_options( ( isset( $tax['show_admin_column'] ) )?$tax['show_admin_column']:0); ?>
 								</select> <?php _e('(Default: false)', 'cptg') ?>
 							</td>
 						</tr>
@@ -279,7 +279,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_tax' ) {
 							<th scope="row"><?php _e('hierarchical', 'cptg') ?></th>
 							<td>
 								<select name="input_tax[hierarchical]">
-									<?php echo_boolean_options($tax['hierarchical'], 0); ?>
+									<?php echo_boolean_options( ( isset( $tax['hierarchical'] ) )?$tax['hierarchical']:0); ?>
 								</select> <?php _e('(Default: false)', 'cptg') ?>
 							</td>
 						</tr>
@@ -287,7 +287,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_tax' ) {
 							<th scope="row"><?php _e('query_var') ?></th>
 							<td>
 								<select name="input_tax[query_var][query_var]">
-									<?php echo_boolean_options($tax['query_var']['query_var'], 1); ?>
+									<?php echo_boolean_options( ( isset( $tax['query_var']['query_var'] ) )?$tax['query_var']['query_var']:1); ?>
 								</select> <?php _e('(Default: true)', 'cptg') ?> / 
 								<?php _e('string', 'cptg') ?>
 								<input type="text" name="input_tax[query_var][string]" value="<?php if (isset($tax['query_var']['string'])) { echo esc_attr($tax['query_var']['string']); } ?>">
@@ -297,7 +297,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_tax' ) {
 							<th scope="row"><?php _e('rewrite', 'cptg') ?></th>
 							<td>
 								<select name="input_tax[rewrite][rewrite]">
-									<?php echo_boolean_options($tax['rewrite']['rewrite'], 1); ?>
+									<?php echo_boolean_options( ( isset( $tax['rewrite']['rewrite'] ) )?$tax['rewrite']['rewrite']:1); ?>
 								</select> <?php _e('(Default: true)', 'cptg') ?>
 								<ul>
 									<li>
@@ -307,13 +307,13 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_tax' ) {
 									<li>
 										<?php _e('with_front', 'cptg') ?>
 										<select name="input_tax[rewrite][with_front]">
-											<?php echo_boolean_options($tax['rewrite']['with_front'], 1); ?>
+											<?php echo_boolean_options( ( isset( $tax['rewrite']['with_front'] ) )?$tax['rewrite']['with_front']:1); ?>
 										</select> <?php _e('(Default: true)', 'cptg') ?>
 									</li>
 									<li>
 										<?php _e('hierarchical', 'cptg') ?>
 										<select name="input_tax[rewrite][hierarchical]">
-											<?php echo_boolean_options($tax['rewrite']['hierarchical'], 0); ?>
+											<?php echo_boolean_options( ( isset( $tax['rewrite']['hierarchical'] ) )?$tax['rewrite']['hierarchical']:0); ?>
 										</select> <?php _e('(Default: false)', 'cptg') ?>
 									</li>
 								</ul>
@@ -323,7 +323,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_tax' ) {
 							<th scope="row"><?php _e('sort') ?></th>
 							<td>
 								<select name="input_tax[sort]">
-									<?php echo_boolean_options($tax['sort'], 0); ?>
+									<?php echo_boolean_options( ( isset( $tax['sort'] ) )?$tax['sort']:0); ?>
 								</select> <?php _e('(Default: false)', 'cptg') ?>
 							</td>
 						</tr>

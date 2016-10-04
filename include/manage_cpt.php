@@ -134,7 +134,7 @@ foreach( $no_builtin_cpts as $cpt ) {
 <?php if ( count( $theme_cpts ) || count( $builtin_cpts ) ) : ?>
 
 <br>
-<h3><?php _e('Other Custom Post Types', 'cptg') ?></strong></h3>
+<h3><?php _e('Other Custom Post Types', 'cptg') ?></h3>
 <p><?php _e('The Custom Post Types below are registered in your Theme or WordPress.', 'cptg') ?></p>
 
 	<?php if ( count( $theme_cpts ) ) : ?>

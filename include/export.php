@@ -64,19 +64,17 @@ if ( isset( $_POST['cptg_export'] ) ) {
 		$code .= '{'."\n";
 
 		if ( is_array( $export_cpts ) ) {
-
-			foreach( $export_cpts as $key => $cpt ) $export_cpts[$key] = '\''.$cpt.'\'';
-
-			$sql_export_cpts = implode( ',', $export_cpts );
-
-			$sql = "
+			$esc = array();
+			foreach( $export_cpts as $key => $cpt ) $esc[] = '%s';
+			$escape = implode( ',', $esc );
+			$sql = <<< EOF
 				SELECT option_id, option_name, option_value
 				FROM $wpdb->options
-				WHERE option_name IN ($sql_export_cpts)
-				";
-
-			$pre_results_export = $wpdb->get_results( $sql );
-
+				WHERE option_name IN ($escape);
+EOF;
+			$pre_results_export = $wpdb->get_results( $wpdb->prepare( $sql, $export_cpts ) );
+			
+			
 			// cptg_orderに従ってソート
 			$cptg_order = get_option('cptg_order');
 
@@ -96,7 +94,9 @@ if ( isset( $_POST['cptg_export'] ) ) {
 					}
 				}
 			} else {
-				$results_export = $pre_results;
+				foreach( $pre_results_export as $pre_result ) {
+					$results_export[] = $pre_result;
+				}
 			}
 
 			if ( is_array( $results_export ) ) {
@@ -214,18 +214,16 @@ if ( isset( $_POST['cptg_export'] ) ) {
 		}
 
 		if ( is_array( $export_taxs ) ) {
-			foreach( $export_taxs as $key => $tax ) $export_taxs[$key] = '\''.$tax.'\'';
-
-			$sql_export_taxs = implode( ',', $export_taxs );
-
-			$sql = "
+			$esc = array();
+			foreach( $export_taxs as $key => $tax ) $esc[] = '%s';
+			$escape = implode( ',', $esc );
+			$sql = <<< EOF
 				SELECT option_id, option_name, option_value
 				FROM $wpdb->options
-				WHERE option_name IN ($sql_export_taxs)
-				";
-
-			$results_tax_export = $wpdb->get_results($sql);
-
+				WHERE option_name IN ($escape);
+EOF;
+			$results_tax_export = $wpdb->get_results( $wpdb->prepare( $sql, $export_taxs ) );
+			
 			if ( is_array( $results_tax_export ) ) {
 				foreach ( $results_tax_export as $result ) {
 

@@ -42,7 +42,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 		<div class="meta-box-sortables">
 				
 			<div class="postbox">
-				<div class="handlediv" title="<?php _e('Click to toggle') ?>"></div>
+				<button type="button" class="handlediv button-link" aria-expanded="true"><span class="screen-reader-text"><?php _e('Click to toggle', 'cptg') ?></span><span class="toggle-indicator" aria-hidden="true"></span></button>
 				<h3 class="hndle"><span><?php _e('Basic', 'cptg'); ?></span></h3>
 				<div class="inside">
 					<table class="form-table">
@@ -87,7 +87,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 							<td>
 								<p><label><input type="checkbox" id="input_cpt_has_archive_check"><?php _e( 'Update related configurations below as well.', 'cptg' ) ?></label></p>
 								<p><select name="input_cpt[has_archive]" id="input_cpt_has_archive">
-									<?php echo_boolean_options($cpt['has_archive'], 0); ?>
+									<?php echo_boolean_options( ( isset($cpt['has_archive']) )?$cpt['has_archive']:0 ); ?>
 								</select> <?php _e('(Default: false)'); ?></p>
 							</td>
 						</tr>
@@ -96,7 +96,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 			</div>
 		
 			<div class="postbox">
-				<div class="handlediv" title="<?php _e('Click to toggle') ?>"></div>
+				<button type="button" class="handlediv button-link" aria-expanded="true"><span class="screen-reader-text"><?php _e('Click to toggle', 'cptg') ?></span><span class="toggle-indicator" aria-hidden="true"></span></button>
 				<h3 class="hndle"><span><?php _e('Label Options', 'cptg'); ?></span></h3>
 				<div class="inside">
 					<table class="form-table">
@@ -197,7 +197,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 			</div>
 			
 			<div class="postbox">
-				<div class="handlediv" title="<?php _e('Click to toggle') ?>"></div>
+				<button type="button" class="handlediv button-link" aria-expanded="true"><span class="screen-reader-text"><?php _e('Click to toggle', 'cptg') ?></span><span class="toggle-indicator" aria-hidden="true"></span></button>
 				<h3 class="hndle"><span><?php _e('Advanced Options', 'cptg'); ?></span></h3>
 				<div class="inside">
 					<table class="form-table">
@@ -212,7 +212,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 							<td>
 								<p><label><input type="checkbox" id="input_cpt_public_check"><?php _e( 'Update related configurations below as well.', 'cptg' ) ?></label></p>
 								<p><select name="input_cpt[public]" id="input_cpt_public">
-									<?php echo_boolean_options($cpt['public'], 0); ?>
+									<?php echo_boolean_options( ( isset($cpt['public']) )?$cpt['public']:0 ); ?>
 								</select> <?php _e('(Default: false)', 'cptg') ?></p>
 							</td>
 						</tr>
@@ -220,7 +220,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 							<th scope="row"><?php _e('exclude_from_search', 'cptg') ?></th>
 							<td>
 								<select name="input_cpt[exclude_from_search]" id="input_cpt_exclude_from_search">
-									<?php echo_boolean_options($cpt['exclude_from_search'], 1); ?>
+									<?php echo_boolean_options( ( isset($cpt['exclude_from_search']) )?$cpt['exclude_from_search']:1 ); ?>
 								</select> <?php _e('(Default: true - opposite of $public)', 'cptg') ?>
 							</td>
 						</tr>
@@ -228,7 +228,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 							<th scope="row"><?php _e('publicly_queryable', 'cptg') ?></th>
 							<td>
 								<select name="input_cpt[publicly_queryable]" id="input_cpt_publicly_queryable">
-									<?php echo_boolean_options($cpt['publicly_queryable'], 0); ?>
+									<?php echo_boolean_options( ( isset($cpt['publicly_queryable']) )?$cpt['publicly_queryable']:0 ); ?>
 								</select> <?php _e('(Default: false - $public)', 'cptg') ?>
 							</td>
 						</tr>
@@ -236,7 +236,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 							<th scope="row"><?php _e('show_ui', 'cptg') ?></th>
 							<td>
 								<select name="input_cpt[show_ui]" id="input_cpt_show_ui">
-									<?php echo_boolean_options($cpt['show_ui'], 0); ?>
+									<?php echo_boolean_options( ( isset($cpt['show_ui']) )?$cpt['show_ui']:0 ); ?>
 								</select> <?php _e('(Default: false - $public)', 'cptg') ?>
 							</td>
 						</tr>
@@ -244,7 +244,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 							<th scope="row"><?php _e('show_in_nav_menus', 'cptg') ?></th>
 							<td>
 								<select name="input_cpt[show_in_nav_menus]" id="input_cpt_show_in_nav_menus">
-									<?php echo_boolean_options($cpt['show_in_nav_menus'], 0); ?>
+									<?php echo_boolean_options( ( isset($cpt['show_in_nav_menus']) )?$cpt['show_in_nav_menus']:0) ; ?>
 								</select> <?php _e('(Default: false - $public)', 'cptg') ?>
 							</td>
 						</tr>
@@ -252,7 +252,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 							<th scope="row"><?php _e('show_in_menu', 'cptg') ?></th>
 							<td>
 								<select name="input_cpt[show_in_menu][show_in_menu]" id="input_cpt_show_in_menu">
-									<?php echo_boolean_options($cpt['show_in_menu']['show_in_menu'], 0); ?>
+									<?php echo_boolean_options( ( isset($cpt['show_in_menu']['show_in_menu']) )?$cpt['show_in_menu']['show_in_menu']:0 ); ?>
 								</select> <?php _e('(Default: false - $show_ui)', 'cptg') ?> / 
 								<?php _e('string', 'cptg') ?>
 								<input type="text" name="input_cpt[show_in_menu][string]" value="<?php if (isset($cpt['show_in_menu']['string'])) { echo esc_attr($cpt['show_in_menu']['string']); } ?>">
@@ -262,7 +262,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 							<th scope="row"><?php _e('show_in_admin_bar', 'cptg') ?></th>
 							<td>
 								<select name="input_cpt[show_in_admin_bar]" id="input_cpt_show_in_admin_bar">
-									<?php echo_boolean_options($cpt['show_in_admin_bar'], 0); ?>
+									<?php echo_boolean_options( ( isset($cpt['show_in_admin_bar']) )?$cpt['show_in_admin_bar']:0 ); ?>
 								</select> <?php _e('(Default: false - $show_ui_menu)', 'cptg') ?>
 							</td>
 						</tr>
@@ -283,7 +283,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 							<th scope="row"><?php _e('hierarchical', 'cptg') ?></th>
 							<td>
 								<select name="input_cpt[hierarchical]">
-									<?php echo_boolean_options($cpt['hierarchical'], 0); ?>
+									<?php echo_boolean_options( ( isset($cpt['hierarchical']) )?$cpt['hierarchical']:0 ); ?>
 								</select> <?php _e('(Default: false)', 'cptg') ?>
 							</td>
 						</tr>
@@ -291,7 +291,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 							<th scope="row"><?php _e('rewrite', 'cptg') ?></th>
 							<td>
 								<select name="input_cpt[rewrite][rewrite]">
-									<?php echo_boolean_options($cpt['rewrite']['rewrite'], 1); ?>
+									<?php echo_boolean_options( ( isset($cpt['rewrite']['rewrite']) )?$cpt['rewrite']['rewrite']:1 ); ?>
 								</select> <?php _e('(Default: true)', 'cptg') ?>
 								<ul>
 									<li>
@@ -301,19 +301,19 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 									<li>
 										<?php _e('with_front', 'cptg') ?>
 										<select name="input_cpt[rewrite][with_front]">
-											<?php echo_boolean_options($cpt['rewrite']['with_front'], 1); ?>
+											<?php echo_boolean_options( isset( $cpt['rewrite']['with_front'] )?$cpt['rewrite']['with_front']:1 ); ?>
 										</select> <?php _e('(Default: true)', 'cptg') ?>
 									</li>
 									<li>
 										<?php _e('feeds', 'cptg') ?>
 										<select name="input_cpt[rewrite][feeds]" id="input_cpt_rewrite_feeds">
-											<?php echo_boolean_options($cpt['rewrite']['feeds'], 0); ?>
+											<?php echo_boolean_options( isset( $cpt['rewrite']['feeds'] )?$cpt['rewrite']['feeds']:0 ); ?>
 										</select> <?php _e('(Default: false - $has_archive)', 'cptg') ?>
 									</li>
 									<li>
 										<?php _e('pages', 'cptg') ?>
 										<select name="input_cpt[rewrite][pages]">
-											<?php echo_boolean_options($cpt['rewrite']['pages'], 1); ?>
+											<?php echo_boolean_options( ( isset($cpt['rewrite']['pages']) )?$cpt['rewrite']['pages']:1 ); ?>
 										</select> <?php _e('(Default: true)', 'cptg') ?>
 									</li>
 								</ul>
@@ -323,7 +323,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 							<th scope="row"><?php _e('query_var', 'cptg') ?></th>
 							<td>
 								<select name="input_cpt[query_var][query_var]">
-									<?php echo_boolean_options($cpt['query_var']['query_var'], 1); ?>
+									<?php echo_boolean_options( ( isset($cpt['query_var']['query_var']) )?$cpt['query_var']['query_var']:1 ); ?>
 								</select> <?php _e('(Default: true)', 'cptg') ?> / 
 								<?php _e('string', 'cptg') ?>
 								<input type="text" name="input_cpt[query_var][string]" value="<?php if (isset($cpt['query_var']['string'])) { echo esc_attr($cpt['query_var']['string']); } ?>">
@@ -333,7 +333,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 							<th scope="row"><?php _e('can_export', 'cptg') ?></th>
 							<td>
 								<select name="input_cpt[can_export]">
-									<?php echo_boolean_options($cpt_can_export, 1); ?>
+									<?php echo_boolean_options( (isset($cpt['can_export']))?$cpt['can_export']:1 ); ?>
 								</select> <?php _e('(Default: true)', 'cptg') ?>
 							</td>
 						</tr>
