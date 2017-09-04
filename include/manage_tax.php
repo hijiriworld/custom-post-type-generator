@@ -190,8 +190,9 @@ foreach( $no_builtin_taxs as $tax ) {
 			</tr>
 		</tfoot>
 		<tbody>
+			<?php $cnt = 0; ?>
 			<?php foreach( $builtin_taxs as $key => $tax ) : ?>
-			<tr <?php if ( $key%2 == 0 ) echo 'class="alternate"' ?>>
+			<tr <?php if ( $cnt%2 == 0 ) echo 'class="alternate"' ?>>
 				<td valign="top">
 					<strong><?php echo $tax->name; ?></strong>
 				</td>
@@ -204,6 +205,7 @@ foreach( $no_builtin_taxs as $tax ) {
 					?>
 				</td>
 			</tr>
+			<?php $cnt++; ?>
 			<?php endforeach; ?>
 		</tbody>
 	</table>
