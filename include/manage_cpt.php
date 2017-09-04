@@ -186,13 +186,15 @@ foreach( $no_builtin_cpts as $cpt ) {
 			</tr>
 		</tfoot>
 		<tbody>
+			<?php $cnt = 0; ?>
 			<?php foreach( $builtin_cpts as $key => $cpt ) : ?>
-			<tr <?php if ( $key%2 == 0 ) echo 'class="alternate"' ?>>
+			<tr <?php if ( $cnt%2 == 0 ) echo 'class="alternate"' ?>>
 				<td valign="top">
 					<strong><?php echo $cpt->name; ?></strong>
 				</td>
 				<td valign="top"><?php echo $cpt->label; ?></td>
 			</tr>
+			<?php $cnt++; ?>
 			<?php endforeach; ?>
 		</tbody>
 	</table>

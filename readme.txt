@@ -3,7 +3,7 @@ Contributors: hijiri
 Tags: custom post type, custom taxonomy
 Requires at least: 3.6.0
 Tested up to: 4.5.2
-Stable tag: 2.3.9
+Stable tag: 2.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,6 +29,11 @@ This Plugin published on <a href="https://github.com/hijiriworld/custom-post-typ
 3. Export to PHP
 
 == Changelog ==
+
+= 2.4.0 =
+
+* Bug fixed.
+ - Alternate table row CSS.
 
 = 2.3.9 =
 
