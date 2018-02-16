@@ -335,8 +335,6 @@ EOF;
 
 <div class="wrap">
 
-<?php screen_icon( 'plugins' ); ?>
-
 <h2><?php _e('Export', 'cptg'); ?></h2>
 
 <h3><?php _e('Export to PHP'); ?></h3>

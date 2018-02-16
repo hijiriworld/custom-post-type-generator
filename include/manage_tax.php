@@ -46,8 +46,6 @@ foreach( $no_builtin_taxs as $tax ) {
 
 <div class="wrap">
 
-<?php screen_icon( 'plugins' ); ?>
-
 <h2>
 	<?php _e('Custom Taxonomies', 'cptg'); ?>
 	<a href="<?php echo admin_url('admin.php?page=cptg-regist-tax'); ?>" class="add-new-h2"><?php _e('Add New', 'cptg'); ?></a>

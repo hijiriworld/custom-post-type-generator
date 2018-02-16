@@ -27,8 +27,6 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_tax' ) {
 	<p><?php _e('You must allocate at least 1 of Custom Post Type to Custom Taxonomy.', 'cptg'); ?></p>
 </div>
 
-<?php screen_icon( 'plugins' ); ?>
-
 <h2><?php echo $page_title; ?></h2>
 	
 <form id="cptg_tax_form" method="post">

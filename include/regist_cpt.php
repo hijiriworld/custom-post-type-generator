@@ -23,8 +23,6 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 	<p><?php _e('Post Type is required.', 'cptg'); ?></p>
 </div>
 
-<?php screen_icon( 'plugins' ); ?>
-
 <h2><?php echo $page_title; ?></h2>
 
 <form id="cptg_cpt_form" method="post">
