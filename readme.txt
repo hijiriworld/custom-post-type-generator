@@ -3,7 +3,7 @@ Contributors: hijiri
 Tags: custom post type, custom taxonomy
 Requires at least: 3.6.0
 Tested up to: 5.1.1
-Stable tag: 2.4.1
+Stable tag: 2.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,10 +30,14 @@ This Plugin published on <a href="https://github.com/hijiriworld/custom-post-typ
 
 == Changelog ==
 
-= 2.4.1 =
+= 2.4.2 =
 
 * Support new parameters. eq.)'show_in_rest'
 * Minor Bug fixed.
+
+= 2.4.1 =
+
+* Remove deprecated function 'secreen_icon()'.
 
 = 2.4.0 =
 
