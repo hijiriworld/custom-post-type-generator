@@ -67,8 +67,6 @@ foreach( $no_builtin_cpts as $cpt ) {
 
 <div class="wrap">
 
-<?php screen_icon( 'plugins' ); ?>
-
 <h2>
 	<?php _e('Custom Post Types', 'cptg'); ?>
 	<a href="<?php echo admin_url('admin.php?page=cptg-regist-cpt'); ?>" class="add-new-h2"><?php _e('Add New', 'cptg'); ?></a>

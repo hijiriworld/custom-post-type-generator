@@ -171,6 +171,11 @@ EOF;
 					}
 
 					$code .= "\t\t".'\'hierarchical\' => '.cptg_return_disp_boolean($cpt['hierarchical']).','."\n";
+					if ( $cpt['register_meta_box_cb'] ) {
+						$code .= "\t\t".'\'register_meta_box_cb\' => \''.$cpt['register_meta_box_cb'].'\','."\n";
+					} else {
+						$code .= "\t\t".'\'register_meta_box_cb\' => \'\','."\n";
+					}
 
 					if ( $cpt['rewrite']['rewrite'] ) {
 						$code .= "\t\t".'\'rewrite\' => array( ';
@@ -194,7 +199,8 @@ EOF;
 					}
 
 					$code .= "\t\t".'\'can_export\' => '.cptg_return_disp_boolean($cpt['can_export']).','."\n";
-
+					$code .= "\t\t".'\'show_in_rest\' => '.cptg_return_disp_boolean($cpt['show_in_rest']).','."\n";
+					
 					if ( count( $cpt['supports'] ) ) {
 						$code .= "\t\t".'\'supports\' => array( ';
 						foreach ( $cpt['supports'] as $support ) {
@@ -278,9 +284,9 @@ EOF;
 					$code .= "\t\t".'\'public\' => '.cptg_return_disp_boolean($tax['public']).','."\n";
 					$code .= "\t\t".'\'show_ui\' => '.cptg_return_disp_boolean($tax['show_ui']).','."\n";
 					$code .= "\t\t".'\'show_in_nav_menus\' => '.cptg_return_disp_boolean($tax['show_in_nav_menus']).','."\n";
+					$code .= "\t\t".'\'show_in_rest\' => '.cptg_return_disp_boolean($tax['show_in_rest']).','."\n";
 					$code .= "\t\t".'\'show_tagcloud\' => '.cptg_return_disp_boolean($tax['show_tagcloud']).','."\n";
 					
-					// since 2.3.7
 					$code .= isset( $tax['meta_box_cb'] ) ? "\t\t".'\'meta_box_cb\' => '.cptg_return_disp_null_false($tax['meta_box_cb']).','."\n" : "\t\t".'\'meta_box_cb\' => null,'."\n";
 					
 					$code .= "\t\t".'\'show_admin_column\' => '.cptg_return_disp_boolean($tax['show_admin_column']).','."\n";

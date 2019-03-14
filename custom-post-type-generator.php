@@ -5,7 +5,7 @@ Plugin URI: http://hijiriworld.com/web/plugins/custom-post-type-generator/
 Description: Generate Custom Post Types and Custom Taxonomies, from the admin interface which is easy to understand. it's a must have for any user working with WordPress.
 Author: hijiri
 Author URI: http://hijiriworld.com/web/
-Version: 2.4.0
+Version: 2.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -278,9 +278,11 @@ class Cptg
 					'show_in_admin_bar'		=> cptg_return_boolean( $cpt['show_in_admin_bar'] ),
 					'has_archive'			=> cptg_return_boolean( $cpt['has_archive'] ),
 					'hierarchical'			=> cptg_return_boolean( $cpt['hierarchical'] ),
+					'register_meta_box_cb'	=> cptg_return_boolean( $cpt['register_meta_box_cb'] ),
 					'rewrite'				=> $cpt['rewrite']['rewrite'] ? $cpt['rewrite'] : cptg_return_boolean( $cpt['rewrite']['rewrite'] ),
 					'query_var'				=> $cpt['query_var']['query_var'] && $cpt['query_var']['string'] ? $cpt['query_var']['string'] : cptg_return_boolean( $cpt['query_var']['query_var'] ),
 					'can_export'			=> cptg_return_boolean( $cpt['can_export'] ),
+					'show_in_rest'			=> cptg_return_boolean( $cpt['show_in_rest'] ),
 					'menu_position'			=> $cpt['menu_position'] ? intval($cpt['menu_position']) : null,
 					'menu_icon'				=> $cpt['menu_icon'] ? esc_html( $cpt['menu_icon'] ) : null,
 					'supports'				=> count( $cpt['supports'] ) ? $cpt['supports'] : cptg_return_boolean( 0 ),
@@ -331,8 +333,8 @@ class Cptg
 					'public'				=> cptg_return_boolean( $tax['public'] ),
 					'show_ui'				=> cptg_return_boolean( $tax['show_ui'] ),
 					'show_in_nav_menus'		=> cptg_return_boolean( $tax['show_in_nav_menus'] ),
+					'show_in_rest'			=> cptg_return_boolean( $tax['show_in_rest'] ),
 					'show_tagcloud'			=> cptg_return_boolean( $tax['show_tagcloud'] ),
-					// since 2.3.7
 					'meta_box_cb'			=> isset( $tax['meta_box_cb'] ) ? cptg_return_null_false( $tax['meta_box_cb'] ) : null,
 					'show_admin_column'		=> cptg_return_boolean( $tax['show_admin_column'] ),
 					'hierarchical'			=> cptg_return_boolean( $tax['hierarchical'] ),

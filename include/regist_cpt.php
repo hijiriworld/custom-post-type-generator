@@ -23,8 +23,6 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 	<p><?php _e('Post Type is required.', 'cptg'); ?></p>
 </div>
 
-<?php screen_icon( 'plugins' ); ?>
-
 <h2><?php echo $page_title; ?></h2>
 
 <form id="cptg_cpt_form" method="post">
@@ -275,7 +273,7 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 						<tr valign="top">
 							<th scope="row"><?php _e('menu_icon', 'cptg') ?></th>
 							<td>
-								<input type="text" name="input_cpt[menu_icon]" value="<?php if (isset($cpt['menu_position'])) { echo esc_attr($cpt['menu_icon']); } ?>"> <?php _e('(Default: null - defaults to the posts icon)', 'cptg') ?>
+								<input type="text" name="input_cpt[menu_icon]" value="<?php if (isset($cpt['menu_icon'])) { echo esc_attr($cpt['menu_icon']); } ?>"> <?php _e('(Default: null - defaults to the posts icon)', 'cptg') ?>
 								<a href="https://developer.wordpress.org/resource/dashicons/" target="_blank">[1]</a>
 							</td>
 						</tr>
@@ -285,6 +283,12 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 								<select name="input_cpt[hierarchical]">
 									<?php echo_boolean_options( ( isset($cpt['hierarchical']) )?$cpt['hierarchical']:0 ); ?>
 								</select> <?php _e('(Default: false)', 'cptg') ?>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row"><?php _e('register_meta_box_cb', 'cptg') ?></th>
+							<td>
+								<input type="text" name="input_cpt[register_meta_box_cb]" value="<?php if (isset($cpt['register_meta_box_cb'])) { echo esc_attr($cpt['register_meta_box_cb']); } ?>"> <?php _e('(Default: None)', 'cptg') ?>
 							</td>
 						</tr>
 						<tr valign="top">
@@ -335,6 +339,14 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_cpt' ) {
 								<select name="input_cpt[can_export]">
 									<?php echo_boolean_options( (isset($cpt['can_export']))?$cpt['can_export']:1 ); ?>
 								</select> <?php _e('(Default: true)', 'cptg') ?>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row"><?php _e('show_in_rest', 'cptg') ?></th>
+							<td>
+								<select name="input_cpt[show_in_rest]">
+									<?php echo_boolean_options( (isset($cpt['show_in_rest']))?$cpt['show_in_rest']:0 ); ?>
+								</select> <?php _e('(Default: false)', 'cptg') ?>
 							</td>
 						</tr>
 					</table>

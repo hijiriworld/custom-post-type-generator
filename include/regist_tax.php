@@ -27,8 +27,6 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_tax' ) {
 	<p><?php _e('You must allocate at least 1 of Custom Post Type to Custom Taxonomy.', 'cptg'); ?></p>
 </div>
 
-<?php screen_icon( 'plugins' ); ?>
-
 <h2><?php echo $page_title; ?></h2>
 	
 <form id="cptg_tax_form" method="post">
@@ -248,6 +246,14 @@ if ( isset($_GET['action']) && $_GET['action'] == 'edit_tax' ) {
 								<select name="input_tax[show_in_nav_menus]" id="input_tax_show_in_nav_menus">
 									<?php echo_boolean_options( ( isset($tax['show_in_nav_menus']) )?$tax['show_in_nav_menus']:1); ?>
 								</select> <?php _e('(Default: true - $public)', 'cptg') ?>
+							</td>
+						</tr>
+						<tr valign="top">
+							<th scope="row"><?php _e('show_in_rest', 'cptg') ?></th>
+							<td>
+								<select name="input_tax[show_in_rest]">
+									<?php echo_boolean_options( ( isset($tax['show_in_rest']) )?$tax['show_in_rest']:0); ?>
+								</select> <?php _e('(Default: false)', 'cptg') ?>
 							</td>
 						</tr>
 						<tr valign="top">
